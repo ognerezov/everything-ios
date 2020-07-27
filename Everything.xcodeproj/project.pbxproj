@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FC24CDF7A300062106 /* RecordViewer.swift */; };
+		C26F189024CEBE0F00DA139B /* ChapterViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */; };
 		C2A2A6CD24CE157100B76E41 /* SpanViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */; };
-		C2A2A6CF24CEB66400B76E41 /* ChaptersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A2A6CE24CEB66400B76E41 /* ChaptersView.swift */; };
 		C2A2A6D124CEB67300B76E41 /* QuotationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A2A6D024CEB67300B76E41 /* QuotationsView.swift */; };
 		C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410224CC6799000D3716 /* AppDelegate.swift */; };
 		C2C6410524CC6799000D3716 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410424CC6799000D3716 /* SceneDelegate.swift */; };
@@ -29,8 +29,8 @@
 
 /* Begin PBXFileReference section */
 		C21145FC24CDF7A300062106 /* RecordViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewer.swift; sourceTree = "<group>"; };
+		C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterViewer.swift; sourceTree = "<group>"; };
 		C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanViewer.swift; sourceTree = "<group>"; };
-		C2A2A6CE24CEB66400B76E41 /* ChaptersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChaptersView.swift; sourceTree = "<group>"; };
 		C2A2A6D024CEB67300B76E41 /* QuotationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotationsView.swift; sourceTree = "<group>"; };
 		C2C640FF24CC6799000D3716 /* Everything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everything.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2C6410224CC6799000D3716 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -160,9 +160,9 @@
 			isa = PBXGroup;
 			children = (
 				C21145FC24CDF7A300062106 /* RecordViewer.swift */,
-				C2A2A6CE24CEB66400B76E41 /* ChaptersView.swift */,
 				C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */,
 				C2A2A6D024CEB67300B76E41 /* QuotationsView.swift */,
+				C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */,
 			);
 			path = Viewers;
 			sourceTree = "<group>";
@@ -255,9 +255,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */,
+				C26F189024CEBE0F00DA139B /* ChapterViewer.swift in Sources */,
 				C2A2A6D124CEB67300B76E41 /* QuotationsView.swift in Sources */,
 				C2F6963D24CDC31300827CFE /* LogoutBottomControl.swift in Sources */,
-				C2A2A6CF24CEB66400B76E41 /* ChaptersView.swift in Sources */,
 				C2F6963A24CDC27200827CFE /* LogoutScreen.swift in Sources */,
 				C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */,
 				C2C6411D24CC6CC1000D3716 /* RecordType.swift in Sources */,
