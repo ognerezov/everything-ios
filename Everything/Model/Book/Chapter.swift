@@ -10,7 +10,10 @@ import Foundation
 
 typealias Book = [Int : Character]
 
-struct Chapter : Codable{
+struct Chapter : Codable, Identifiable{
+    var id : Int {
+        return number
+    }
     let number : Int
     let type : RecordType
     let level : Int

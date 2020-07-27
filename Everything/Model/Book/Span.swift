@@ -8,7 +8,13 @@
 
 import Foundation
 
-struct Span : Codable {
+struct Span : Codable,Identifiable {
+    var id : String = UUID().uuidString
+    
     let text : String
     let number : Bool
+    
+    private enum CodingKeys: String, CodingKey {
+        case text, number
+    }
 }

@@ -8,8 +8,13 @@
 
 import Foundation
 
-struct Record : Codable {
+struct Record : Codable, Identifiable {
+    var id : String = UUID().uuidString
     let number : Int
     let type : RecordType
     let spans : [Span]
+    
+    private enum CodingKeys: String, CodingKey {
+        case type, number, spans
+    }
 }

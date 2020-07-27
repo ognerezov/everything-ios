@@ -10,16 +10,14 @@ import SwiftUI
 
 struct AppView: View {
     
-    @ObservedObject var appState : AppState = AppState()
+    @ObservedObject var state : AppState = AppState()
     
-//    @ViewBuilder
+    @ViewBuilder
     var body: some View {
-        VStack{
-            List(appState.quotations){
-                quotation in
-                Text(String(quotation.number))
-            }
-            Text(String(appState.quotations.count))
+        if(state.user.canRead){
+            Text("Book")
+        }else{
+            LogoutScreen(chapters: state.quotations)
         }
     }
 }

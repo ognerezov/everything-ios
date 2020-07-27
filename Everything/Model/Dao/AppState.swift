@@ -9,22 +9,42 @@
 import Foundation
 import Combine
 
-class Quoutations : ObservableObject {
+class AppState : ObservableObject {
     let url = URL(string: "https://everything-from.one/free/quotations")!
     let session = URLSession(configuration : .default)
     let decoder = JSONDecoder()
+    
+    @Published var user : User
     @Published var quotations : [Chapter] = []
     
-    var cancelable : AnyCancellable?
+    init() {
+        user = User.user
+        start()
+    }
     
-    func fetchPublish()   {
+    func start() {
+        if (user.canRead){
+            read()
+        } else{
+            fetchQuotations()
+        }
+    }
+    
+    func read(){
+        print("start reading")
+    }
+    
+    var cancelableQuotations : AnyCancellable?
+    
+    func fetchQuotations()   {
 
-        cancelable = session.dataTaskPublisher(for: url)
+        cancelableQuotations = session.dataTaskPublisher(for: url)
             .map({$0.data})
             .map{ data -> [Chapter] in
                 do{
                     return try self.decoder.decode([Chapter].self, from:data)
                 }catch{
+                    print(error)
                     return[]
                 }
                 
@@ -32,7 +52,9 @@ class Quoutations : ObservableObject {
             .eraseToAnyPublisher()
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: {print($0)},
-                  receiveValue:{self.quotations = $0})
+                  receiveValue:{self.quotations = $0
+                    print($0)
+            })
     
     }
 }
