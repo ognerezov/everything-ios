@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C21145FB24CDF72D00062106 /* ChapterViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FA24CDF72D00062106 /* ChapterViewer.swift */; };
 		C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FC24CDF7A300062106 /* RecordViewer.swift */; };
 		C2A2A6CD24CE157100B76E41 /* SpanViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */; };
 		C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410224CC6799000D3716 /* AppDelegate.swift */; };
@@ -22,13 +21,11 @@
 		C2C6412124CC6ECA000D3716 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6412024CC6ECA000D3716 /* Chapter.swift */; };
 		C2C6412424CC7303000D3716 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6412324CC7303000D3716 /* AppState.swift */; };
 		C2C6412724CCB68F000D3716 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6412624CCB68F000D3716 /* User.swift */; };
-		C2F6963724CD9B6D00827CFE /* QuotationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963624CD9B6D00827CFE /* QuotationsView.swift */; };
 		C2F6963A24CDC27200827CFE /* LogoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963924CDC27200827CFE /* LogoutScreen.swift */; };
 		C2F6963D24CDC31300827CFE /* LogoutBottomControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963C24CDC31300827CFE /* LogoutBottomControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C21145FA24CDF72D00062106 /* ChapterViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterViewer.swift; sourceTree = "<group>"; };
 		C21145FC24CDF7A300062106 /* RecordViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewer.swift; sourceTree = "<group>"; };
 		C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanViewer.swift; sourceTree = "<group>"; };
 		C2C640FF24CC6799000D3716 /* Everything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everything.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +42,6 @@
 		C2C6412024CC6ECA000D3716 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		C2C6412324CC7303000D3716 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C2C6412624CCB68F000D3716 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C2F6963624CD9B6D00827CFE /* QuotationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotationsView.swift; sourceTree = "<group>"; };
 		C2F6963924CDC27200827CFE /* LogoutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreen.swift; sourceTree = "<group>"; };
 		C2F6963C24CDC31300827CFE /* LogoutBottomControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutBottomControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,8 +155,6 @@
 		C2F6963524CD9B3E00827CFE /* Viewers */ = {
 			isa = PBXGroup;
 			children = (
-				C2F6963624CD9B6D00827CFE /* QuotationsView.swift */,
-				C21145FA24CDF72D00062106 /* ChapterViewer.swift */,
 				C21145FC24CDF7A300062106 /* RecordViewer.swift */,
 				C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */,
 			);
@@ -260,10 +254,8 @@
 				C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */,
 				C2C6411D24CC6CC1000D3716 /* RecordType.swift in Sources */,
 				C2C6411F24CC6E67000D3716 /* Record.swift in Sources */,
-				C2F6963724CD9B6D00827CFE /* QuotationsView.swift in Sources */,
 				C2C6410524CC6799000D3716 /* SceneDelegate.swift in Sources */,
 				C2C6410724CC6799000D3716 /* AppView.swift in Sources */,
-				C21145FB24CDF72D00062106 /* ChapterViewer.swift in Sources */,
 				C2C6412724CCB68F000D3716 /* User.swift in Sources */,
 				C2C6412424CC7303000D3716 /* AppState.swift in Sources */,
 				C2A2A6CD24CE157100B76E41 /* SpanViewer.swift in Sources */,
