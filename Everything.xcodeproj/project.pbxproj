@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C208EC5C24D0AA92001C4B6A /* BookFragmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C208EC5B24D0AA92001C4B6A /* BookFragmentView.swift */; };
 		C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FC24CDF7A300062106 /* RecordViewer.swift */; };
 		C26F189024CEBE0F00DA139B /* ChapterViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */; };
 		C2A2A6CD24CE157100B76E41 /* SpanViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C208EC5B24D0AA92001C4B6A /* BookFragmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFragmentView.swift; sourceTree = "<group>"; };
 		C21145FC24CDF7A300062106 /* RecordViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewer.swift; sourceTree = "<group>"; };
 		C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterViewer.swift; sourceTree = "<group>"; };
 		C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanViewer.swift; sourceTree = "<group>"; };
@@ -61,6 +63,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C208EC5A24D0AA5A001C4B6A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C208EC5B24D0AA92001C4B6A /* BookFragmentView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		C2C640F624CC6799000D3716 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +114,7 @@
 		C2C6411624CC6839000D3716 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C208EC5A24D0AA5A001C4B6A /* Components */,
 				C2F6963B24CDC2D900827CFE /* Controls */,
 				C2F6963824CDC22300827CFE /* Screens */,
 				C2F6963524CD9B3E00827CFE /* Viewers */,
@@ -265,6 +276,7 @@
 				C2C6410524CC6799000D3716 /* SceneDelegate.swift in Sources */,
 				C2C6410724CC6799000D3716 /* AppView.swift in Sources */,
 				C2C6412724CCB68F000D3716 /* User.swift in Sources */,
+				C208EC5C24D0AA92001C4B6A /* BookFragmentView.swift in Sources */,
 				C2C6412424CC7303000D3716 /* AppState.swift in Sources */,
 				C2A2A6CD24CE157100B76E41 /* SpanViewer.swift in Sources */,
 				C2C6411B24CC69E2000D3716 /* Span.swift in Sources */,

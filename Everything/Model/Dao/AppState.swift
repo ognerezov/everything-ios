@@ -20,6 +20,7 @@ class AppState : ObservableObject {
     init() {
         user = User.user
         start()
+        AppState.state = self
     }
     
     func start() {
@@ -56,5 +57,18 @@ class AppState : ObservableObject {
                     print($0)
             })
     
+    }
+}
+
+/*
+    Singleton
+ */
+extension AppState{
+    static var state : AppState?
+    static func refreshQuotations(){
+        if let appState = state{
+            appState.quotations = []
+            appState.fetchQuotations()
+        }
     }
 }

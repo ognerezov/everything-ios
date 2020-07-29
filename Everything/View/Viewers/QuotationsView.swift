@@ -50,6 +50,7 @@ struct QuotationsView: View {
         current += 1
         if current == chapters.count{
             current = 0
+            AppState.refreshQuotations()
         }
     }
     
