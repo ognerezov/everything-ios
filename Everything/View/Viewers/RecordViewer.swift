@@ -8,19 +8,28 @@
 
 import SwiftUI
 
-struct RecordViewer: View {
+
+struct RecordViewer: View  {
     var record : Record
+    var width : CGFloat
+    
     var body: some View {
-        HStack{
-            ForEach(record.spans){
-                SpanViewer(span: $0)
+        let label = LabelFactory.label(content: self.record.spans, width: width)
+        label.sizeToFit()
+        return
+            ZStack{
+            RoundedRectangle(cornerRadius: 6)
+                .fill(Color(#colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)))
+            ProxyView(view: LabelFactory.label(content: self.record.spans, width: width))
+            .scaledToFit()
             }
-        }
+//            .padding(.bottom)
+
     }
 }
 
 struct RecordViewer_Previews: PreviewProvider {
     static var previews: some View {
-        RecordViewer(record: Record(number: 1, type: .chapter, spans: []))
+        RecordViewer(record: Record(number: 1, type: .chapter, spans: []), width: 300)
     }
 }

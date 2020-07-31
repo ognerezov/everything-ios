@@ -11,9 +11,17 @@ import SwiftUI
 struct ChapterViewer: View {
     var chapter : Chapter
     var body: some View {
-        List(chapter.records){
-            RecordViewer(record: $0)
-        }
+        GeometryReader { geometry in
+            ScrollView(.vertical, showsIndicators: false){
+                VStack{
+                    ForEach(self.chapter.records){
+                        RecordViewer(record: $0, width: geometry.size.width)
+                    }
+                    
+                }
+            }
+        }.padding(.all)
+        .frame(maxHeight: .infinity)
     }
 }
 
