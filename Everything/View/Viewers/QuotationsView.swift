@@ -15,34 +15,35 @@ struct QuotationsView: View {
     @ViewBuilder
     var body: some View {
         if chapters.count > 0 {
-        VStack{
-            HStack{
-                Button(action: next) {
-                    HStack{
-                        Image(systemName:"chevron.left")
-                        Text("Back")
+            VStack{
+                HStack{
+                    Button(action: next) {
+                        HStack{
+                            Image(systemName:"chevron.left")
+                            Text("Back")
+                        }
+                    }
+                    .disabled(current == 0)
+                    Spacer()
+                    Text("Цитаты")
+                    Spacer()
+                    Button(action: next) {
+                        HStack{
+                            Text("Next")
+                            Image(systemName:"chevron.right")
+                        }
                     }
                 }
-                .disabled(current == 0)
-                Spacer()
-                Text("Цитаты")
-                Spacer()
-                Button(action: next) {
-                    HStack{
-                        Text("Next")
-                        Image(systemName:"chevron.right")
-                    }
-                }
+                .padding()
+                ChapterViewer(chapter: chapters[current])
             }
-            .padding()
-            ChapterViewer(chapter: chapters[current])
-        }
         } else{
-            Image(systemName: "arrow.2.circlepath.circle")
-            .resizable()
-            .scaledToFit()
-            .frame(width: 120, height: 120)
-            .padding()
+            VStack{
+                Spacer()
+                InifnityBar(value: 0)
+                    .frame(maxHeight: 20)
+                Spacer()
+            }
         }
     }
     
@@ -64,9 +65,11 @@ struct QuotationsView: View {
 
 struct QuotationView_Previews: PreviewProvider {
     static var previews: some View {
+        VStack{
         QuotationsView(chapters: [
-            Chapter(number: 1, type:.chapter , level: 1, records: [
-            ])
+            Chapter(number: 1, type:.chapter , level: 1, records: [])
         ])
+        QuotationsView(chapters: [])
+        }
     }
 }

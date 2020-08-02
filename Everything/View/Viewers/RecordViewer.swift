@@ -18,8 +18,6 @@ struct RecordViewer: View  {
         label.sizeToFit()
         return
             ZStack{
-//                RoundedRectangle(cornerRadius: 6)
-//                    .fill(Color(#colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)))
                 textBackground
                 ProxyView(view: LabelFactory.label(content: self.record.spans, width: width))
                 .scaledToFit()

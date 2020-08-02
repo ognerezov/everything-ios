@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct LogoutBottomControl: View {
+    @State private var showLogin: Bool = false
     var body: some View {
-        Button(action: {}){
+        Button(action: {self.showLogin = true}){
             ZStack{
                 RoundedRectangle(cornerRadius: 6)
                 .fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
@@ -22,6 +23,8 @@ struct LogoutBottomControl: View {
                 .tracking(0.52)
                 .multilineTextAlignment(.center)
             }.padding()
+        }.sheet(isPresented: self.$showLogin){
+            LoginDialog(show : self.$showLogin)
         }
     }
 }

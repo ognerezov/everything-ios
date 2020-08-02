@@ -37,33 +37,52 @@ class User {
     func save(){
         User.save(self)
     }
+    
+    func accessGranted(with accessCode: String) {
+        self.accessCode = accessCode
+        self.hasAccess = true
+        save()
+    }
 }
 
 
 /*
-    Constants
- */
-
+    MARK: Constants
+*/
 extension User{
     static let DEFAULTS_KEY : String = "user"
     static let READER_ROLE : String = "ROLE_READER"
+    static let readerUsername : String = "reader"
 }
 
 /*
-    Singleton
+    MARK: Singleton
  */
 
 extension User{
     
        static func save(_ user: User){
-           UserDefaults.standard.set(user, forKey: DEFAULTS_KEY )
+        do{
+            try KeyChainStore.addSecret(for: readerUsername, with: user.accessCode)
+        }catch{
+            print(error)
+        }
+           //UserDefaults.standard.set(user, forKey: DEFAULTS_KEY )
        }
        
        static func load()->User{
-           if let user = UserDefaults.standard.value(forKey: DEFAULTS_KEY) as? User{
-               return user
-           }
-           
+        print("load user")
+        let user = User()
+        do{
+            user.accessCode = try KeyChainStore.getSecret(for: readerUsername)
+            print(user.accessCode)
+        }catch{
+            print(error)
+        }
+//           if let user = UserDefaults.standard.value(forKey: DEFAULTS_KEY) as? User{
+//               return user
+//           }
+//
            return User()
        }
        
