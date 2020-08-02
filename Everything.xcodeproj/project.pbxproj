@@ -19,6 +19,7 @@
 		C29AABA724D5D8ED00ACCCF9 /* ErrorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AABA624D5D8ED00ACCCF9 /* ErrorTypes.swift */; };
 		C29AABA924D6B65A00ACCCF9 /* KeyChainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AABA824D6B65900ACCCF9 /* KeyChainStore.swift */; };
 		C29AABAB24D6B6FA00ACCCF9 /* UserSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AABAA24D6B6F900ACCCF9 /* UserSecrets.swift */; };
+		C29AABAD24D7298E00ACCCF9 /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AABAC24D7298E00ACCCF9 /* BookView.swift */; };
 		C2A2A6CD24CE157100B76E41 /* SpanViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */; };
 		C2A2A6D124CEB67300B76E41 /* QuotationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A2A6D024CEB67300B76E41 /* QuotationsView.swift */; };
 		C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410224CC6799000D3716 /* AppDelegate.swift */; };
@@ -50,6 +51,7 @@
 		C29AABA624D5D8ED00ACCCF9 /* ErrorTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTypes.swift; sourceTree = "<group>"; };
 		C29AABA824D6B65900ACCCF9 /* KeyChainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainStore.swift; sourceTree = "<group>"; };
 		C29AABAA24D6B6F900ACCCF9 /* UserSecrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSecrets.swift; sourceTree = "<group>"; };
+		C29AABAC24D7298E00ACCCF9 /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanViewer.swift; sourceTree = "<group>"; };
 		C2A2A6D024CEB67300B76E41 /* QuotationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotationsView.swift; sourceTree = "<group>"; };
 		C2C640FF24CC6799000D3716 /* Everything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everything.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +234,7 @@
 				C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */,
 				C2A2A6D024CEB67300B76E41 /* QuotationsView.swift */,
 				C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */,
+				C29AABAC24D7298E00ACCCF9 /* BookView.swift */,
 			);
 			path = Viewers;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				C29AABA424D5B81200ACCCF9 /* BookRequest.swift in Sources */,
 				C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */,
 				C26F189024CEBE0F00DA139B /* ChapterViewer.swift in Sources */,
+				C29AABAD24D7298E00ACCCF9 /* BookView.swift in Sources */,
 				C29AAB9A24D5665500ACCCF9 /* LoginDialog.swift in Sources */,
 				C2A2A6D124CEB67300B76E41 /* QuotationsView.swift in Sources */,
 				C227AEC224D458C800CD9190 /* VerticalTopAlignLabel.swift in Sources */,

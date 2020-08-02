@@ -15,7 +15,7 @@ struct AppView: View {
     @ViewBuilder
     var body: some View {
         if(state.user.canRead){
-            Text("Book")
+            BookView(chapters: state.chapters)
         }else{
             LogoutScreen(chapters: state.quotations)
         }

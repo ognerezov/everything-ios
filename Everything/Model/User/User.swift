@@ -71,19 +71,14 @@ extension User{
        }
        
        static func load()->User{
-        print("load user")
-        let user = User()
-        do{
-            user.accessCode = try KeyChainStore.getSecret(for: readerUsername)
-            print(user.accessCode)
-        }catch{
-            print(error)
-        }
-//           if let user = UserDefaults.standard.value(forKey: DEFAULTS_KEY) as? User{
-//               return user
-//           }
-//
-           return User()
+            let user = User()
+            do{
+                user.accessCode = try KeyChainStore.getSecret(for: readerUsername)
+                print(user.accessCode)
+            }catch{
+                print(error)
+            }
+           return user
        }
        
        private static var _user : User?
@@ -91,10 +86,11 @@ extension User{
        static var user : User{
            
            get{
-               if let user = _user{
-                   return user
+               if let res = _user{
+                    return res
                }
                _user = load()
+                print(_user!)
                return _user!
            }
            

@@ -29,15 +29,26 @@ class AppState : ObservableObject {
     }
     
     func start() {
-        if (user.canRead){
-            read()
+        if let code = user.accessCode{
+            setAccessCode(code){
+                self.user.hasAccess = true
+            }
         } else{
+            print("fetch quotations")
             fetchQuotations()
         }
     }
     
     func read(){
         print("start reading")
+    }
+    
+    func getChapters(numbers : [Int]){
+        if let code = user.accessCode{
+            setAccessCode(code, numbers: numbers){
+                self.user.hasAccess = true
+            }
+        }
     }
     
     var cancelableQuotations : AnyCancellable?
@@ -66,12 +77,12 @@ class AppState : ObservableObject {
     
     var cancelableLogin : AnyCancellable?
     
-    func setAccessCode(_ accessCode: String){
+    func setAccessCode(_ accessCode: String,numbers : [Int] = [1], onSucces: @escaping ()->Void){
         var request = URLRequest(url: readsurl)
         request.httpMethod = "POST"
         request.addValue(accessCode, forHTTPHeaderField: AppState.authorization)
         request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
-        let obj : BookRequest = BookRequest(numbers :[1])
+        let obj : BookRequest = BookRequest(numbers : numbers)
         
         do{
             request.httpBody = try encoder.encode(obj)
@@ -86,7 +97,7 @@ class AppState : ObservableObject {
                         return (error : ErrorType(rawValue: httpResponse.statusCode)!, chapters: [])
                     }
                 }
-                self.user.accessGranted(with: accessCode)
+                onSucces()
                 do{
                     return (error: .NoException,
                             chapters:  try self.decoder.decode([Chapter].self, from: response.data))
@@ -123,7 +134,15 @@ extension AppState{
     
     static func setAccessCode(_ accessCode: String){
         if let appState = state{
-            appState.setAccessCode(accessCode)
+            appState.setAccessCode(accessCode){
+                    appState.user.accessGranted(with: accessCode)
+            }
+        }
+    }
+    
+    static func go(to number: Int){
+        if let appState = state{
+            appState.getChapters(numbers: [number])
         }
     }
 }
