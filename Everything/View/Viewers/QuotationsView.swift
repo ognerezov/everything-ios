@@ -65,11 +65,8 @@ struct QuotationsView: View {
 
 struct QuotationView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack{
-        QuotationsView(chapters: [
-            Chapter(number: 1, type:.chapter , level: 1, records: [])
-        ])
-        QuotationsView(chapters: [])
-        }
+            QuotationsView(chapters: [
+                Chapter(number: 1, type:.chapter , level: 1, records: [])
+            ])
     }
 }

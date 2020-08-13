@@ -16,10 +16,10 @@ struct ProgressBar: View {
             ZStack(alignment: .leading) {
                 Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
                     .opacity(0.3)
-                    .foregroundColor(Color(UIColor.systemTeal))
+                    .foregroundColor(Color.accentLight)
                 
                 Rectangle().frame(width: min(CGFloat(self.value)*geometry.size.width, geometry.size.width), height: geometry.size.height)
-                    .foregroundColor(Color(UIColor.systemBlue))
+                    .foregroundColor(Color.accentDark)
                     .animation(.linear)
             }.cornerRadius(45.0)
         }
@@ -28,6 +28,11 @@ struct ProgressBar: View {
 
 struct ProgressBar_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressBar(value: .constant(0.5))
+        Group(){
+            ProgressBar(value: .constant(0.5))
+                        .environment(\.colorScheme, .dark)
+            ProgressBar(value: .constant(0.5))
+                        .environment(\.colorScheme, .light)
+        }
     }
 }

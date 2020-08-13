@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class LabelFactory {
-    static func label(content : [Span], width: CGFloat) -> UILabel{
+    static func label(content : [Span], width: CGFloat, isDark: Bool) -> UILabel{
         let text : NSMutableAttributedString = content.reduce(NSMutableAttributedString(), {
                 text , span in
             let start = text.length
@@ -20,8 +20,8 @@ class LabelFactory {
 
             if(span.number && end > start){
                 text.addAttribute(.font, value: UIFont.systemFont(ofSize: 15.0,weight: .heavy), range: range1)
-                text.addAttribute(.backgroundColor, value: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), range: range1)
-                text.addAttribute(.foregroundColor, value: UIColor.white, range: range1)
+                text.addAttribute(.backgroundColor, value: isDark ? UIColor.white : UIColor.black, range: range1)
+                text.addAttribute(.foregroundColor, value: isDark ? UIColor.black : UIColor.white, range: range1)
             }
             return text
         })

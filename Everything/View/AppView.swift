@@ -16,14 +16,24 @@ struct AppView: View {
     var body: some View {
         if(state.user.canRead){
             BookView(chapters: state.chapters)
+                .background(Color.main)
         }else{
             LogoutScreen(chapters: state.quotations)
+            .background(Color.main)
         }
     }
 }
 
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        AppView()
+        Group{
+            AppView()
+            .environment(\.colorScheme, .dark)
+            AppView()
+            .environment(\.colorScheme, .light)
+        }
     }
 }
+
+#endif

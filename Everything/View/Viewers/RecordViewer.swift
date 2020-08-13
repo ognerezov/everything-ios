@@ -12,14 +12,15 @@ import SwiftUI
 struct RecordViewer: View  {
     var record : Record
     var width : CGFloat
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        let label = LabelFactory.label(content: self.record.spans, width: width)
+        let label = LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark)
         label.sizeToFit()
         return
             ZStack{
                 textBackground
-                ProxyView(view: LabelFactory.label(content: self.record.spans, width: width))
+                ProxyView(view: LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark))
                 .scaledToFit()
             }
     }
@@ -27,7 +28,7 @@ struct RecordViewer: View  {
     @ViewBuilder
     var textBackground: some View {
         if(record.type == .quotation || record.type == .poem){
-            RoundedRectangle(cornerRadius: 6).fill(Color(#colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1)))
+            RoundedRectangle(cornerRadius: 6).fill(Color.accentLight)
         }
         else{
             EmptyView()
@@ -38,6 +39,11 @@ struct RecordViewer: View  {
 
 struct RecordViewer_Previews: PreviewProvider {
     static var previews: some View {
+        Group{
         RecordViewer(record: Record(number: 1, type: .quotation, spans: []), width: 300)
+            .environment(\.colorScheme, .dark)
+        RecordViewer(record: Record(number: 1, type: .quotation, spans: []), width: 300)
+            .environment(\.colorScheme, .light)
+        }
     }
 }

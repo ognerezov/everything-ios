@@ -14,12 +14,12 @@ struct LogoutBottomControl: View {
         Button(action: {self.showLogin = true}){
             ZStack{
                 RoundedRectangle(cornerRadius: 6)
-                .fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+                    .fill(Color.contrastColor)
                 .frame(width: 167, height: 52)
 
                 Text("Войти")
                 .font(.custom("Roboto Black", size: 15))
-                .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .foregroundColor(Color.main)
                 .tracking(0.52)
                 .multilineTextAlignment(.center)
             }.padding()
@@ -31,6 +31,11 @@ struct LogoutBottomControl: View {
 
 struct LogoutBottomControl_Previews: PreviewProvider {
     static var previews: some View {
-        LogoutBottomControl()
+        Group{
+                LogoutBottomControl()
+                        .environment(\.colorScheme, .light)
+                LogoutBottomControl()
+                        .environment(\.colorScheme, .dark)
+        }
     }
 }
