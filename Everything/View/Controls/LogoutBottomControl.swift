@@ -7,11 +7,20 @@
 //
 
 import SwiftUI
+import UIKit
 
-struct LogoutBottomControl: View {
+struct LogoutBottomControl: View, TextConsumer {
     @State private var showLogin: Bool = false
+    
+    @State private var accessCode : String?
+    
+    let textListener = TextListener()
+    
     var body: some View {
-        Button(action: {self.showLogin = true}){
+        Button(action: {
+            self.showLogin = true
+            self.alert()
+        }){
             ZStack{
                 RoundedRectangle(cornerRadius: 6)
                     .fill(Color.contrastColor)
@@ -23,9 +32,34 @@ struct LogoutBottomControl: View {
                 .tracking(0.52)
                 .multilineTextAlignment(.center)
             }.padding()
-        }.sheet(isPresented: self.$showLogin){
-            LoginDialog(show : self.$showLogin)
         }
+    }
+    
+    private func alert() {
+        let alert = UIAlertController(title: "Авторизация с помощью кода доступа", message: "Введите код ", preferredStyle: .alert)
+        alert.addTextField() { textField in
+            textField.placeholder = "Код доступа"
+            self.textListener.addConsumer(key :"Logout screen",self)
+            textField.delegate = self.textListener
+        }
+        
+        alert.addAction(UIAlertAction(title: "Ввод", style: .default) { _ in
+            if let code = self.accessCode {
+                print("login with "+code)
+                AppState.setAccessCode(code)
+            } else{
+                print("no code")
+            }
+        })
+        
+        alert.addAction(UIAlertAction(title: "Отмена", style: .destructive) { _ in})
+
+        UIKitTools.showAlert(alert: alert)
+    }
+
+
+    func receiveText(_ code: String?){
+        accessCode = code
     }
 }
 

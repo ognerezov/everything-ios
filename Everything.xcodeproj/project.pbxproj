@@ -13,6 +13,7 @@
 		C227AEC224D458C800CD9190 /* VerticalTopAlignLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEC124D458C800CD9190 /* VerticalTopAlignLabel.swift */; };
 		C267008324E5BD2B00A87F48 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267008224E5BD2B00A87F48 /* Colors.swift */; };
 		C26F189024CEBE0F00DA139B /* ChapterViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */; };
+		C278144F24E6C8E60093FB01 /* TextCosumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C278144E24E6C8E60093FB01 /* TextCosumer.swift */; };
 		C29AAB9A24D5665500ACCCF9 /* LoginDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AAB9924D5665500ACCCF9 /* LoginDialog.swift */; };
 		C29AAB9F24D588C700ACCCF9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AAB9E24D588C700ACCCF9 /* ProgressBar.swift */; };
 		C29AABA124D5A11F00ACCCF9 /* InifnityBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AABA024D5A11F00ACCCF9 /* InifnityBar.swift */; };
@@ -35,6 +36,8 @@
 		C2C6412124CC6ECA000D3716 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6412024CC6ECA000D3716 /* Chapter.swift */; };
 		C2C6412424CC7303000D3716 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6412324CC7303000D3716 /* AppState.swift */; };
 		C2C6412724CCB68F000D3716 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6412624CCB68F000D3716 /* User.swift */; };
+		C2CC4F0E24E6A3130078A045 /* UIKitTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC4F0D24E6A3130078A045 /* UIKitTools.swift */; };
+		C2CC4F1024E6A66C0078A045 /* TextListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC4F0F24E6A66C0078A045 /* TextListener.swift */; };
 		C2F6963A24CDC27200827CFE /* LogoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963924CDC27200827CFE /* LogoutScreen.swift */; };
 		C2F6963D24CDC31300827CFE /* LogoutBottomControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963C24CDC31300827CFE /* LogoutBottomControl.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +49,7 @@
 		C227AEC124D458C800CD9190 /* VerticalTopAlignLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTopAlignLabel.swift; sourceTree = "<group>"; };
 		C267008224E5BD2B00A87F48 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterViewer.swift; sourceTree = "<group>"; };
+		C278144E24E6C8E60093FB01 /* TextCosumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCosumer.swift; sourceTree = "<group>"; };
 		C29AAB9924D5665500ACCCF9 /* LoginDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDialog.swift; sourceTree = "<group>"; };
 		C29AAB9E24D588C700ACCCF9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		C29AABA024D5A11F00ACCCF9 /* InifnityBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InifnityBar.swift; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 		C2C6412024CC6ECA000D3716 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		C2C6412324CC7303000D3716 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C2C6412624CCB68F000D3716 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C2CC4F0D24E6A3130078A045 /* UIKitTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitTools.swift; sourceTree = "<group>"; };
+		C2CC4F0F24E6A66C0078A045 /* TextListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListener.swift; sourceTree = "<group>"; };
 		C2F6963924CDC27200827CFE /* LogoutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreen.swift; sourceTree = "<group>"; };
 		C2F6963C24CDC31300827CFE /* LogoutBottomControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutBottomControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,9 +111,10 @@
 			path = Factory;
 			sourceTree = "<group>";
 		};
-		C29AAB9B24D572A800ACCCF9 /* Protocols */ = {
+		C278144D24E6C8CE0093FB01 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				C278144E24E6C8E60093FB01 /* TextCosumer.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -171,7 +178,8 @@
 		C2C6411624CC6839000D3716 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C29AAB9B24D572A800ACCCF9 /* Protocols */,
+				C278144D24E6C8CE0093FB01 /* Protocols */,
+				C2CC4F0C24E6A2FC0078A045 /* Tools */,
 				C227AEBE24D43FA700CD9190 /* Factory */,
 				C208EC5A24D0AA5A001C4B6A /* Components */,
 				C2F6963B24CDC2D900827CFE /* Controls */,
@@ -228,6 +236,15 @@
 				C29AABAA24D6B6F900ACCCF9 /* UserSecrets.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		C2CC4F0C24E6A2FC0078A045 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				C2CC4F0D24E6A3130078A045 /* UIKitTools.swift */,
+				C2CC4F0F24E6A66C0078A045 /* TextListener.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		C2F6963524CD9B3E00827CFE /* Viewers */ = {
@@ -347,6 +364,7 @@
 				C29AABA124D5A11F00ACCCF9 /* InifnityBar.swift in Sources */,
 				C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */,
 				C2C6411D24CC6CC1000D3716 /* RecordType.swift in Sources */,
+				C278144F24E6C8E60093FB01 /* TextCosumer.swift in Sources */,
 				C2C6411F24CC6E67000D3716 /* Record.swift in Sources */,
 				C29AAB9F24D588C700ACCCF9 /* ProgressBar.swift in Sources */,
 				C2C6410524CC6799000D3716 /* SceneDelegate.swift in Sources */,
@@ -355,7 +373,9 @@
 				C2C6412424CC7303000D3716 /* AppState.swift in Sources */,
 				C2A2A6CD24CE157100B76E41 /* SpanViewer.swift in Sources */,
 				C2C6411B24CC69E2000D3716 /* Span.swift in Sources */,
+				C2CC4F1024E6A66C0078A045 /* TextListener.swift in Sources */,
 				C29AABA724D5D8ED00ACCCF9 /* ErrorTypes.swift in Sources */,
+				C2CC4F0E24E6A3130078A045 /* UIKitTools.swift in Sources */,
 				C2C6412124CC6ECA000D3716 /* Chapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -35,7 +35,7 @@ struct LoginDialog: View {
                     }.padding()
                 }
             }
-        }
+        }.padding()
 
     }
 }
