@@ -27,4 +27,38 @@ enum ErrorType: Int{
     case FailedDependency = 424
     case ModificationProhibited = 451
     case ServerException = 500
+    
+    var hasError : Bool{
+        get{
+            switch self {
+            case .NoException:
+                return false;
+            case .Processing:
+                return false;
+            default:
+                    return true;
+            }
+        }
+        set{
+            self = .NoException
+        }
+    }
+    
+    var description : String{
+        get{
+            switch self {
+            case .NoException:
+                return "Нет ошибки";
+            case .Processing:
+                return "Запрос обрабатывается";
+            case .Unauthorized:
+                return "Не удалось авторизоваться на сервере";
+            default:
+                return "Неизвестная ошибка";
+            }
+        }
+        set{
+            self = .NoException
+        }
+    }
 }

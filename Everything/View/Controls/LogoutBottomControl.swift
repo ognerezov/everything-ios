@@ -10,7 +10,6 @@ import SwiftUI
 import UIKit
 
 struct LogoutBottomControl: View, TextConsumer {
-    @State private var showLogin: Bool = false
     
     @State private var accessCode : String?
     
@@ -18,7 +17,6 @@ struct LogoutBottomControl: View, TextConsumer {
     
     var body: some View {
         Button(action: {
-            self.showLogin = true
             self.alert()
         }){
             ZStack{
@@ -35,7 +33,7 @@ struct LogoutBottomControl: View, TextConsumer {
         }
     }
     
-    private func alert() {
+    func alert() {
         let alert = UIAlertController(title: "Авторизация с помощью кода доступа", message: "Введите код ", preferredStyle: .alert)
         alert.addTextField() { textField in
             textField.placeholder = "Код доступа"

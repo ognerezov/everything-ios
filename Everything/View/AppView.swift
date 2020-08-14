@@ -17,10 +17,25 @@ struct AppView: View {
         if(state.user.canRead){
             BookView(chapters: state.chapters)
                 .background(Color.main)
+                .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
+                    alert
+            }
         }else{
             LogoutScreen(chapters: state.quotations)
             .background(Color.main)
+            .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
+                alert
+            }
         }
+    }
+    
+    var alert : Alert{
+        Alert(title:
+            Text($state.error.wrappedValue.description),
+            primaryButton:
+            .default(Text("Повторить")),
+            secondaryButton:
+            .destructive(Text("Закрыть")))
     }
 }
 
