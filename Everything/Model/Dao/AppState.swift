@@ -22,10 +22,6 @@ class AppState : ObservableObject {
     @Published var chapters : [Chapter] = []
     @Published var error : ErrorType = .NoException
     
-    lazy var showAlert: AnyPublisher<Bool,Never> = {
-            $error.map({ $0 != .NoException && $0 != .Processing })
-            .eraseToAnyPublisher()
-    }()
     init() {
         user = User.user
         start()

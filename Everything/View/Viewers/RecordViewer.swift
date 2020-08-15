@@ -15,25 +15,30 @@ struct RecordViewer: View  {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        let label = LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark)
+        let label = LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark, type: record.type)
         label.sizeToFit()
         return
             ZStack{
                 textBackground
-                ProxyView(view: LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark))
+                ProxyView(view: label)
                 .scaledToFit()
             }
     }
     
     @ViewBuilder
     var textBackground: some View {
-        if(record.type == .quotation || record.type == .poem){
-            RoundedRectangle(cornerRadius: 6).fill(Color.accentLight)
-        }
-        else{
+        if record.type == .quotation || record.type == .poem {
+            RoundedRectangle(cornerRadius: 6)
+                .fill(Color.accentLight)
+        } else if record.type == .formula {
+            RoundedRectangle(cornerRadius: 6)
+            .stroke(Color.accentDark)
+        } else if record.type == .rule {
+            RoundedRectangle(cornerRadius: 6)
+                .fill(Color.accentDark)
+        }else{
             EmptyView()
         }
-
     }
 }
 
