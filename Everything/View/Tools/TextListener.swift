@@ -11,6 +11,7 @@ import UIKit
 
 class TextListener: NSObject, UITextFieldDelegate {
     var consumers : [String : TextConsumer] = [:]
+    var text : String?
     var receive : (_ val : String?) -> Void = {
         val in
         print("dummy :(")
@@ -31,6 +32,7 @@ class TextListener: NSObject, UITextFieldDelegate {
         print("edit")
         receive(textField.text)
         print(consumers.count)
+        text = textField.text
         for consumer in consumers.values {
             consumer.receiveText(textField.text)
         }

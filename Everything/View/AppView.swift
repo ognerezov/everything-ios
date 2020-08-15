@@ -33,9 +33,12 @@ struct AppView: View {
         Alert(title:
             Text($state.error.wrappedValue.description),
             primaryButton:
-            .default(Text("Повторить")),
+            .default(Text("Повторить")){
+                AppState.noException()
+                LogoutControl.alert()
+            },
             secondaryButton:
-            .destructive(Text("Закрыть")))
+            .destructive(Text("Закрыть")){AppState.noException()})
     }
 }
 

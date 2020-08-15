@@ -9,7 +9,7 @@
 import SwiftUI
 import UIKit
 
-struct LogoutBottomControl: View, TextConsumer {
+struct LogoutControl: View {
     
     @State private var accessCode : String?
     
@@ -37,12 +37,11 @@ struct LogoutBottomControl: View, TextConsumer {
         let alert = UIAlertController(title: "Авторизация с помощью кода доступа", message: "Введите код ", preferredStyle: .alert)
         alert.addTextField() { textField in
             textField.placeholder = "Код доступа"
-            self.textListener.addConsumer(key :"Logout screen",self)
             textField.delegate = self.textListener
         }
         
         alert.addAction(UIAlertAction(title: "Ввод", style: .default) { _ in
-            if let code = self.accessCode {
+            if let code = self.textListener.text {
                 print("login with "+code)
                 AppState.setAccessCode(code)
             } else{
@@ -55,19 +54,31 @@ struct LogoutBottomControl: View, TextConsumer {
         UIKitTools.showAlert(alert: alert)
     }
 
-
-    func receiveText(_ code: String?){
-        accessCode = code
+    static var instance : LogoutControl?
+    
+    static func get() -> LogoutControl{
+        instance = LogoutControl()
+        return instance!
+    }
+    
+    static func alert(){
+        if let logoutControl = instance{
+            logoutControl.alert()
+        }else{
+            print("Logout control is nil")
+        }
     }
 }
 
-struct LogoutBottomControl_Previews: PreviewProvider {
+#if DEBUG
+struct LogoutControl_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-                LogoutBottomControl()
+            LogoutControl()
                         .environment(\.colorScheme, .light)
-                LogoutBottomControl()
+                LogoutControl()
                         .environment(\.colorScheme, .dark)
         }
     }
 }
+#endif

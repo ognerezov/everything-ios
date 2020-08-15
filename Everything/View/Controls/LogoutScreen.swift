@@ -14,7 +14,7 @@ struct LogoutScreen: View {
         VStack{
             QuotationsView(chapters: chapters)
             Spacer()
-            LogoutBottomControl()
+            LogoutControl.get()
         }
     }
 }

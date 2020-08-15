@@ -40,7 +40,7 @@ enum ErrorType: Int{
             }
         }
         set{
-            self = .NoException
+
         }
     }
     
@@ -58,7 +58,7 @@ enum ErrorType: Int{
             }
         }
         set{
-            self = .NoException
+
         }
     }
 }

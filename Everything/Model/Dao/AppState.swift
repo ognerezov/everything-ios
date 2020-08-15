@@ -149,6 +149,12 @@ extension AppState{
             appState.getChapters(numbers: [number])
         }
     }
+    
+    static func noException(){
+        if let appState = state{
+            appState.error = .NoException
+        }
+    }
 }
 
 //MARK: Literals

@@ -39,7 +39,7 @@
 		C2CC4F0E24E6A3130078A045 /* UIKitTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC4F0D24E6A3130078A045 /* UIKitTools.swift */; };
 		C2CC4F1024E6A66C0078A045 /* TextListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC4F0F24E6A66C0078A045 /* TextListener.swift */; };
 		C2F6963A24CDC27200827CFE /* LogoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963924CDC27200827CFE /* LogoutScreen.swift */; };
-		C2F6963D24CDC31300827CFE /* LogoutBottomControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963C24CDC31300827CFE /* LogoutBottomControl.swift */; };
+		C2F6963D24CDC31300827CFE /* LogoutControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963C24CDC31300827CFE /* LogoutControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,7 +77,7 @@
 		C2CC4F0D24E6A3130078A045 /* UIKitTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitTools.swift; sourceTree = "<group>"; };
 		C2CC4F0F24E6A66C0078A045 /* TextListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListener.swift; sourceTree = "<group>"; };
 		C2F6963924CDC27200827CFE /* LogoutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutScreen.swift; sourceTree = "<group>"; };
-		C2F6963C24CDC31300827CFE /* LogoutBottomControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutBottomControl.swift; sourceTree = "<group>"; };
+		C2F6963C24CDC31300827CFE /* LogoutControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,7 +270,7 @@
 		C2F6963B24CDC2D900827CFE /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				C2F6963C24CDC31300827CFE /* LogoutBottomControl.swift */,
+				C2F6963C24CDC31300827CFE /* LogoutControl.swift */,
 				C2F6963924CDC27200827CFE /* LogoutScreen.swift */,
 			);
 			path = Controls;
@@ -356,7 +356,7 @@
 				C227AEC224D458C800CD9190 /* VerticalTopAlignLabel.swift in Sources */,
 				C227AEC024D4403900CD9190 /* LabelFactory.swift in Sources */,
 				C29AABA924D6B65A00ACCCF9 /* KeyChainStore.swift in Sources */,
-				C2F6963D24CDC31300827CFE /* LogoutBottomControl.swift in Sources */,
+				C2F6963D24CDC31300827CFE /* LogoutControl.swift in Sources */,
 				C267008324E5BD2B00A87F48 /* Colors.swift in Sources */,
 				C29AABAB24D6B6FA00ACCCF9 /* UserSecrets.swift in Sources */,
 				C227AEBD24D43DE800CD9190 /* ProxyView.swift in Sources */,
