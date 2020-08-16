@@ -74,7 +74,7 @@ extension User{
             let user = User()
             do{
                 user.accessCode = try KeyChainStore.getSecret(for: readerUsername)
-                print(user.accessCode)
+//                print(user.accessCode)
             }catch{
                 print(error)
             }
@@ -90,7 +90,6 @@ extension User{
                     return res
                }
                _user = load()
-                print(_user!)
                return _user!
            }
            

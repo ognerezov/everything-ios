@@ -18,19 +18,21 @@ class AppState : ObservableObject {
     let encoder = JSONEncoder()
     
     @Published var user : User
+    @Published var settings : Settings
     @Published var quotations : [Chapter] = []
     @Published var chapters : [Chapter] = []
     @Published var error : ErrorType = .NoException
     
     init() {
         user = User.user
+        settings = Settings.setting
         start()
         AppState.state = self
     }
     
     func start() {
         if let code = user.accessCode{
-            setAccessCode(code){
+            setAccessCode(code, numbers: settings.layers){
                 self.user.hasAccess = true
             }
         } else{
@@ -49,6 +51,10 @@ class AppState : ObservableObject {
                 self.user.hasAccess = true
             }
         }
+    }
+    
+    func go(to number: Int){
+        settings.setTop(to: number)
     }
     
     var cancelableQuotations : AnyCancellable?
@@ -89,6 +95,7 @@ class AppState : ObservableObject {
         }catch{
             print(error)
         }
+        
         cancelableLogin = session
             .dataTaskPublisher(for: request)
             .map{ response -> (error: ErrorType,chapters:[Chapter]) in
@@ -142,6 +149,7 @@ extension AppState{
     
     static func go(to number: Int){
         if let appState = state{
+            appState.go(to: number)
             appState.getChapters(numbers: [number])
         }
     }
