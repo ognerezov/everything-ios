@@ -35,7 +35,7 @@ struct QuotationsView: View {
                     }
                 }
                 .padding()
-                ChapterViewer(chapter: chapters[current])
+                ChapterViewer(chapter: chapters[current],interactable: false)
             }
         } else{
             VStack{

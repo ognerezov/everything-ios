@@ -12,10 +12,11 @@ import SwiftUI
 struct RecordViewer: View  {
     var record : Record
     var width : CGFloat
+    var interactable : Bool
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        let label = LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark, type: record.type)
+        let label = LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark, type: record.type, interactable: interactable)
         label.sizeToFit()
         return
             ZStack{
@@ -45,9 +46,9 @@ struct RecordViewer: View  {
 struct RecordViewer_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-        RecordViewer(record: Record(number: 1, type: .quotation, spans: []), width: 300)
+            RecordViewer(record: Record(number: 1, type: .quotation, spans: []), width: 300, interactable: true)
             .environment(\.colorScheme, .dark)
-        RecordViewer(record: Record(number: 1, type: .quotation, spans: []), width: 300)
+        RecordViewer(record: Record(number: 1, type: .quotation, spans: []), width: 300, interactable: true)
             .environment(\.colorScheme, .light)
         }
     }

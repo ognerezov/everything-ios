@@ -16,7 +16,7 @@ class LabelFactory {
     static let backLight = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
     static let backDark = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
 
-    static func label(content : [Span], width: CGFloat, isDark: Bool, type: RecordType) -> UILabel{
+    static func label(content : [Span], width: CGFloat, isDark: Bool, type: RecordType,  interactable : Bool = true) -> UILabel{
         var clickChars : [Int:Int] = [:]
         let text : NSMutableAttributedString = content.reduce(NSMutableAttributedString(), {
                 text , span in
@@ -43,9 +43,11 @@ class LabelFactory {
         label.preferredMaxLayoutWidth = width
         
         label.attributedText = text
-        label.isUserInteractionEnabled = true
-        label.listener = NumberTapDelegate(charMap: clickChars)
-        label.addGestureRecognizer(UITapGestureRecognizer(target:label, action: #selector(VerticalTopAlignLabel.tapLabel(gesture:))))
+        if interactable {
+            label.isUserInteractionEnabled = true
+            label.listener = NumberTapDelegate(charMap: clickChars)
+            label.addGestureRecognizer(UITapGestureRecognizer(target:label, action: #selector(VerticalTopAlignLabel.tapLabel(gesture:))))
+        }
         return label
     }
 }
