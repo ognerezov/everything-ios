@@ -12,25 +12,46 @@ import UIKit
 struct LogoutControl: View {
     
     @State private var accessCode : String?
+    @State private var showLogin : Bool = false
     
     let textListener = TextListener()
     
     var body: some View {
-        Button(action: {
-            self.alert()
-        }){
-            ZStack{
-                RoundedRectangle(cornerRadius: 6)
-                    .fill(Color.contrastColor)
-                .frame(width: 167, height: 52)
+        HStack{
+            Button(action: {
+                self.showLogin = true
+            }){
+                ZStack{
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(Color.contrastColor)
+                    .frame(width: 167, height: 52)
 
-                Text("Войти")
-                .font(.custom("Roboto Black", size: 15))
-                    .foregroundColor(Color.main)
-                .tracking(0.52)
-                .multilineTextAlignment(.center)
-            }.padding()
-        }
+                    Text("Войти")
+                    .font(.custom("Roboto Black", size: 15))
+                        .foregroundColor(Color.main)
+                    .tracking(0.52)
+                    .multilineTextAlignment(.center)
+                }
+            }.sheet(isPresented: $showLogin){
+              //  LoginDialog(show : self.$showLogin)
+                SignupView().transition(.move(edge: .bottom))
+            }
+            Button(action: {
+                self.alert()
+            }){
+                ZStack{
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(Color.contrastColor)
+                    .frame(width: 167, height: 52)
+
+                    Text("Читать")
+                    .font(.custom("Roboto Black", size: 15))
+                        .foregroundColor(Color.main)
+                    .tracking(0.52)
+                    .multilineTextAlignment(.center)
+                }
+            }
+        }.padding()
     }
     
     func alert() {

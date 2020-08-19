@@ -35,6 +35,9 @@ struct BookView: View {
                             Image(systemName:"chevron.right")
                         }
                     }
+                    Button(action: next) {
+                        Image(systemName:"book.circle").foregroundColor(Color.gray)
+                    }
                 }
                 .padding()
                 ChapterViewer(chapter: chapters[chapters.count-1])

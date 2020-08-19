@@ -29,9 +29,9 @@ class LabelFactory {
                 for i in start - 1 ... end{
                     clickChars [i] = Int(span.text)
                 }
-                text.addAttribute(.font, value: UIFont.systemFont(ofSize: 18.0 + type.textModifficators.rawValue ,weight: type.textModifficators.numberFontWeight), range: range)
+                text.addAttribute(.font, value: UIFont.systemFont(ofSize: 16.0 + type.textModifficators.rawValue ,weight: type.textModifficators.numberFontWeight), range: range)
             } else{
-                text.addAttribute(.font, value: UIFont.systemFont(ofSize: 18.0 + type.textModifficators.rawValue,weight: type.textModifficators.fontWeight), range: range)
+                text.addAttribute(.font, value: UIFont.systemFont(ofSize: 16.0 + type.textModifficators.rawValue,weight: type.textModifficators.fontWeight), range: range)
             }
             text.addAttribute(.foregroundColor, value: isDark ? type.textColorDark: type.textColorLight, range: range)
             return text

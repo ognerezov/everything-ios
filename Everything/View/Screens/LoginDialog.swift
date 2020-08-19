@@ -12,31 +12,47 @@ struct LoginDialog: View {
     @State var accessCode : String = ""
     @Binding var show : Bool
     var body: some View {
-
-        Form {
-            Section(header: Text("Ввести кода доступа")){
-                HStack{
-                    TextField("Код доступа", text: $accessCode)
+        VStack{
+            Text("Зарегистрируйтесь чтобы получить код дотсупа к книге")
+                .font(.custom("Roboto Black", size: 20))
+                .padding()
+            Text("Введите email")
+                .font(.custom("Roboto Black", size: 15))
+                .foregroundColor(Color.accentDark)
+                .multilineTextAlignment(.leading)
+            ZStack{
+                TextField("Email", text: $accessCode)
                     .autocapitalization(.none)
-                    Button(action: {
-                        self.show = false
-                        AppState.setAccessCode(self.accessCode)
-                    }){
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 6)
-                            .fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                            .frame(width: 130, height: 40)
-                            Text("Войти")
-                            .font(.custom("Roboto Black", size: 15))
-                            .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                            .tracking(0.52)
-                            .multilineTextAlignment(.center)
-                        }
-                    }.padding()
-                }
+                    .padding()
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(Color.accentDark)
+                    .frame(height: 40)
+                    .padding(.horizontal)
+                
             }
-        }.padding()
-
+//                Text("Пароль")
+                ZStack{
+                    TextField("Пароль", text: $accessCode)
+                        .autocapitalization(.none)
+                        .padding()
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke(Color.accentDark)
+                        .frame(height: 40)
+                        .padding(.horizontal)
+                }
+//                Text("Повторите пароль")
+                ZStack{
+                    TextField("Подтвердите пароль", text: $accessCode)
+                        .autocapitalization(.none)
+                        .padding()
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke(Color.accentDark)
+                        .frame(height: 40)
+                        .padding(.horizontal)
+                    
+                }
+            Spacer()
+        }
     }
 }
 #if DEBUG

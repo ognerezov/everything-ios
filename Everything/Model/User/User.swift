@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User {
+class User : Codable {
     var hasAccess : Bool?
     var accessCode : String?
     var token :String?
@@ -63,6 +63,7 @@ extension User{
     
        static func save(_ user: User){
         do{
+            try KeyChainStore.deleteSecret(for: readerUsername)
             try KeyChainStore.addSecret(for: readerUsername, with: user.accessCode)
         }catch{
             print(error)

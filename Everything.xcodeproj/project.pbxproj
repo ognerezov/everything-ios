@@ -14,6 +14,14 @@
 		C267008324E5BD2B00A87F48 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267008224E5BD2B00A87F48 /* Colors.swift */; };
 		C2674F2D24E858E200D2AE70 /* TextModifficators.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F2C24E858E200D2AE70 /* TextModifficators.swift */; };
 		C2674F3024E8798900D2AE70 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F2F24E8798900D2AE70 /* Settings.swift */; };
+		C2674F3224EB18D800D2AE70 /* LCTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F3124EB18D800D2AE70 /* LCTextfield.swift */; };
+		C2674F3424EB192300D2AE70 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F3324EB192300D2AE70 /* LoginView.swift */; };
+		C2674F3624EB198700D2AE70 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F3524EB198700D2AE70 /* SignupView.swift */; };
+		C2674F3824EB19BC00D2AE70 /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F3724EB19BC00D2AE70 /* RecoveryView.swift */; };
+		C2674F3A24EC50C500D2AE70 /* LCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F3924EC50C500D2AE70 /* LCButton.swift */; };
+		C2674F3D24ED022000D2AE70 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F3C24ED021F00D2AE70 /* String.swift */; };
+		C2674F3F24ED0BDB00D2AE70 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F3E24ED0BDB00D2AE70 /* Credentials.swift */; };
+		C2674F4324ED1E7100D2AE70 /* JSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F4224ED1E7100D2AE70 /* JSONEncoder.swift */; };
 		C26F189024CEBE0F00DA139B /* ChapterViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */; };
 		C278144F24E6C8E60093FB01 /* TextCosumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C278144E24E6C8E60093FB01 /* TextCosumer.swift */; };
 		C278145124E818370093FB01 /* CharacterListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C278145024E818370093FB01 /* CharacterListener.swift */; };
@@ -54,6 +62,14 @@
 		C267008224E5BD2B00A87F48 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C2674F2C24E858E200D2AE70 /* TextModifficators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModifficators.swift; sourceTree = "<group>"; };
 		C2674F2F24E8798900D2AE70 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C2674F3124EB18D800D2AE70 /* LCTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCTextfield.swift; sourceTree = "<group>"; };
+		C2674F3324EB192300D2AE70 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C2674F3524EB198700D2AE70 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		C2674F3724EB19BC00D2AE70 /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
+		C2674F3924EC50C500D2AE70 /* LCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCButton.swift; sourceTree = "<group>"; };
+		C2674F3C24ED021F00D2AE70 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		C2674F3E24ED0BDB00D2AE70 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		C2674F4224ED1E7100D2AE70 /* JSONEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEncoder.swift; sourceTree = "<group>"; };
 		C26F188F24CEBE0F00DA139B /* ChapterViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterViewer.swift; sourceTree = "<group>"; };
 		C278144E24E6C8E60093FB01 /* TextCosumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCosumer.swift; sourceTree = "<group>"; };
 		C278145024E818370093FB01 /* CharacterListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListener.swift; sourceTree = "<group>"; };
@@ -107,6 +123,8 @@
 				C29AAB9E24D588C700ACCCF9 /* ProgressBar.swift */,
 				C29AABA024D5A11F00ACCCF9 /* InifnityBar.swift */,
 				C267008224E5BD2B00A87F48 /* Colors.swift */,
+				C2674F3124EB18D800D2AE70 /* LCTextfield.swift */,
+				C2674F3924EC50C500D2AE70 /* LCButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -125,6 +143,15 @@
 				C2674F2F24E8798900D2AE70 /* Settings.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		C2674F3B24ED01FD00D2AE70 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C2674F3C24ED021F00D2AE70 /* String.swift */,
+				C2674F4224ED1E7100D2AE70 /* JSONEncoder.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C278144D24E6C8CE0093FB01 /* Protocols */ = {
@@ -231,6 +258,7 @@
 		C2C6411824CC684A000D3716 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				C2674F3B24ED01FD00D2AE70 /* Extensions */,
 				C278145224E818C20093FB01 /* View */,
 			);
 			path = Service;
@@ -261,6 +289,7 @@
 				C2C6412624CCB68F000D3716 /* User.swift */,
 				C29AABA824D6B65900ACCCF9 /* KeyChainStore.swift */,
 				C29AABAA24D6B6F900ACCCF9 /* UserSecrets.swift */,
+				C2674F3E24ED0BDB00D2AE70 /* Credentials.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -291,6 +320,9 @@
 			isa = PBXGroup;
 			children = (
 				C29AAB9924D5665500ACCCF9 /* LoginDialog.swift */,
+				C2674F3324EB192300D2AE70 /* LoginView.swift */,
+				C2674F3524EB198700D2AE70 /* SignupView.swift */,
+				C2674F3724EB19BC00D2AE70 /* RecoveryView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -378,22 +410,28 @@
 				C29AABA424D5B81200ACCCF9 /* BookRequest.swift in Sources */,
 				C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */,
 				C26F189024CEBE0F00DA139B /* ChapterViewer.swift in Sources */,
+				C2674F3824EB19BC00D2AE70 /* RecoveryView.swift in Sources */,
+				C2674F3F24ED0BDB00D2AE70 /* Credentials.swift in Sources */,
 				C29AABAD24D7298E00ACCCF9 /* BookView.swift in Sources */,
 				C29AAB9A24D5665500ACCCF9 /* LoginDialog.swift in Sources */,
 				C2A2A6D124CEB67300B76E41 /* QuotationsView.swift in Sources */,
 				C227AEC224D458C800CD9190 /* VerticalTopAlignLabel.swift in Sources */,
+				C2674F3A24EC50C500D2AE70 /* LCButton.swift in Sources */,
 				C227AEC024D4403900CD9190 /* LabelFactory.swift in Sources */,
 				C29AABA924D6B65A00ACCCF9 /* KeyChainStore.swift in Sources */,
 				C2F6963D24CDC31300827CFE /* LogoutControl.swift in Sources */,
 				C267008324E5BD2B00A87F48 /* Colors.swift in Sources */,
 				C29AABAB24D6B6FA00ACCCF9 /* UserSecrets.swift in Sources */,
 				C227AEBD24D43DE800CD9190 /* ProxyView.swift in Sources */,
+				C2674F4324ED1E7100D2AE70 /* JSONEncoder.swift in Sources */,
 				C2F6963A24CDC27200827CFE /* LogoutScreen.swift in Sources */,
 				C29AABA124D5A11F00ACCCF9 /* InifnityBar.swift in Sources */,
 				C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */,
 				C2C6411D24CC6CC1000D3716 /* RecordType.swift in Sources */,
 				C278144F24E6C8E60093FB01 /* TextCosumer.swift in Sources */,
+				C2674F3224EB18D800D2AE70 /* LCTextfield.swift in Sources */,
 				C2C6411F24CC6E67000D3716 /* Record.swift in Sources */,
+				C2674F3D24ED022000D2AE70 /* String.swift in Sources */,
 				C29AAB9F24D588C700ACCCF9 /* ProgressBar.swift in Sources */,
 				C2674F3024E8798900D2AE70 /* Settings.swift in Sources */,
 				C2C6410524CC6799000D3716 /* SceneDelegate.swift in Sources */,
@@ -403,7 +441,9 @@
 				C2C6412424CC7303000D3716 /* AppState.swift in Sources */,
 				C2A2A6CD24CE157100B76E41 /* SpanViewer.swift in Sources */,
 				C2C6411B24CC69E2000D3716 /* Span.swift in Sources */,
+				C2674F3624EB198700D2AE70 /* SignupView.swift in Sources */,
 				C278145124E818370093FB01 /* CharacterListener.swift in Sources */,
+				C2674F3424EB192300D2AE70 /* LoginView.swift in Sources */,
 				C278145424E819000093FB01 /* NumberTapDelegate.swift in Sources */,
 				C2CC4F1024E6A66C0078A045 /* TextListener.swift in Sources */,
 				C29AABA724D5D8ED00ACCCF9 /* ErrorTypes.swift in Sources */,

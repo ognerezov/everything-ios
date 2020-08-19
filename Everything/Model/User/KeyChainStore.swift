@@ -43,6 +43,19 @@ class KeyChainStore{
             throw KeychainError.unhandledError(status: status) }
     }
     
+    static func query(_ username: String) -> CFDictionary {
+        return [kSecClass as String: kSecClassInternetPassword,
+                kSecAttrAccount as String: username,
+                kSecAttrServer as String: server] as CFDictionary
+    }
+    
+    static func deleteSecret(for username: String) throws{
+        let status = SecItemDelete(query(username))
+        print("delete status: " + String(status))
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            throw KeychainError.unhandledError(status: status) }
+    }
+    
     static func getSecret(for username: String) throws -> String{
         var item: CFTypeRef?
         let status = SecItemCopyMatching(findQuery(for: username), &item)
