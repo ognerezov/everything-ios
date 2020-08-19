@@ -21,7 +21,7 @@ struct AppView: View {
                     alert
             }
         }else{
-            LogoutScreen(chapters: state.quotations)
+            LogoutScreen(chapters: state.quotations, user : state.user)
             .background(Color.main)
             .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
                 alert

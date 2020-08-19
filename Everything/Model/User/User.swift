@@ -63,19 +63,23 @@ extension User{
     
        static func save(_ user: User){
         do{
-            try KeyChainStore.deleteSecret(for: readerUsername)
-            try KeyChainStore.addSecret(for: readerUsername, with: user.accessCode)
+//            try KeyChainStore.deleteSecret(for: readerUsername)
+//            try KeyChainStore.addSecret(for: readerUsername, with: user.accessCode)
+            
+            try KeyChainStore.saveData(AppState.encoder.optionalEncode(user) )
         }catch{
             print(error)
         }
-           //UserDefaults.standard.set(user, forKey: DEFAULTS_KEY )
        }
        
        static func load()->User{
-            let user = User()
+            var user = User()
             do{
-                user.accessCode = try KeyChainStore.getSecret(for: readerUsername)
-//                print(user.accessCode)
+                if let data = try KeyChainStore.getData(){
+                    try user = AppState.decoder.decode(User.self, from: data )
+                }else{
+                    print("no user data in keychain")
+                }
             }catch{
                 print(error)
             }

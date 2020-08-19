@@ -14,27 +14,57 @@ struct LogoutControl: View {
     @State private var accessCode : String?
     @State private var showLogin : Bool = false
     
+    var user : User?
     let textListener = TextListener()
     
     var body: some View {
-        HStack{
-            Button(action: {
-                self.showLogin = true
-            }){
-                ZStack{
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color.contrastColor)
-                    .frame(width: 167, height: 52)
+        
+        var isLoggedIn = false
+        if let currentUser = user{
+            isLoggedIn = currentUser.username != nil
+        }
+        
+        return HStack{
+            if isLoggedIn{
+                Button(action: {
+                    self.showLogin = true
+                }){
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(Color.contrastColor)
+                        .frame(width: 167, height: 52)
 
-                    Text("Войти")
-                    .font(.custom("Roboto Black", size: 15))
-                        .foregroundColor(Color.main)
-                    .tracking(0.52)
-                    .multilineTextAlignment(.center)
+                        Text("Постоянный доступ")
+                        .font(.custom("Roboto Black", size: 15))
+                            .foregroundColor(Color.main)
+                        .tracking(0.52)
+                        .multilineTextAlignment(.center)
+                    }
+                }.sheet(isPresented: $showLogin){
+                  //  LoginDialog(show : self.$showLogin)
+                    SignupView().transition(.move(edge: .bottom))
                 }
-            }.sheet(isPresented: $showLogin){
-              //  LoginDialog(show : self.$showLogin)
-                SignupView().transition(.move(edge: .bottom))
+                
+            } else{
+                
+                Button(action: {
+                    self.showLogin = true
+                }){
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(Color.contrastColor)
+                        .frame(width: 167, height: 52)
+
+                        Text("Войти")
+                        .font(.custom("Roboto Black", size: 15))
+                            .foregroundColor(Color.main)
+                        .tracking(0.52)
+                        .multilineTextAlignment(.center)
+                    }
+                }.sheet(isPresented: $showLogin){
+                  //  LoginDialog(show : self.$showLogin)
+                    SignupView().transition(.move(edge: .bottom))
+                }
             }
             Button(action: {
                 self.alert()
@@ -77,8 +107,8 @@ struct LogoutControl: View {
 
     static var instance : LogoutControl?
     
-    static func get() -> LogoutControl{
-        instance = LogoutControl()
+    static func get(for user: User?) -> LogoutControl{
+        instance = LogoutControl(user: user)
         return instance!
     }
     

@@ -10,12 +10,14 @@ import Foundation
 
 enum KeychainError: Error {
     case noToken
+    case noData
     case unexpectedTokenData
     case unhandledError(status: OSStatus)
 }
 
 class KeyChainStore{
     static let server = "everything-from.one"
+    static let defaultUser = "default"
     
     static func addQuery(for username: String, with token: String) -> CFDictionary{
         return [kSecClass as String: kSecClassInternetPassword,
@@ -33,6 +35,56 @@ class KeyChainStore{
         kSecReturnData as String: true] as CFDictionary
     }
     
+    static func query(_ username: String) -> CFDictionary {
+        return [kSecClass as String: kSecClassInternetPassword,
+                kSecAttrAccount as String: username,
+                kSecAttrServer as String: server] as CFDictionary
+    }
+    
+    static func saveData(_ data: Data?) throws{
+        guard data != nil else {
+            throw KeychainError.noToken
+        }
+        var query = [kSecClass as String: kSecClassInternetPassword,
+                    kSecAttrAccount as String: defaultUser,
+                    kSecAttrServer as String: server] as [String : Any]
+        
+        let delStatus = SecItemDelete(query as CFDictionary)
+        print(delStatus)
+        
+        query[kSecValueData as String] = data!
+        
+        let status = SecItemAdd(query as CFDictionary, nil)
+        print(status)
+        guard status == errSecSuccess else {
+            throw KeychainError.unhandledError(status: status) }
+    }
+    
+    
+    class func getData() throws -> Data? {
+        let query = [kSecClass as String: kSecClassInternetPassword,
+        kSecAttrServer as String: server,
+        kSecAttrAccount as String: defaultUser,
+        kSecMatchLimit as String: kSecMatchLimitOne,
+        kSecReturnAttributes as String: true,
+        kSecReturnData as String: true ] as [String : Any]
+
+        var item: CFTypeRef?
+
+        let status: OSStatus = SecItemCopyMatching(query as CFDictionary, &item)
+
+        guard status != errSecItemNotFound else { throw KeychainError.noData }
+        guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
+
+        
+        if let existingItem = item as? [String : Any]{
+            return existingItem[kSecValueData as String] as? Data
+        }
+
+        throw KeychainError.unexpectedTokenData
+        
+    }
+    
     static func addSecret(for username: String, with token: String?) throws{
         guard token != nil else {
             throw KeychainError.noToken
@@ -42,12 +94,7 @@ class KeyChainStore{
         guard status == errSecSuccess else {
             throw KeychainError.unhandledError(status: status) }
     }
-    
-    static func query(_ username: String) -> CFDictionary {
-        return [kSecClass as String: kSecClassInternetPassword,
-                kSecAttrAccount as String: username,
-                kSecAttrServer as String: server] as CFDictionary
-    }
+
     
     static func deleteSecret(for username: String) throws{
         let status = SecItemDelete(query(username))

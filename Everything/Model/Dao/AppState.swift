@@ -10,12 +10,10 @@ import Foundation
 import Combine
 
 class AppState : ObservableObject {
-    let quotationsurl = URL(string: "https://everything-from.one/free/quotations")!
-    let readsurl = URL(string: "https://everything-from.one/book/read")!
 
     let session = URLSession(configuration : .default)
-    let decoder = JSONDecoder()
-    let encoder = JSONEncoder()
+    static let decoder = JSONDecoder()
+    static let encoder = JSONEncoder()
     
     @Published var user : User
     @Published var settings : Settings
@@ -61,11 +59,11 @@ class AppState : ObservableObject {
     
     func fetchQuotations()   {
 
-        cancelableQuotations = session.dataTaskPublisher(for: quotationsurl)
+        cancelableQuotations = session.dataTaskPublisher(for: AppState.quotationsurl)
             .map({$0.data})
             .map{ data -> [Chapter] in
                 do{
-                    return try self.decoder.decode([Chapter].self, from:data)
+                    return try AppState.decoder.decode([Chapter].self, from:data)
                 }catch{
                     print(error)
                     return[]
@@ -84,13 +82,13 @@ class AppState : ObservableObject {
     var cancelableLogin : AnyCancellable?
     
     func setAccessCode(_ accessCode: String,numbers : [Int] = [1], onSucces: @escaping ()->Void){
-        var request = URLRequest(url: readsurl)
+        var request = URLRequest(url: AppState.readsurl)
         request.httpMethod = "POST"
         request.addValue(accessCode, forHTTPHeaderField: AppState.authorization)
         request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
         let obj : BookRequest = BookRequest(numbers : numbers)
         
-        request.httpBody = encoder.optionalEncode(obj)
+        request.httpBody = AppState.encoder.optionalEncode(obj)
         
         cancelableLogin = session
             .dataTaskPublisher(for: request)
@@ -103,7 +101,7 @@ class AppState : ObservableObject {
                 onSucces()
                 do{
                     return (error: .NoException,
-                            chapters:  try self.decoder.decode([Chapter].self, from: response.data))
+                            chapters:  try AppState.decoder.decode([Chapter].self, from: response.data))
                 }catch{
                     return(error: .UnparsableResponse, chapters:[])
                 }
@@ -122,15 +120,7 @@ class AppState : ObservableObject {
             })
     }
     
-    func register(username: String, password: String, onSucces: @escaping ()->Void){
-        
-        var request = URLRequest(url: readsurl)
-        request.httpMethod = "POST"
-        request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
-        
-        request.httpBody = encoder.optionalEncode(
-                Credentials(username: username, password: password))
-        
+    func requestAuthentication(_ request: URLRequest, _ onSucces: @escaping () -> Void) {
         cancelableLogin = session
             .dataTaskPublisher(for: request)
             .map{ response -> (error: ErrorType,user: User?) in
@@ -141,31 +131,46 @@ class AppState : ObservableObject {
                 }
                 do{
                     return (error: .NoException,
-                            user:  try self.decoder.decode(User.self, from: response.data))
+                            user:  try AppState.decoder.decode(User.self, from: response.data))
                 }catch{
                     return(error: .UnparsableResponse, nil)
                 }
                 
-            }
-            .eraseToAnyPublisher()
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: {
-                    print("register")
-                    print($0)},
-                  receiveValue:{
-                    if let receivedUser = $0.user{
-                        if receivedUser.isReader{
-                            receivedUser.accessCode = receivedUser.token
-                            self.user = receivedUser
-                            self.user.save()
-                        }
-                        onSucces()
-                        print(receivedUser)
+        }
+        .eraseToAnyPublisher()
+        .receive(on: RunLoop.main)
+        .sink(receiveCompletion: {
+            print("register")
+            print($0)},
+              receiveValue:{
+                if let receivedUser = $0.user{
+                    if receivedUser.isReader{
+                        receivedUser.accessCode = receivedUser.token
                     }
-                    self.error = $0.error
-                    print($0.error)
-
-            })
+                    if receivedUser.accessCode == nil{
+                        receivedUser.accessCode = self.user.accessCode
+                    }
+                    self.user = receivedUser
+                    self.user.save()
+                    onSucces()
+                    print(receivedUser)
+                }
+                self.error = $0.error
+                print($0.error)
+                
+        })
+    }
+    
+    func register(username: String, password: String, onSucces: @escaping ()->Void){
+        
+        var request = URLRequest(url: AppState.registerUrl)
+        request.httpMethod = "POST"
+        request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
+        
+        request.httpBody = AppState.encoder.optionalEncode(
+                Credentials(username: username, password: password))
+        
+        requestAuthentication(request, onSucces)
     }
 }
 
@@ -199,6 +204,14 @@ extension AppState{
     static func noException(){
         if let appState = state{
             appState.error = .NoException
+        }
+    }
+    
+    static func register(username: String, password: String){
+        if let appState = state{
+            appState.register(username: username, password: password){
+                appState.start()
+            }
         }
     }
 }

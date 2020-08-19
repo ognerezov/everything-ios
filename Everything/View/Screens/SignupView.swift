@@ -53,7 +53,7 @@ struct SignupView: View {
                     ).autocapitalization(.none)
                 
                 LCButton(text: "Регистрация",disabled: disabled) {
-                    
+                    AppState.register(username: self.email, password: self.password)
                 }
             }
             
