@@ -21,6 +21,8 @@ class AppState : ObservableObject {
     @Published var chapters : [Chapter] = []
     @Published var error : ErrorType = .NoException
     
+    var allertAction : (()-> Void)?
+    
     init() {
         user = User.user
         settings = Settings.setting
@@ -90,6 +92,7 @@ class AppState : ObservableObject {
         
         request.httpBody = AppState.encoder.optionalEncode(obj)
         
+        error = .Processing
         cancelableLogin = session
             .dataTaskPublisher(for: request)
             .map{ response -> (error: ErrorType,chapters:[Chapter]) in
@@ -121,6 +124,7 @@ class AppState : ObservableObject {
     }
     
     func requestAuthentication(_ request: URLRequest, _ onSucces: @escaping () -> Void) {
+        error = .Processing
         cancelableLogin = session
             .dataTaskPublisher(for: request)
             .map{ response -> (error: ErrorType,user: User?) in
@@ -186,8 +190,9 @@ extension AppState{
         }
     }
     
-    static func setAccessCode(_ accessCode: String){
+    static func setAccessCode(_ accessCode: String, allertAction :(()->Void)?){
         if let appState = state{
+            appState.allertAction = allertAction
             appState.setAccessCode(accessCode){
                     appState.user.accessGranted(with: accessCode)
             }
@@ -207,10 +212,22 @@ extension AppState{
         }
     }
     
-    static func register(username: String, password: String){
+    static func register(username: String, password: String, allertAction :(()->Void)?, onSucces: @escaping ()->Void){
         if let appState = state{
+            appState.allertAction = allertAction
             appState.register(username: username, password: password){
+                onSucces()
                 appState.start()
+            }
+        }
+    }
+    
+    static func runAllertAction(){
+        if let appState = state{
+            if let action = appState.allertAction{
+                action()
+            } else {
+                print("no stored action")
             }
         }
     }

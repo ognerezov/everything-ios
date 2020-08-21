@@ -14,17 +14,26 @@ struct AppView: View {
     
     @ViewBuilder
     var body: some View {
-        if(state.user.canRead){
-            BookView(chapters: state.chapters)
+        if(state.error == .Processing){
+            VStack{
+                Spacer()
+                InifnityBar(value: 0)
+                    .frame(maxHeight: 20)
+                Spacer()
+            }
+        } else {
+            if(state.user.canRead){
+                BookView(chapters: state.chapters)
+                    .background(Color.main)
+                    .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
+                        alert
+                }
+            }else{
+                LogoutScreen(chapters: state.quotations, user : state.user)
                 .background(Color.main)
                 .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
                     alert
-            }
-        }else{
-            LogoutScreen(chapters: state.quotations, user : state.user)
-            .background(Color.main)
-            .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
-                alert
+                }
             }
         }
     }
@@ -35,7 +44,7 @@ struct AppView: View {
             primaryButton:
             .default(Text("Повторить")){
                 AppState.noException()
-                LogoutControl.alert()
+                AppState.runAllertAction()
             },
             secondaryButton:
             .destructive(Text("Закрыть")){AppState.noException()})

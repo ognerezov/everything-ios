@@ -13,7 +13,7 @@ struct LogoutControl: View {
     
     @State private var accessCode : String?
     @State private var showLogin : Bool = false
-    
+    @State private var email = ""
     var user : User?
     let textListener = TextListener()
     
@@ -42,7 +42,9 @@ struct LogoutControl: View {
                     }
                 }.sheet(isPresented: $showLogin){
                   //  LoginDialog(show : self.$showLogin)
-                    SignupView().transition(.move(edge: .bottom))
+                    SignupView(show: self.$showLogin, email: self.$email){
+                        
+                    }.transition(.move(edge: .bottom))
                 }
                 
             } else{
@@ -62,8 +64,11 @@ struct LogoutControl: View {
                         .multilineTextAlignment(.center)
                     }
                 }.sheet(isPresented: $showLogin){
-                  //  LoginDialog(show : self.$showLogin)
-                    SignupView().transition(.move(edge: .bottom))
+                  SignupView(show: self.$showLogin, email: self.$email){
+                    print("on reg success")
+                   // self.showLogin = false
+                    self.registerAlert()
+                  }.transition(.move(edge: .bottom))
                 }
             }
             Button(action: {
@@ -84,8 +89,16 @@ struct LogoutControl: View {
         }.padding()
     }
     
+    func registerAlert(){
+        alert(LogoutControl.registerAlertTitle + email)
+    }
+    
     func alert() {
-        let alert = UIAlertController(title: "Авторизация с помощью кода доступа", message: "Введите код ", preferredStyle: .alert)
+        alert(LogoutControl.defaultAlertTitle)
+    }
+    
+    func alert(_ title: String) {
+        let alert = UIAlertController(title: title, message: "Введите код ", preferredStyle: .alert)
         alert.addTextField() { textField in
             textField.placeholder = "Код доступа"
             textField.delegate = self.textListener
@@ -94,7 +107,9 @@ struct LogoutControl: View {
         alert.addAction(UIAlertAction(title: "Ввод", style: .default) { _ in
             if let code = self.textListener.text {
                 print("login with "+code)
-                AppState.setAccessCode(code)
+                AppState.setAccessCode(code){
+                    self.alert()
+                }
             } else{
                 print("no code")
             }
@@ -105,6 +120,19 @@ struct LogoutControl: View {
         UIKitTools.showAlert(alert: alert)
     }
 
+
+}
+
+//MARK: static
+
+extension LogoutControl{
+    static let defaultAlertTitle = "Авторизация с помощью кода доступа"
+    static let registerAlertTitle = "Код доступа выслан на email "
+}
+
+//MARK: singleton
+
+extension LogoutControl{
     static var instance : LogoutControl?
     
     static func get(for user: User?) -> LogoutControl{

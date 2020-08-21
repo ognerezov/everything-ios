@@ -9,12 +9,15 @@
 import SwiftUI
 
 struct SignupView: View {
-       
-    @State private var email = ""
+     
+    @Binding var show : Bool
+    @Binding var email : String
     @State private var password = ""
     @State private var confirmedPassword = ""
     
     @State private var formOffset: CGFloat = 0
+    
+    var onSuccess : () -> Void
     
     var disabled : Bool{
         self.$confirmedPassword.wrappedValue != self.$password.wrappedValue ||
@@ -53,7 +56,13 @@ struct SignupView: View {
                     ).autocapitalization(.none)
                 
                 LCButton(text: "Регистрация",disabled: disabled) {
-                    AppState.register(username: self.email, password: self.password)
+                    self.show = false
+                    AppState.register(username: self.email, password: self.password, allertAction: {
+                        self.show = true
+                        print ("storred allert action")
+                    }){
+                        self.onSuccess()
+                    }
                 }
             }
             
@@ -70,6 +79,8 @@ struct SignupView: View {
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView()
+        SignupView(show: .constant(true), email: .constant("")){
+            
+        }
     }
 }

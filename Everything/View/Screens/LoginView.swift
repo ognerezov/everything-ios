@@ -40,7 +40,7 @@ struct LoginView: View {
                 Text("Don't have an account? Sign up.").accentColor(Color.accentColor)
                   }
               }.sheet(isPresented: self.$presentSignupSheet) {
-                  SignupView()
+                SignupView(show: .constant(true), email: .constant("")){}
               }
             
             Button(action: {
