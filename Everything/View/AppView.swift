@@ -14,14 +14,7 @@ struct AppView: View {
     
     @ViewBuilder
     var body: some View {
-        if(state.error == .Processing){
-            VStack{
-                Spacer()
-                InifnityBar(value: 0)
-                    .frame(maxHeight: 20)
-                Spacer()
-            }
-        } else {
+        ZStack{
             if(state.user.canRead){
                 BookView(chapters: state.chapters)
                     .background(Color.main)
@@ -35,7 +28,18 @@ struct AppView: View {
                     alert
                 }
             }
+            if state.error == .Processing{
+                VStack{
+                    Spacer()
+                    InifnityBar(value: 0)
+                        .frame(maxHeight: 20)
+                    Spacer()
+                }
+            } else{
+                EmptyView()
+            }
         }
+        
     }
     
     var alert : Alert{

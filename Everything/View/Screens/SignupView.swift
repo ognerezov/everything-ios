@@ -28,7 +28,6 @@ struct SignupView: View {
     var body: some View {
         
        return VStack(spacing: 40) {
-            Image("Logo")
             Text("Регистрация").font(.title).bold()
             VStack {
                 LCTextfield(value: self.$email,

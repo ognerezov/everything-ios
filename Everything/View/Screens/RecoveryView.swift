@@ -14,7 +14,6 @@ struct RecoverPasswordView: View {
     
     var body: some View {
         VStack(spacing: 40) {
-            Image("Logo")
             Text("Recover Password").font(.title).bold()
             VStack {
                 LCTextfield(value: self.$email, placeholder: "Email", icon: Image(systemName: "at"))
