@@ -12,8 +12,8 @@ struct SignupView: View {
      
     @Binding var show : Bool
     @Binding var email : String
-    @State private var password = ""
-    @State private var confirmedPassword = ""
+    @Binding var password : String
+    @Binding var confirmedPassword : String
     
     @State private var formOffset: CGFloat = 0
     
@@ -79,7 +79,7 @@ struct SignupView: View {
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView(show: .constant(true), email: .constant("")){
+        SignupView(show: .constant(true), email: .constant(""), password: .constant(""), confirmedPassword: .constant("")){
             
         }
     }

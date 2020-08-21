@@ -14,6 +14,8 @@ struct LogoutControl: View {
     @State private var accessCode : String?
     @State private var showLogin : Bool = false
     @State private var email = ""
+    @State private var password = ""
+    @State private var confirmedPassword = ""
     var user : User?
     let textListener = TextListener()
     
@@ -42,8 +44,9 @@ struct LogoutControl: View {
                     }
                 }.sheet(isPresented: $showLogin){
                   //  LoginDialog(show : self.$showLogin)
-                    SignupView(show: self.$showLogin, email: self.$email){
-                        
+                    SignupView(show: self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
+                      
+                        self.registerAlert()
                     }.transition(.move(edge: .bottom))
                 }
                 
@@ -64,7 +67,7 @@ struct LogoutControl: View {
                         .multilineTextAlignment(.center)
                     }
                 }.sheet(isPresented: $showLogin){
-                  SignupView(show: self.$showLogin, email: self.$email){
+                  SignupView(show: self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
                     print("on reg success")
                    // self.showLogin = false
                     self.registerAlert()

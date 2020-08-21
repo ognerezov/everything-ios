@@ -48,11 +48,13 @@ enum ErrorType: Int{
         get{
             switch self {
             case .NoException:
-                return "Нет ошибки";
+                return "Нет ошибки"
             case .Processing:
-                return "Запрос обрабатывается";
+                return "Запрос обрабатывается"
             case .Unauthorized:
-                return "Не удалось авторизоваться на сервере";
+                return "Не удалось авторизоваться на сервере"
+            case .Conflict:
+                return "Пользователь с таким email уже зарегистрирован"
             default:
                 return "Неизвестная ошибка";
             }

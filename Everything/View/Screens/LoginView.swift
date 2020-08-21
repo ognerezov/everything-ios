@@ -19,7 +19,6 @@ struct LoginView: View {
     
     var body: some View {
         VStack(spacing: 40) {
-            Image("Logo")
             Text("Login").font(.title).bold()
             VStack {
                 LCTextfield(value: self.$email, placeholder: "Email", icon: Image(systemName: "at"), onEditingChanged: { flag in
@@ -40,7 +39,7 @@ struct LoginView: View {
                 Text("Don't have an account? Sign up.").accentColor(Color.accentColor)
                   }
               }.sheet(isPresented: self.$presentSignupSheet) {
-                SignupView(show: .constant(true), email: .constant("")){}
+                SignupView(show: .constant(true), email: .constant(""), password: .constant(""), confirmedPassword: .constant("")){}
               }
             
             Button(action: {
