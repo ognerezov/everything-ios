@@ -176,6 +176,18 @@ class AppState : ObservableObject {
         
         requestAuthentication(request, onSucces)
     }
+    
+    func login(username: String, password: String, onSucces: @escaping ()->Void){
+        
+        var request = URLRequest(url: AppState.loginUrl)
+        request.httpMethod = "PUT"
+        request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
+        
+        request.httpBody = AppState.encoder.optionalEncode(
+                Credentials(username: username, password: password))
+        
+        requestAuthentication(request, onSucces)
+    }
 }
 
 
@@ -216,6 +228,16 @@ extension AppState{
         if let appState = state{
             appState.allertAction = allertAction
             appState.register(username: username, password: password){
+                onSucces()
+                appState.start()
+            }
+        }
+    }
+    
+    static func login(username: String, password: String, allertAction :(()->Void)?, onSucces: @escaping ()->Void){
+        if let appState = state{
+            appState.allertAction = allertAction
+            appState.login(username: username, password: password){
                 onSucces()
                 appState.start()
             }

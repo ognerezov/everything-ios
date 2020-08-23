@@ -10,43 +10,62 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var email = ""
-    @State private var password = ""
+    @Binding var show : Bool
+    @Binding var showRegister : Bool
+    @Binding var email : String
+    @Binding var password : String
     @State private var formOffset: CGFloat = 0
-    @State private var presentSignupSheet = false
     @State private var presentPasswordRecoverySheet = false
 
+    var onSuccess : () -> Void
+    
+    var disabled : Bool{
+        !self.$email.wrappedValue.isValidEmail() ||
+        self.$password.wrappedValue.isEmpty
+    }
     
     var body: some View {
         VStack(spacing: 40) {
-            Text("Login").font(.title).bold()
+            Text("Войти").font(.title).bold()
             VStack {
-                LCTextfield(value: self.$email, placeholder: "Email", icon: Image(systemName: "at"), onEditingChanged: { flag in
-                    withAnimation {
-                        self.formOffset = flag ? -150 : 0
-                    }
-                })
-                LCTextfield(value: self.$password, placeholder: "Password", icon: Image(systemName: "lock"), isSecure: true)
-                LCButton(text: "Login") {
-                    
+                LCTextfield(value: self.$email,
+                            placeholder: "Email",
+                            icon: Image(systemName: "at"),
+                            onEditingChanged: { flag in
+                                    withAnimation {
+                                    self.formOffset = flag ? -150 : 0
+                                }
+                            },
+                            valid:self.$email.wrappedValue.isEmpty || self.$email.wrappedValue.isValidEmail()
+                ).autocapitalization(.none)
+                
+                LCTextfield(value: self.$password,
+                            placeholder: "Пароль",
+                            icon: Image(systemName: "lock"),
+                            isSecure: true)
+                        .autocapitalization(.none)
+                
+                LCButton(text: "Войти",disabled: disabled) {
+                    AppState.login(username: self.email, password: self.password, allertAction: {
+                        self.show = true
+                    }, onSucces: self.onSuccess)
                 }
             }
             
             Button(action: {
-                self.presentSignupSheet.toggle()
+                self.show = false
+                self.showRegister = true
             }) {
               HStack {
-                Text("Don't have an account? Sign up.").accentColor(Color.accentColor)
+                Text("Зарегистрироваться").accentColor(Color.accentColor)
                   }
-              }.sheet(isPresented: self.$presentSignupSheet) {
-                SignupView(show: .constant(true), email: .constant(""), password: .constant(""), confirmedPassword: .constant("")){}
               }
             
             Button(action: {
                 self.presentPasswordRecoverySheet.toggle()
             }) {
               HStack {
-                Text("Forgot your password?").accentColor(Color.purple)
+                Text("Забыли пароль?").accentColor(Color.purple)
                   }
               }.sheet(isPresented: self.$presentPasswordRecoverySheet) {
                 RecoverPasswordView(presentPasswordRecoverySheet: self.$presentPasswordRecoverySheet)
@@ -58,6 +77,8 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(show: .constant(true), showRegister : .constant(true), email: .constant(""), password: .constant("")){
+            
+        }
     }
 }

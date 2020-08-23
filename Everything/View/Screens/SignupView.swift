@@ -11,6 +11,7 @@ import SwiftUI
 struct SignupView: View {
      
     @Binding var show : Bool
+    @Binding var showLogin : Bool
     @Binding var email : String
     @Binding var password : String
     @Binding var confirmedPassword : String
@@ -58,7 +59,6 @@ struct SignupView: View {
                     self.show = false
                     AppState.register(username: self.email, password: self.password, allertAction: {
                         self.show = true
-                        print ("storred allert action")
                     }){
                         self.onSuccess()
                     }
@@ -66,6 +66,8 @@ struct SignupView: View {
             }
             
             Button(action: {
+                self.show = false
+                self.showLogin = true
             }) {
               HStack {
                 Text("Уже зарегистрированы?").accentColor(Color.accentColor)
@@ -78,7 +80,7 @@ struct SignupView: View {
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView(show: .constant(true), email: .constant(""), password: .constant(""), confirmedPassword: .constant("")){
+        SignupView(show: .constant(true), showLogin: .constant(true), email: .constant(""), password: .constant(""), confirmedPassword: .constant("")){
             
         }
     }

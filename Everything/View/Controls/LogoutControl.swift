@@ -12,6 +12,7 @@ import UIKit
 struct LogoutControl: View {
     
     @State private var accessCode : String?
+    @State private var showRegistration : Bool = false
     @State private var showLogin : Bool = false
     @State private var email = ""
     @State private var password = ""
@@ -29,7 +30,7 @@ struct LogoutControl: View {
         return HStack{
             if isLoggedIn{
                 Button(action: {
-                    self.showLogin = true
+                    self.showRegistration = true
                 }){
                     ZStack{
                         RoundedRectangle(cornerRadius: 6)
@@ -42,9 +43,8 @@ struct LogoutControl: View {
                         .tracking(0.52)
                         .multilineTextAlignment(.center)
                     }
-                }.sheet(isPresented: $showLogin){
-                  //  LoginDialog(show : self.$showLogin)
-                    SignupView(show: self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
+                }.sheet(isPresented: $showRegistration){
+                    SignupView(show: self.$showRegistration, showLogin : self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
                       
                         self.registerAlert()
                     }.transition(.move(edge: .bottom))
@@ -53,7 +53,7 @@ struct LogoutControl: View {
             } else{
                 
                 Button(action: {
-                    self.showLogin = true
+                    self.showRegistration = true
                 }){
                     ZStack{
                         RoundedRectangle(cornerRadius: 6)
@@ -66,14 +66,15 @@ struct LogoutControl: View {
                         .tracking(0.52)
                         .multilineTextAlignment(.center)
                     }
-                }.sheet(isPresented: $showLogin){
-                  SignupView(show: self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
+                }.sheet(isPresented: $showRegistration){
+                  SignupView(show: self.$showRegistration, showLogin : self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
                     print("on reg success")
                    // self.showLogin = false
                     self.registerAlert()
                   }.transition(.move(edge: .bottom))
                 }
             }
+            
             Button(action: {
                 self.alert()
             }){
@@ -88,6 +89,13 @@ struct LogoutControl: View {
                     .tracking(0.52)
                     .multilineTextAlignment(.center)
                 }
+            }
+            .sheet(isPresented: $showLogin){
+                LoginView(show: self.$showLogin, showRegister : self.$showRegistration, email: self.$email, password: self.$password){
+                    self.message("Вы успешно авторизованы в системе"){
+                        self.showLogin = false
+                    }
+                }.transition(.move(edge: .bottom))
             }
         }.padding()
     }
@@ -122,6 +130,15 @@ struct LogoutControl: View {
 
         UIKitTools.showAlert(alert: alert)
     }
+    
+    func message(_ title: String, do action: @escaping ()->Void) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ок", style: .default) { _ in action()})
+
+        UIKitTools.showAlert(alert: alert)
+    }
+    
 
 
 }
@@ -148,6 +165,12 @@ extension LogoutControl{
             logoutControl.alert()
         }else{
             print("Logout control is nil")
+        }
+    }
+    
+    static func loginSuccess(do action: @escaping ()->Void){
+        if let logoutControl = instance{
+            logoutControl.message("Вы успешно авторизованы в системе", do: action)
         }
     }
 }
