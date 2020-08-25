@@ -10,37 +10,23 @@ import SwiftUI
 
 struct BookView: View {
     var chapters : [Chapter]
+    var settings : Settings
+    
     var chapter : Chapter?{
-        chapters.count > 0 ?  chapters[chapters.count - 1] : nil
+        chapters.count > 0 ?  settings.chapter(from: chapters) : nil
     }
     
     @ViewBuilder
     var body: some View {
         if chapters.count > 0 {
             VStack{
-                HStack{
-                    Button(action: prev) {
-                        HStack{
-                            Image(systemName:"chevron.left")
-                    Text(self.chapter != nil && self.chapter!.number > 1  ? String(self.chapter!.number - 1) : "")
-                        }
+                underChapter
+                    .sheet(
+                    isPresented: .constant(self.settings.layers.count > 1),
+                    onDismiss: {AppState.cutTop()}
+                    ){
+                        self.chaptersView
                     }
-                    .disabled(self.chapter == nil || self.chapter!.number == 1)
-                    Spacer()
-                    Text(self.chapter != nil ? String(self.chapter!.number) : "")
-                    Spacer()
-                    Button(action: next) {
-                        HStack{
-                            Text(self.chapter != nil ?  String(self.chapter!.number + 1) : "")
-                            Image(systemName:"chevron.right")
-                        }
-                    }
-                    Button(action: next) {
-                        Image(systemName:"book.circle").foregroundColor(Color.gray)
-                    }
-                }
-                .padding()
-                ChapterViewer(chapter: chapters[chapters.count-1])
             }
         } else{
             VStack{
@@ -51,6 +37,51 @@ struct BookView: View {
             }
         }
     }
+    
+    @ViewBuilder
+    func topPanel(_ chapter : Chapter) -> some View{
+        HStack{
+            Button(action: prev) {
+                HStack{
+                    Image(systemName:"chevron.left")
+            Text(chapter.number > 1  ? String(chapter.number - 1) : "")
+                }
+            }
+            .disabled(chapter.number == 1)
+            Spacer()
+            Text(String(chapter.number))
+            Spacer()
+            Button(action: next) {
+                HStack{
+                    Text(String(chapter.number + 1))
+                    Image(systemName:"chevron.right")
+                }
+            }
+            Button(action: next) {
+                Image(systemName:"book.circle").foregroundColor(Color.gray)
+            }
+        }.padding()
+    }
+    
+    func getBody(chapter : Chapter) ->  some View {
+        VStack{
+            topPanel(chapter)
+            ChapterViewer(chapter: chapter)
+            LayersControl(layers : settings.layers){number in
+                    AppState.add(number: number)
+            }
+            .frame(maxHeight: 50)
+        }
+    }
+    
+    var underChapter : some View {
+        getBody(chapter: settings.underChapter(from: chapters))
+    }
+    
+    var chaptersView : some View{
+        getBody(chapter: settings.chapter(from: chapters))
+    }
+    
     
     func next(){
         if let currentChapter = chapter{
@@ -71,6 +102,6 @@ struct BookView: View {
 
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
-        BookView(chapters: [])
+        BookView(chapters: [], settings: Settings())
     }
 }

@@ -14,7 +14,7 @@ struct NumberTapDelegate: CharacterListener{
     func tap(at position: Int) {
         if let value = charMap[position]{
             print("number is " + String(value))
-            AppState.go(to: value)
+            AppState.add(number: value)
         } else{
             print("taped outside")
             print(charMap)

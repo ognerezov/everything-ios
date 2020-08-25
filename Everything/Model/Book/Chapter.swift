@@ -10,7 +10,16 @@ import Foundation
 
 typealias Book = [Int : Character]
 
-struct Chapter : Codable, Identifiable{
+struct Chapter : Codable, Identifiable, Hashable{
+    
+    static func == (lhs: Chapter, rhs: Chapter) -> Bool {
+        return lhs.number == rhs.number
+    }
+    
+    func hash(into hasher: inout Hasher){
+        hasher.combine(number)
+    }
+    
     var id : Int {
         return number
     }

@@ -53,8 +53,12 @@ class AppState : ObservableObject {
         }
     }
     
-    func go(to number: Int){
-        settings.setTop(to: number)
+    func go(to number: Int) -> Bool{
+        return settings.setTop(to: number)
+    }
+    
+    func add(number: Int) -> Bool{
+        return settings.addTop(number: number)
     }
     
     var cancelableQuotations : AnyCancellable?
@@ -116,7 +120,8 @@ class AppState : ObservableObject {
                     print("read")
                     print($0)},
                   receiveValue:{
-                    self.chapters = $0.chapters
+                    self.chapters.append(contentsOf: $0.chapters)
+                    self.chapters = Array(Set(self.chapters))
                     self.error = $0.error
                     print($0.error)
                     print($0.chapters)
@@ -213,8 +218,17 @@ extension AppState{
     
     static func go(to number: Int){
         if let appState = state{
-            appState.go(to: number)
-            appState.getChapters(numbers: [number])
+            if !appState.go(to: number){
+                appState.getChapters(numbers: [number])
+            }
+        }
+    }
+    
+    static func add(number: Int){
+        if let appState = state{
+            if !appState.add(number: number){
+                appState.getChapters(numbers: [number])
+            }
         }
     }
     
@@ -252,6 +266,12 @@ extension AppState{
                 print("no stored action")
             }
         }
+    }
+    
+    static func cutTop(){
+        if let appState = state{
+                appState.settings.cutTop()
+            }
     }
 }
 

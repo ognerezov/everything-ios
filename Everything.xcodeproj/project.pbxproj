@@ -36,6 +36,8 @@
 		C29AABAD24D7298E00ACCCF9 /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AABAC24D7298E00ACCCF9 /* BookView.swift */; };
 		C2A2A6CD24CE157100B76E41 /* SpanViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */; };
 		C2A2A6D124CEB67300B76E41 /* QuotationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A2A6D024CEB67300B76E41 /* QuotationsView.swift */; };
+		C2BC12A324F2F58E00535C5C /* LayersControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC12A224F2F58D00535C5C /* LayersControl.swift */; };
+		C2BC12A824F43B9000535C5C /* ChapterSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC12A724F43B9000535C5C /* ChapterSelector.swift */; };
 		C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410224CC6799000D3716 /* AppDelegate.swift */; };
 		C2C6410524CC6799000D3716 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410424CC6799000D3716 /* SceneDelegate.swift */; };
 		C2C6410724CC6799000D3716 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410624CC6799000D3716 /* AppView.swift */; };
@@ -84,6 +86,8 @@
 		C29AABAC24D7298E00ACCCF9 /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		C2A2A6CC24CE157100B76E41 /* SpanViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanViewer.swift; sourceTree = "<group>"; };
 		C2A2A6D024CEB67300B76E41 /* QuotationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotationsView.swift; sourceTree = "<group>"; };
+		C2BC12A224F2F58D00535C5C /* LayersControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayersControl.swift; sourceTree = "<group>"; };
+		C2BC12A724F43B9000535C5C /* ChapterSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterSelector.swift; sourceTree = "<group>"; };
 		C2C640FF24CC6799000D3716 /* Everything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everything.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2C6410224CC6799000D3716 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2C6410424CC6799000D3716 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 				C267008224E5BD2B00A87F48 /* Colors.swift */,
 				C2674F3124EB18D800D2AE70 /* LCTextfield.swift */,
 				C2674F3924EC50C500D2AE70 /* LCButton.swift */,
+				C2BC12A724F43B9000535C5C /* ChapterSelector.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 			children = (
 				C2F6963C24CDC31300827CFE /* LogoutControl.swift */,
 				C2F6963924CDC27200827CFE /* LogoutScreen.swift */,
+				C2BC12A224F2F58D00535C5C /* LayersControl.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -419,8 +425,10 @@
 				C2674F3A24EC50C500D2AE70 /* LCButton.swift in Sources */,
 				C227AEC024D4403900CD9190 /* LabelFactory.swift in Sources */,
 				C29AABA924D6B65A00ACCCF9 /* KeyChainStore.swift in Sources */,
+				C2BC12A824F43B9000535C5C /* ChapterSelector.swift in Sources */,
 				C2F6963D24CDC31300827CFE /* LogoutControl.swift in Sources */,
 				C267008324E5BD2B00A87F48 /* Colors.swift in Sources */,
+				C2BC12A324F2F58E00535C5C /* LayersControl.swift in Sources */,
 				C29AABAB24D6B6FA00ACCCF9 /* UserSecrets.swift in Sources */,
 				C227AEBD24D43DE800CD9190 /* ProxyView.swift in Sources */,
 				C2674F4324ED1E7100D2AE70 /* JSONEncoder.swift in Sources */,

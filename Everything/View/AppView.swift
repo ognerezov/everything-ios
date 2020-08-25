@@ -16,7 +16,7 @@ struct AppView: View {
     var body: some View {
         ZStack{
             if(state.user.canRead){
-                BookView(chapters: state.chapters)
+                BookView(chapters: state.chapters, settings : $state.settings.wrappedValue)
                     .background(Color.main)
                     .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
                         alert
@@ -31,8 +31,13 @@ struct AppView: View {
             if state.error == .Processing{
                 VStack{
                     Spacer()
-                    InifnityBar(value: 0)
-                        .frame(maxHeight: 20)
+                    ZStack{
+                        Rectangle()
+                            .fill(Color.main)
+                            .frame(maxHeight: 60)
+                        InifnityBar(value: 0)
+                            .frame(maxHeight: 20)
+                    }
                     Spacer()
                 }
             } else{
