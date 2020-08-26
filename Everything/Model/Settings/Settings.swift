@@ -39,15 +39,30 @@ struct Settings{
         return getChapterOfNumber(chapters, number)
     }
     
+    func contains (_ number: Int) -> Bool{
+        return layers.firstIndex(of: number) != nil
+    }
+    
     mutating func clone(){
         self = Settings(layers: self.layers, selected: self.selected)
     }
     
+    mutating func set(with numbers: [Int]){
+        layers = numbers
+        clone()
+        save()
+    }
+    
+    mutating func set(to number: Int) -> Bool{
+        let result = contains(number)
+        layers = [number]
+        clone()
+        save()
+        return result
+    }
+    
     mutating func setTop(to number: Int) -> Bool{
-        var result = false
-        if layers.firstIndex(of: number) != nil{
-            result = true
-        }
+        let result = contains(number)
         layers[layers.count - 1] = number
         clone()
         save()

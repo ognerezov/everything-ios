@@ -16,7 +16,7 @@ struct AppView: View {
     var body: some View {
         ZStack{
             if(state.user.canRead){
-                BookView(chapters: state.chapters, settings : $state.settings.wrappedValue)
+                BookView(state : state)
                     .background(Color.main)
                     .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
                         alert

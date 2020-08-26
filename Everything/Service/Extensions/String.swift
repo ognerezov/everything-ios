@@ -22,4 +22,17 @@ extension String {
     func isValidEmail() -> Bool {
         return String.emailRegex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)) != nil
     }
+    
+    var isInt: Bool {
+        return Int(self) != nil
+    }
+    
+    var encodedUrl : String
+    {
+        return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    }
+    var decodedUrl : String
+    {
+        return self.removingPercentEncoding!
+    }
 }

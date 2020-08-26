@@ -61,6 +61,10 @@ class AppState : ObservableObject {
         return settings.addTop(number: number)
     }
     
+    func set(to number: Int) -> Bool{
+        return settings.set(to: number)
+    }
+    
     var cancelableQuotations : AnyCancellable?
     
     func fetchQuotations()   {
@@ -80,12 +84,49 @@ class AppState : ObservableObject {
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: {print($0)},
                   receiveValue:{self.quotations = $0
-                   // print($0)
             })
     
     }
     
     var cancelableLogin : AnyCancellable?
+    
+    fileprivate func requestChapters(with request: URLRequest,mergeType : MergeType, _ onSucces: @escaping () -> Void) {
+        error = .Processing
+        cancelableLogin = session
+            .dataTaskPublisher(for: request)
+            .map{ response -> (error: ErrorType,chapters:[Chapter]) in
+                if let httpResponse = response.response as? HTTPURLResponse{
+                    if httpResponse.statusCode != 200 {
+                        return (error : ErrorType(rawValue: httpResponse.statusCode)!, chapters: [])
+                    }
+                }
+                do{
+                    return (error: .NoException,
+                            chapters:  try AppState.decoder.decode([Chapter].self, from: response.data))
+                }catch{
+                    return(error: .UnparsableResponse, chapters:[])
+                }
+                
+        }
+        .eraseToAnyPublisher()
+        .receive(on: RunLoop.main)
+        .sink(receiveCompletion: {
+            print("read")
+            print($0)},
+              receiveValue:{
+                switch mergeType{
+                    case .new:
+                        self.chapters = $0.chapters
+                    default:
+                        self.chapters.append(contentsOf: $0.chapters)
+                        self.chapters = Array(Set(self.chapters))
+                }
+                self.error = $0.error
+                onSucces()
+                print($0.error)
+                print($0.chapters)
+        })
+    }
     
     func setAccessCode(_ accessCode: String,numbers : [Int] = [1], onSucces: @escaping ()->Void){
         var request = URLRequest(url: AppState.readsurl)
@@ -96,36 +137,21 @@ class AppState : ObservableObject {
         
         request.httpBody = AppState.encoder.optionalEncode(obj)
         
-        error = .Processing
-        cancelableLogin = session
-            .dataTaskPublisher(for: request)
-            .map{ response -> (error: ErrorType,chapters:[Chapter]) in
-                if let httpResponse = response.response as? HTTPURLResponse{
-                    if httpResponse.statusCode != 200 {
-                        return (error : ErrorType(rawValue: httpResponse.statusCode)!, chapters: [])
-                    }
-                }
-                onSucces()
-                do{
-                    return (error: .NoException,
-                            chapters:  try AppState.decoder.decode([Chapter].self, from: response.data))
-                }catch{
-                    return(error: .UnparsableResponse, chapters:[])
-                }
-                
+        requestChapters(with: request, mergeType: .both, onSucces)
+    }
+    
+    func textSearch(_ text: String){
+        if let token = user.accessCode{
+            var request = URLRequest(url: URL(string: (AppState.searchLink + text).encodedUrl)!)
+            request.httpMethod = "GET"
+            request.addValue(token, forHTTPHeaderField: AppState.authorization)
+
+            requestChapters(with: request, mergeType: .new){
+                self.settings.set(with: self.chapters.map({chapter in chapter.number}))
             }
-            .eraseToAnyPublisher()
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: {
-                    print("read")
-                    print($0)},
-                  receiveValue:{
-                    self.chapters.append(contentsOf: $0.chapters)
-                    self.chapters = Array(Set(self.chapters))
-                    self.error = $0.error
-                    print($0.error)
-                    print($0.chapters)
-            })
+        } else{
+            error = .Unauthorized
+        }
     }
     
     func requestAuthentication(_ request: URLRequest, _ onSucces: @escaping () -> Void) {
@@ -216,6 +242,12 @@ extension AppState{
         }
     }
     
+    static func textSearch(_ text: String){
+        if let appState = state{
+            appState.textSearch(text)
+        }
+    }
+    
     static func go(to number: Int){
         if let appState = state{
             if !appState.go(to: number){
@@ -227,6 +259,14 @@ extension AppState{
     static func add(number: Int){
         if let appState = state{
             if !appState.add(number: number){
+                appState.getChapters(numbers: [number])
+            }
+        }
+    }
+    
+    static func set(to number: Int){
+        if let appState = state{
+            if !appState.set(to: number){
                 appState.getChapters(numbers: [number])
             }
         }
@@ -292,6 +332,7 @@ extension AppState{
     static let readLink = "book/read"
     static let registerLink = "pub/register"
     static let loginLink = "pub/login"
+    static let searchLink =  serverLink + "book/search/"
     
     static let quotationsurl = URL(string: serverLink + quotationsLink)!
     static let readsurl = URL(string: serverLink + readLink)!

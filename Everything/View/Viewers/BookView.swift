@@ -9,25 +9,34 @@
 import SwiftUI
 
 struct BookView: View {
-    var chapters : [Chapter]
-    var settings : Settings
+
+    @ObservedObject var state : AppState
+    @State var showTools : Bool = false
     
     var chapter : Chapter?{
-        chapters.count > 0 ?  settings.chapter(from: chapters) : nil
+        state.chapters.count > 0 ?  state.settings.chapter(from: state.chapters) : nil
     }
-    
+
     @ViewBuilder
     var body: some View {
-        if chapters.count > 0 {
+        if state.chapters.count > 0 {
             VStack{
                 underChapter
-                    .sheet(
-                    isPresented: .constant(self.settings.layers.count > 1),
-                    onDismiss: {AppState.cutTop()}
-                    ){
+            }
+            .sheet(isPresented: .constant (self.showTools || state.settings.layers.count > 1),
+                onDismiss: {
+                    if !self.showTools{
+                        AppState.cutTop()
+                    } else{
+                        self.showTools = false
+                    }
+                }){
+                    if self.showTools{
+                        BookTools(show: self.$showTools)
+                    } else{
                         self.chaptersView
                     }
-            }
+                }
         } else{
             VStack{
                 Spacer()
@@ -44,7 +53,7 @@ struct BookView: View {
             Button(action: prev) {
                 HStack{
                     Image(systemName:"chevron.left")
-            Text(chapter.number > 1  ? String(chapter.number - 1) : "")
+                    Text(chapter.number > 1  ? String(chapter.number - 1) : "")
                 }
             }
             .disabled(chapter.number == 1)
@@ -57,9 +66,10 @@ struct BookView: View {
                     Image(systemName:"chevron.right")
                 }
             }
-            Button(action: next) {
-                Image(systemName:"book.circle").foregroundColor(Color.gray)
+            Button(action: {self.showTools = true}) {
+                Image(systemName:"circle.grid.2x2")
             }
+
         }.padding()
     }
     
@@ -67,7 +77,7 @@ struct BookView: View {
         VStack{
             topPanel(chapter)
             ChapterViewer(chapter: chapter)
-            LayersControl(layers : settings.layers){number in
+            LayersControl(layers : state.settings.layers){number in
                     AppState.add(number: number)
             }
             .frame(maxHeight: 50)
@@ -75,11 +85,11 @@ struct BookView: View {
     }
     
     var underChapter : some View {
-        getBody(chapter: settings.underChapter(from: chapters))
+        getBody(chapter: state.settings.underChapter(from: state.chapters))
     }
     
     var chaptersView : some View{
-        getBody(chapter: settings.chapter(from: chapters))
+        getBody(chapter: state.settings.chapter(from: state.chapters))
     }
     
     
@@ -102,6 +112,6 @@ struct BookView: View {
 
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
-        BookView(chapters: [], settings: Settings())
+        BookView(state: AppState())
     }
 }

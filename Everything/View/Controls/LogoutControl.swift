@@ -69,7 +69,6 @@ struct LogoutControl: View {
                 }.sheet(isPresented: $showRegistration){
                   SignupView(show: self.$showRegistration, showLogin : self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
                     print("on reg success")
-                   // self.showLogin = false
                     self.registerAlert()
                   }.transition(.move(edge: .bottom))
                 }
