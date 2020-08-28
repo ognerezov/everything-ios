@@ -43,6 +43,12 @@ class User : Codable {
         self.hasAccess = true
         save()
     }
+    
+    func accessDenied(){
+        self.accessCode = nil
+        self.hasAccess = false
+        save()
+    }
 }
 
 

@@ -33,7 +33,12 @@ class AppState : ObservableObject {
     func start() {
         if let code = user.accessCode{
             setAccessCode(code, numbers: settings.layers){
-                self.user.hasAccess = true
+                self.user.hasAccess = self.error != .Unauthorized
+                
+                if !self.user.hasAccess!{
+                    self.fetchQuotations()
+                    self.user.accessDenied()
+                }
             }
         } else{
             print("fetch quotations")
@@ -68,7 +73,7 @@ class AppState : ObservableObject {
     var cancelableQuotations : AnyCancellable?
     
     func fetchQuotations()   {
-
+        error = .Processing
         cancelableQuotations = session.dataTaskPublisher(for: AppState.quotationsurl)
             .map({$0.data})
             .map{ data -> [Chapter] in
@@ -83,7 +88,9 @@ class AppState : ObservableObject {
             .eraseToAnyPublisher()
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: {print($0)},
-                  receiveValue:{self.quotations = $0
+                  receiveValue:{
+                    self.error = .NoException
+                    self.quotations = $0
             })
     
     }
@@ -221,14 +228,12 @@ class AppState : ObservableObject {
     }
 }
 
-
 //MARK: Singleton
 
 extension AppState{
     static var state : AppState?
     static func refreshQuotations(){
         if let appState = state{
-            appState.quotations = []
             appState.fetchQuotations()
         }
     }
@@ -237,7 +242,9 @@ extension AppState{
         if let appState = state{
             appState.allertAction = allertAction
             appState.setAccessCode(accessCode){
+                if appState.error == .NoException{
                     appState.user.accessGranted(with: accessCode)
+                }
             }
         }
     }

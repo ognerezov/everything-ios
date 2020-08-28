@@ -49,28 +49,35 @@ struct BookView: View {
     
     @ViewBuilder
     func topPanel(_ chapter : Chapter) -> some View{
-        HStack{
-            Button(action: prev) {
-                HStack{
-                    Image(systemName:"chevron.left")
-                    Text(chapter.number > 1  ? String(chapter.number - 1) : "")
-                }
-            }
-            .disabled(chapter.number == 1)
+        if state.error == .Processing {
             Spacer()
-            Text(String(chapter.number))
+            InifnityBar(value: 0)
+                .frame(maxHeight: 20)
             Spacer()
-            Button(action: next) {
-                HStack{
-                    Text(String(chapter.number + 1))
-                    Image(systemName:"chevron.right")
+        } else {
+            HStack{
+                Button(action: prev) {
+                    HStack{
+                        Image(systemName:"chevron.left")
+                        Text(chapter.number > 1  ? String(chapter.number - 1) : "")
+                    }
                 }
-            }
-            Button(action: {self.showTools = true}) {
-                Image(systemName:"circle.grid.2x2")
-            }
+                .disabled(chapter.number == 1)
+                Spacer()
+                Text(String(chapter.number))
+                Spacer()
+                Button(action: next) {
+                    HStack{
+                        Text(String(chapter.number + 1))
+                        Image(systemName:"chevron.right")
+                    }
+                }
+                Button(action: {self.showTools = true}) {
+                    Image(systemName:"circle.grid.2x2")
+                }
 
-        }.padding()
+            }.padding()
+        }
     }
     
     func getBody(chapter : Chapter) ->  some View {

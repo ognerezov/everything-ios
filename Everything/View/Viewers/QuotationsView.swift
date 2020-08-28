@@ -10,11 +10,17 @@ import SwiftUI
 
 struct QuotationsView: View {
     @State var current : Int = 0
-    var chapters : [Chapter]
+    @ObservedObject var state : AppState
     
     @ViewBuilder
     var body: some View {
-        if chapters.count > 0 {
+        if state.quotations.count > 0 {
+            if state.error == .Processing {
+                Spacer()
+                InifnityBar(value: 0)
+                    .frame(maxHeight: 20)
+                Spacer()
+            } else {
             VStack{
                 HStack{
                     Button(action: next) {
@@ -35,7 +41,8 @@ struct QuotationsView: View {
                     }
                 }
                 .padding()
-                ChapterViewer(chapter: chapters[current],interactable: false)
+                ChapterViewer(chapter: state.quotations[current],interactable: false)
+            }
             }
         } else{
             VStack{
@@ -49,7 +56,7 @@ struct QuotationsView: View {
     
     func next(){
         current += 1
-        if current == chapters.count{
+        if current == state.quotations.count{
             current = 0
             AppState.refreshQuotations()
         }
@@ -58,15 +65,13 @@ struct QuotationsView: View {
     func prev(){
         current -= 1
         if current < 0{
-            current = chapters.count - 1
+            current = state.quotations.count - 1
         }
     }
 }
 
 struct QuotationView_Previews: PreviewProvider {
     static var previews: some View {
-            QuotationsView(chapters: [
-                Chapter(number: 1, type:.chapter , level: 1, records: [])
-            ])
+            QuotationsView(state: AppState())
     }
 }

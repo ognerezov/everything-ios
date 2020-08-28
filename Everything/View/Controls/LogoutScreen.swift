@@ -9,19 +9,19 @@
 import SwiftUI
 
 struct LogoutScreen: View {
-    var chapters : [Chapter]
-    var user : User?
+    @ObservedObject var state : AppState
+    
     var body: some View {
         VStack{
-            QuotationsView(chapters: chapters)
+            QuotationsView(state: state)
             Spacer()
-            LogoutControl.get(for : self.user)
+            LogoutControl.get(for : self.state.user)
         }
     }
 }
 
 struct LogoutScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LogoutScreen(chapters: [], user: nil)
+        LogoutScreen(state: AppState())
     }
 }

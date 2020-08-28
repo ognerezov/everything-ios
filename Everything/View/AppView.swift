@@ -22,27 +22,26 @@ struct AppView: View {
                         alert
                 }
             }else{
-                LogoutScreen(chapters: state.quotations, user : state.user)
+                LogoutScreen(state: state)
                 .background(Color.main)
                 .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
                     alert
                 }
             }
-            if state.error == .Processing{
-                VStack{
-                    Spacer()
-                    ZStack{
-                        Rectangle()
-                            .fill(Color.main)
-                            .frame(maxHeight: 60)
-                        InifnityBar(value: 0)
-                            .frame(maxHeight: 20)
-                    }
-                    Spacer()
-                }
-            } else{
-                EmptyView()
-            }
+//            if state.error == .Processing{
+//                VStack{
+//                    ZStack{
+//                        Rectangle()
+//                            .fill(Color.main)
+//                            .frame(maxHeight: 60)
+//                        InifnityBar(value: 0)
+//                            .frame(maxHeight: 20)
+//                    }
+//                    Spacer()
+//                }
+//            } else{
+//                EmptyView()
+//            }
         }
         
     }
