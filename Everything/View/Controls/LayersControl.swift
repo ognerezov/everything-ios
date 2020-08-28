@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct LayersControl: View {
-    var collumns = 4
+    var collumns = 6
     var selected : Int?
     var layers : [Int]
     var onClick : (_ : Int) -> Void
+    var vPadding = 5
     
     var grid : [[Int]]{
         get{
@@ -47,19 +48,23 @@ struct LayersControl: View {
         if layers.count < 2{
             EmptyView()
         } else{
-            ScrollView(.vertical, showsIndicators: false){
-            ForEach(grid, id: \.self){
-                row in
-                HStack{
-                    ForEach(row, id: \.self){
-                        element in
-                        ChapterSelector (number: element, isSelected: element == self.selectedItem , onClick: self.onClick)
-
-                    }
-                }.padding(.horizontal)
+            ZStack{
+                RoundedRectangle(cornerRadius: 0)
+                    .fill(Color.accentDark)
+                VStack{
+                ForEach(grid, id: \.self){
+                    row in
+                    HStack{
+                        ForEach(row, id: \.self){
+                            element in
+                            ChapterSelector (number: element, isSelected: element == self.selectedItem , onClick: self.onClick)
+                        }
+                    }.padding(.horizontal)
+                }.padding(.bottom, CGFloat(vPadding))
+                }.padding(.top, CGFloat(vPadding))
             }
+            .frame(maxHeight: CGFloat((14 + 2 * vPadding) * (grid.count)) , alignment : .top)
         }
-    }
     }
 }
 
@@ -67,7 +72,7 @@ struct LayersControl: View {
 struct LayersControl_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            LayersControl(layers: [1,2,33,44,105,177]){
+            LayersControl(layers: [1,2,33,44,105,177, 1000, 233,234, 567]){
                 _ in
             }
             LayersControl(layers: [1]){

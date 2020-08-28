@@ -80,7 +80,6 @@ struct BookView: View {
             LayersControl(layers : state.settings.layers){number in
                     AppState.add(number: number)
             }
-            .frame(maxHeight: 50)
         }
     }
     

@@ -23,9 +23,11 @@ struct ChapterSelector: View {
                 }){
                     ZStack{
                         RoundedRectangle(cornerRadius: 6)
-                            .fill(isSelected ? Color.accentLight : Color.accentDark)
+                            .fill(isSelected ? Color.contrastColor : Color.main)
                         Text(String(self.number))
-                            .foregroundColor(self.isSelected ? Color.contrastColor : Color.main)
+                            .foregroundColor(self.isSelected ? Color.main : Color.contrastColor)
+                            .fontWeight(isSelected ? .heavy : .regular)
+                            .font(.custom("Roboto Black", size: 12))
                     }
                 }
             
@@ -34,8 +36,13 @@ struct ChapterSelector: View {
 
     struct ChapterSelector_Previews: PreviewProvider {
         static var previews: some View {
-            ChapterSelector(number: 1){
-                _ in
+            HStack{
+                ChapterSelector(number: 1){
+                    _ in
+                }
+                ChapterSelector(number: 2, isSelected: true){
+                    _ in
+                }
             }
         }
     }
