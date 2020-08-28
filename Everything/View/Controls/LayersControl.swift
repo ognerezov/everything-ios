@@ -12,8 +12,10 @@ struct LayersControl: View {
     var collumns = 6
     var selected : Int?
     var layers : [Int]
-    var onClick : (_ : Int) -> Void
     var vPadding = 5
+    var fontSize = 12
+    var onClick : (_ : Int) -> Void
+
     
     var grid : [[Int]]{
         get{
@@ -57,13 +59,13 @@ struct LayersControl: View {
                     HStack{
                         ForEach(row, id: \.self){
                             element in
-                            ChapterSelector (number: element, isSelected: element == self.selectedItem , onClick: self.onClick)
+                            ChapterSelector (number: element, isSelected: element == self.selectedItem , onClick: self.onClick, fontSize: self.fontSize)
                         }
                     }.padding(.horizontal)
                 }.padding(.bottom, CGFloat(vPadding))
                 }.padding(.top, CGFloat(vPadding))
             }
-            .frame(maxHeight: CGFloat((14 + 2 * vPadding) * (grid.count)) , alignment : .top)
+            .frame(maxHeight: CGFloat((fontSize + 2 + 2 * vPadding) * (grid.count)) , alignment : .top)
         }
     }
 }

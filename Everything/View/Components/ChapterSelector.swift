@@ -12,6 +12,7 @@ struct ChapterSelector: View {
         var number : Int
         var isSelected : Bool = false
         var onClick : (_ : Int) -> Void
+        var fontSize : Int = 12
         
         @ViewBuilder
         var body: some View {
@@ -27,7 +28,7 @@ struct ChapterSelector: View {
                         Text(String(self.number))
                             .foregroundColor(self.isSelected ? Color.main : Color.contrastColor)
                             .fontWeight(isSelected ? .heavy : .regular)
-                            .font(.custom("Roboto Black", size: 12))
+                            .font(.custom("Roboto Black", size: CGFloat(fontSize)))
                     }
                 }
             
