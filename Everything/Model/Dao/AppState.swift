@@ -320,6 +320,18 @@ extension AppState{
                 appState.settings.cutTop()
             }
     }
+    
+    static func increaseFont(){
+        if let appState = state{
+                appState.settings.increaseFont()
+            }
+    }
+    
+    static func decreaseFont(){
+        if let appState = state{
+                appState.settings.decreaseFont()
+            }
+    }
 }
 
 //MARK: Literals

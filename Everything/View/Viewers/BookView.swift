@@ -63,9 +63,18 @@ struct BookView: View {
                     }
                 }
                 .disabled(chapter.number == 1)
+                Button(action: {AppState.decreaseFont()}) {
+                    Image(systemName:"textformat.size")
+                    .rotation3DEffect(Angle(degrees: 180), axis: (x: CGFloat(0), y: CGFloat(10), z: CGFloat(0)))
+                }
+                .padding(.horizontal)
                 Spacer()
                 Text(String(chapter.number))
                 Spacer()
+                Button(action: {AppState.increaseFont()}) {
+                    Image(systemName:"textformat.size")
+                }
+                .padding(.horizontal)
                 Button(action: next) {
                     HStack{
                         Text(String(chapter.number + 1))
@@ -80,18 +89,20 @@ struct BookView: View {
         }
     }
     
-    func getBody(chapter : Chapter) ->  some View {
+    func getBody(chapter : Chapter,with layers: Bool = true) ->  some View {
         VStack{
             topPanel(chapter)
-            ChapterViewer(chapter: chapter)
-            LayersControl(layers : state.settings.layers){number in
-                    AppState.add(number: number)
+            ChapterViewer(chapter: chapter, state: state)
+            if layers{
+                LayersControl(layers : state.settings.layers){number in
+                        AppState.add(number: number)
+                    }
             }
         }
     }
     
     var underChapter : some View {
-        getBody(chapter: state.settings.underChapter(from: state.chapters))
+        getBody(chapter: state.settings.underChapter(from: state.chapters), with: false)
     }
     
     var chaptersView : some View{

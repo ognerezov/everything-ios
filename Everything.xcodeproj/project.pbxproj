@@ -10,7 +10,7 @@
 		C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FC24CDF7A300062106 /* RecordViewer.swift */; };
 		C227AEBD24D43DE800CD9190 /* ProxyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEBC24D43DE800CD9190 /* ProxyView.swift */; };
 		C227AEC024D4403900CD9190 /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEBF24D4403900CD9190 /* LabelFactory.swift */; };
-		C227AEC224D458C800CD9190 /* VerticalTopAlignLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEC124D458C800CD9190 /* VerticalTopAlignLabel.swift */; };
+		C227AEC224D458C800CD9190 /* RecordLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEC124D458C800CD9190 /* RecordLabel.swift */; };
 		C267008324E5BD2B00A87F48 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267008224E5BD2B00A87F48 /* Colors.swift */; };
 		C2674F2D24E858E200D2AE70 /* TextModifficators.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F2C24E858E200D2AE70 /* TextModifficators.swift */; };
 		C2674F3024E8798900D2AE70 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2674F2F24E8798900D2AE70 /* Settings.swift */; };
@@ -41,6 +41,7 @@
 		C2BC12AA24F59C4900535C5C /* BookTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC12A924F59C4900535C5C /* BookTools.swift */; };
 		C2BC12AC24F59E5500535C5C /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC12AB24F59E5500535C5C /* ImageButton.swift */; };
 		C2BC12AF24F6F86D00535C5C /* MergeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC12AE24F6F86D00535C5C /* MergeType.swift */; };
+		C2BC12B324FAA03D00535C5C /* FlipEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC12B224FAA03D00535C5C /* FlipEffect.swift */; };
 		C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410224CC6799000D3716 /* AppDelegate.swift */; };
 		C2C6410524CC6799000D3716 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410424CC6799000D3716 /* SceneDelegate.swift */; };
 		C2C6410724CC6799000D3716 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C6410624CC6799000D3716 /* AppView.swift */; };
@@ -63,7 +64,7 @@
 		C21145FC24CDF7A300062106 /* RecordViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewer.swift; sourceTree = "<group>"; };
 		C227AEBC24D43DE800CD9190 /* ProxyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyView.swift; sourceTree = "<group>"; };
 		C227AEBF24D4403900CD9190 /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
-		C227AEC124D458C800CD9190 /* VerticalTopAlignLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTopAlignLabel.swift; sourceTree = "<group>"; };
+		C227AEC124D458C800CD9190 /* RecordLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordLabel.swift; sourceTree = "<group>"; };
 		C267008224E5BD2B00A87F48 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C2674F2C24E858E200D2AE70 /* TextModifficators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModifficators.swift; sourceTree = "<group>"; };
 		C2674F2F24E8798900D2AE70 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -94,6 +95,8 @@
 		C2BC12A924F59C4900535C5C /* BookTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTools.swift; sourceTree = "<group>"; };
 		C2BC12AB24F59E5500535C5C /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		C2BC12AE24F6F86D00535C5C /* MergeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeType.swift; sourceTree = "<group>"; };
+		C2BC12B024F94B9E00535C5C /* Everything.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Everything.entitlements; sourceTree = "<group>"; };
+		C2BC12B224FAA03D00535C5C /* FlipEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipEffect.swift; sourceTree = "<group>"; };
 		C2C640FF24CC6799000D3716 /* Everything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everything.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2C6410224CC6799000D3716 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2C6410424CC6799000D3716 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				C227AEBC24D43DE800CD9190 /* ProxyView.swift */,
-				C227AEC124D458C800CD9190 /* VerticalTopAlignLabel.swift */,
+				C227AEC124D458C800CD9190 /* RecordLabel.swift */,
 				C29AAB9E24D588C700ACCCF9 /* ProgressBar.swift */,
 				C29AABA024D5A11F00ACCCF9 /* InifnityBar.swift */,
 				C267008224E5BD2B00A87F48 /* Colors.swift */,
@@ -207,6 +210,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		C2BC12B124FAA01900535C5C /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				C2BC12B224FAA03D00535C5C /* FlipEffect.swift */,
+			);
+			path = Effects;
+			sourceTree = "<group>";
+		};
 		C2C640F624CC6799000D3716 = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +237,7 @@
 		C2C6410124CC6799000D3716 /* Everything */ = {
 			isa = PBXGroup;
 			children = (
+				C2BC12B024F94B9E00535C5C /* Everything.entitlements */,
 				C2C6411824CC684A000D3716 /* Service */,
 				C2C6411724CC6841000D3716 /* Model */,
 				C2C6411624CC6839000D3716 /* View */,
@@ -250,6 +262,7 @@
 		C2C6411624CC6839000D3716 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C2BC12B124FAA01900535C5C /* Effects */,
 				C278144D24E6C8CE0093FB01 /* Protocols */,
 				C2CC4F0C24E6A2FC0078A045 /* Tools */,
 				C227AEBE24D43FA700CD9190 /* Factory */,
@@ -439,7 +452,7 @@
 				C29AABAD24D7298E00ACCCF9 /* BookView.swift in Sources */,
 				C29AAB9A24D5665500ACCCF9 /* LoginDialog.swift in Sources */,
 				C2A2A6D124CEB67300B76E41 /* QuotationsView.swift in Sources */,
-				C227AEC224D458C800CD9190 /* VerticalTopAlignLabel.swift in Sources */,
+				C227AEC224D458C800CD9190 /* RecordLabel.swift in Sources */,
 				C2674F3A24EC50C500D2AE70 /* LCButton.swift in Sources */,
 				C227AEC024D4403900CD9190 /* LabelFactory.swift in Sources */,
 				C29AABA924D6B65A00ACCCF9 /* KeyChainStore.swift in Sources */,
@@ -449,6 +462,7 @@
 				C2BC12A324F2F58E00535C5C /* LayersControl.swift in Sources */,
 				C29AABAB24D6B6FA00ACCCF9 /* UserSecrets.swift in Sources */,
 				C227AEBD24D43DE800CD9190 /* ProxyView.swift in Sources */,
+				C2BC12B324FAA03D00535C5C /* FlipEffect.swift in Sources */,
 				C2674F4324ED1E7100D2AE70 /* JSONEncoder.swift in Sources */,
 				C2F6963A24CDC27200827CFE /* LogoutScreen.swift in Sources */,
 				C29AABA124D5A11F00ACCCF9 /* InifnityBar.swift in Sources */,
@@ -612,6 +626,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Everything/Everything.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Everything/Preview Content\"";
 				DEVELOPMENT_TEAM = 9W9RT2U28J;
@@ -623,6 +638,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.okhotnikov.Everything;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -632,6 +648,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Everything/Everything.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Everything/Preview Content\"";
 				DEVELOPMENT_TEAM = 9W9RT2U28J;
@@ -643,6 +660,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.okhotnikov.Everything;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

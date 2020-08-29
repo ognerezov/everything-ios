@@ -8,20 +8,25 @@
 
 import SwiftUI
 
-struct ProxyView:  UIViewRepresentable{
-    var view : UIView
+struct ProxyView <T : UIView>:  UIViewRepresentable{
+    var view : T
+    @ObservedObject var state : AppState
+    @Environment(\.colorScheme) var colorScheme
     
-    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIView {
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> T {
         return view
     }
     
-    func updateUIView(_ uiView: UIView, context: Context) {
-    
+    func updateUIView(_ uiView: T, context: Context) {
+        if uiView is RecordLabel{
+            let label : RecordLabel = uiView as! RecordLabel
+            label.set(isDark: colorScheme == .dark, fontSize: state.settings.fontSize)
+        }
     }
 }
 
 struct ProxyView_Previews: PreviewProvider {
     static var previews: some View {
-        ProxyView(view: UILabel())
+        ProxyView(view: UILabel(), state: AppState())
     }
 }

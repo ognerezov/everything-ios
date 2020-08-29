@@ -30,9 +30,18 @@ struct QuotationsView: View {
                         }
                     }
                     .disabled(current == 0)
+                    Button(action: {AppState.decreaseFont()}) {
+                        Image(systemName:"textformat.size")
+                        .rotation3DEffect(Angle(degrees: 180), axis: (x: CGFloat(0), y: CGFloat(10), z: CGFloat(0)))
+                    }
+                    .padding(.horizontal)
                     Spacer()
                     Text("Цитаты")
                     Spacer()
+                    Button(action: {AppState.increaseFont()}) {
+                        Image(systemName:"textformat.size")
+                    }
+                    .padding(.horizontal)
                     Button(action: next) {
                         HStack{
                             Text("Next")
@@ -41,7 +50,7 @@ struct QuotationsView: View {
                     }
                 }
                 .padding()
-                ChapterViewer(chapter: state.quotations[current],interactable: false)
+                ChapterViewer(chapter: state.quotations[current],interactable: false, state: state)
             }
             }
         } else{

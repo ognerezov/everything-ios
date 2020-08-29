@@ -32,6 +32,8 @@ enum RecordType : String, Codable{
         switch self{
             case .chapter:
                 return UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1)
+            case .rule, .ruleBody:
+                return UIColor.white
             default:
                 return UIColor.black
         }
@@ -41,6 +43,8 @@ enum RecordType : String, Codable{
         switch self{
             case .chapter:
                 return UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1)
+            case .rule, .ruleBody:
+                return UIColor.black
             default:
                 return UIColor.white
         }
