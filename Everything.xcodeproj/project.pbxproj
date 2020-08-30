@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FC24CDF7A300062106 /* RecordViewer.swift */; };
+		C2259ED324FB823800330983 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2259ED224FB823800330983 /* UIApplication.swift */; };
 		C227AEBD24D43DE800CD9190 /* ProxyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEBC24D43DE800CD9190 /* ProxyView.swift */; };
 		C227AEC024D4403900CD9190 /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEBF24D4403900CD9190 /* LabelFactory.swift */; };
 		C227AEC224D458C800CD9190 /* RecordLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEC124D458C800CD9190 /* RecordLabel.swift */; };
@@ -62,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		C21145FC24CDF7A300062106 /* RecordViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewer.swift; sourceTree = "<group>"; };
+		C2259ED224FB823800330983 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		C227AEBC24D43DE800CD9190 /* ProxyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyView.swift; sourceTree = "<group>"; };
 		C227AEBF24D4403900CD9190 /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		C227AEC124D458C800CD9190 /* RecordLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordLabel.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				C2674F3C24ED021F00D2AE70 /* String.swift */,
 				C2674F4224ED1E7100D2AE70 /* JSONEncoder.swift */,
+				C2259ED224FB823800330983 /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				C2674F3F24ED0BDB00D2AE70 /* Credentials.swift in Sources */,
 				C29AABAD24D7298E00ACCCF9 /* BookView.swift in Sources */,
 				C29AAB9A24D5665500ACCCF9 /* LoginDialog.swift in Sources */,
+				C2259ED324FB823800330983 /* UIApplication.swift in Sources */,
 				C2A2A6D124CEB67300B76E41 /* QuotationsView.swift in Sources */,
 				C227AEC224D458C800CD9190 /* RecordLabel.swift in Sources */,
 				C2674F3A24EC50C500D2AE70 /* LCButton.swift in Sources */,

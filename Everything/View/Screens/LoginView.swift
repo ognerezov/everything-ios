@@ -55,6 +55,7 @@ struct LoginView: View {
             Button(action: {
                 self.show = false
                 self.showRegister = true
+                UIApplication.shared.endEditing()
             }) {
               HStack {
                 Text("Зарегистрироваться").accentColor(Color.accentColor)

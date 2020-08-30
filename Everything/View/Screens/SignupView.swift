@@ -68,6 +68,7 @@ struct SignupView: View {
             Button(action: {
                 self.show = false
                 self.showLogin = true
+                UIApplication.shared.endEditing()
             }) {
               HStack {
                 Text("Уже зарегистрированы?").accentColor(Color.accentColor)
