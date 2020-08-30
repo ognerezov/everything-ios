@@ -255,10 +255,19 @@ extension AppState{
         }
     }
     
+    static func aсquireChapter(_ number: Int, _ appState: AppState) {
+        if number <= Chapter.max{
+            appState.getChapters(numbers: [number])
+        } else{
+            appState.chapters.append(Chapter.build(from: number))
+            appState.chapters = Array(Set(appState.chapters))
+        }
+    }
+    
     static func go(to number: Int){
         if let appState = state{
             if !appState.go(to: number){
-                appState.getChapters(numbers: [number])
+                aсquireChapter(number, appState)
             }
         }
     }
@@ -266,7 +275,7 @@ extension AppState{
     static func add(number: Int){
         if let appState = state{
             if !appState.add(number: number){
-                appState.getChapters(numbers: [number])
+                aсquireChapter(number, appState)
             }
         }
     }
@@ -274,7 +283,7 @@ extension AppState{
     static func set(to number: Int){
         if let appState = state{
             if !appState.set(to: number){
-                appState.getChapters(numbers: [number])
+                 aсquireChapter(number, appState)
             }
         }
     }

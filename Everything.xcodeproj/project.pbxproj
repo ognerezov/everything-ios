@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FC24CDF7A300062106 /* RecordViewer.swift */; };
 		C2259ED324FB823800330983 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2259ED224FB823800330983 /* UIApplication.swift */; };
+		C2259ED524FBAA8100330983 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2259ED424FBAA8100330983 /* Book.swift */; };
 		C227AEBD24D43DE800CD9190 /* ProxyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEBC24D43DE800CD9190 /* ProxyView.swift */; };
 		C227AEC024D4403900CD9190 /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEBF24D4403900CD9190 /* LabelFactory.swift */; };
 		C227AEC224D458C800CD9190 /* RecordLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C227AEC124D458C800CD9190 /* RecordLabel.swift */; };
@@ -64,6 +65,7 @@
 /* Begin PBXFileReference section */
 		C21145FC24CDF7A300062106 /* RecordViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewer.swift; sourceTree = "<group>"; };
 		C2259ED224FB823800330983 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		C2259ED424FBAA8100330983 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		C227AEBC24D43DE800CD9190 /* ProxyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyView.swift; sourceTree = "<group>"; };
 		C227AEBF24D4403900CD9190 /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		C227AEC124D458C800CD9190 /* RecordLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordLabel.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				C2C6411C24CC6CC1000D3716 /* RecordType.swift */,
 				C2C6411E24CC6E67000D3716 /* Record.swift */,
 				C2C6412024CC6ECA000D3716 /* Chapter.swift */,
+				C2259ED424FBAA8100330983 /* Book.swift */,
 			);
 			path = Book;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				C2F6963D24CDC31300827CFE /* LogoutControl.swift in Sources */,
 				C267008324E5BD2B00A87F48 /* Colors.swift in Sources */,
 				C2BC12A324F2F58E00535C5C /* LayersControl.swift in Sources */,
+				C2259ED524FBAA8100330983 /* Book.swift in Sources */,
 				C29AABAB24D6B6FA00ACCCF9 /* UserSecrets.swift in Sources */,
 				C227AEBD24D43DE800CD9190 /* ProxyView.swift in Sources */,
 				C2BC12B324FAA03D00535C5C /* FlipEffect.swift in Sources */,
