@@ -28,20 +28,9 @@ struct AppView: View {
                     alert
                 }
             }
-//            if state.error == .Processing{
-//                VStack{
-//                    ZStack{
-//                        Rectangle()
-//                            .fill(Color.main)
-//                            .frame(maxHeight: 60)
-//                        InifnityBar(value: 0)
-//                            .frame(maxHeight: 20)
-//                    }
-//                    Spacer()
-//                }
-//            } else{
-//                EmptyView()
-//            }
+        }.sheet(isPresented: .constant($state.chapterOfTheDay.wrappedValue != nil),
+                onDismiss: {AppState.dismissNumberOfTheDay()}){
+            NumberOfTheDayView(chapter: self.state.chapterOfTheDay!, state: self.state)
         }
         
     }

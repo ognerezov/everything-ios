@@ -80,4 +80,60 @@ extension Chapter{
 
         return Chapter(number: number, type: .chapter, level: level, records: records)
     }
+    
+    static var numberOfTheDay : Int{
+        get{
+            
+            let calanderDate = Calendar.current.dateComponents([.day, .year, .month], from: Date())
+            let day = calanderDate.day!
+            let month = calanderDate.month!
+            let year = reduce(calanderDate.year!)
+        
+            var res = day
+            
+            if month > res && month <= max{
+                res  = month
+            }
+            
+            if year > res && year <= max{
+                res = year
+            }
+            
+            let dm = day * month
+            let dy  = day * year
+            let my = month * year
+            let dmy = dm * year
+            
+            if dm > res && dm <= max{
+                res = dm
+            }
+            
+            if dy > res && dy <= max {
+                res = dy
+            }
+            
+            if my > res && my <= max{
+                res = my
+            }
+            
+            if dmy > res && dmy <= max{
+                res = dmy
+            }
+            
+            
+            return res
+        }
+    }
+    
+    static func reduce(_ number: Int) -> Int{
+        var res = 0
+        var n = number
+        
+        repeat {
+            res += n % 10
+            n = n / 10
+        } while n > 0
+    
+        return res
+    }
 }

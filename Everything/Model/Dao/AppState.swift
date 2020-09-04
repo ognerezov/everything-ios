@@ -20,6 +20,7 @@ class AppState : ObservableObject {
     @Published var quotations : [Chapter] = []
     @Published var chapters : [Chapter] = []
     @Published var error : ErrorType = .NoException
+    @Published var chapterOfTheDay : Chapter?
     
     var allertAction : (()-> Void)?
     
@@ -43,6 +44,10 @@ class AppState : ObservableObject {
         } else{
             print("fetch quotations")
             fetchQuotations()
+        }
+        
+        if settings.numberOfTheDay != Chapter.numberOfTheDay{
+            fetchNumberOfTheDay()
         }
     }
     
@@ -92,7 +97,31 @@ class AppState : ObservableObject {
                     self.error = .NoException
                     self.quotations = $0
             })
+    }
     
+    var cancelableNumberofTheDay : AnyCancellable?
+    
+    func fetchNumberOfTheDay()   {
+        cancelableNumberofTheDay = session.dataTaskPublisher(for: AppState.numberOfTheDayUrl)
+            .map({$0.data})
+            .map{ data -> Chapter? in
+                do{
+                    return try AppState.decoder.decode([Chapter].self, from:data)[0]
+                }catch{
+                    print(error)
+                    return nil
+                }
+                
+            }
+            .eraseToAnyPublisher()
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: {print($0)},
+                  receiveValue:{
+                    self.chapterOfTheDay = $0
+                    if let chapter = self.chapterOfTheDay{
+                        self.settings.setNumberOfTheDay(chapter.number)
+                    }
+            })
     }
     
     var cancelableLogin : AnyCancellable?
@@ -341,6 +370,12 @@ extension AppState{
                 appState.settings.decreaseFont()
             }
     }
+    
+    static func dismissNumberOfTheDay(){
+        if let appState = state{
+            appState.chapterOfTheDay = nil
+        }
+    }
 }
 
 //MARK: Literals
@@ -361,9 +396,11 @@ extension AppState{
     static let registerLink = "pub/register"
     static let loginLink = "pub/login"
     static let searchLink =  serverLink + "book/search/"
+    static let numberOfTheDayLink = "free/day"
     
     static let quotationsurl = URL(string: serverLink + quotationsLink)!
     static let readsurl = URL(string: serverLink + readLink)!
     static let registerUrl = URL(string: serverLink + registerLink)!
     static let loginUrl = URL(string: serverLink + loginLink)!
+    static let numberOfTheDayUrl = URL(string: serverLink + numberOfTheDayLink)!
 }

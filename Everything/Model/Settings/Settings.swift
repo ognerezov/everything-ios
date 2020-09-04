@@ -11,6 +11,7 @@ import Foundation
 struct Settings{
     var layers = [1]
     var fontSize = 16
+    var numberOfTheDay : Int?
     var selected : Int?
     
     var top : Int{
@@ -45,7 +46,7 @@ struct Settings{
     }
     
     mutating func clone(){
-        self = Settings(layers: self.layers, fontSize : self.fontSize, selected: self.selected)
+        self = Settings(layers: self.layers, fontSize : self.fontSize, numberOfTheDay: self.numberOfTheDay, selected: self.selected)
     }
     
     mutating func increaseFont (){
@@ -113,6 +114,12 @@ struct Settings{
         save()
     }
     
+    mutating func setNumberOfTheDay(_ number: Int){
+        numberOfTheDay = number
+        clone()
+        save()
+    }
+    
     func save(){
         Settings.save(self)
     }
@@ -124,12 +131,17 @@ struct Settings{
 
 extension Settings{
     static func save (_ settings: Settings){
+        
         UserDefaults.standard.set(settings.layers, forKey: layers_key)
+        
         if let selected = settings.selected{
             UserDefaults.standard.set(selected, forKey: selected_key)
         } else{
             UserDefaults.standard.removeObject(forKey: selected_key)
         }
+        
+        UserDefaults.standard.set(settings.numberOfTheDay, forKey: number_of_the_day_key)
+        
         UserDefaults.standard.set(settings.fontSize,forKey: font_size_key)
     }
     
@@ -150,8 +162,9 @@ extension Settings{
         if size >= minFontSize && size <= maxFontSize {
             res.fontSize = size
         }
-    
         
+        res.numberOfTheDay = UserDefaults.standard.integer(forKey: number_of_the_day_key)
+    
         return res
     }
 }
@@ -190,6 +203,7 @@ extension Settings{
     static let layers_key = "Settings layers"
     static let selected_key = "Settings selected"
     static let font_size_key = "Settings font size"
+    static let number_of_the_day_key = "Settings number of the day"
 }
 
 
