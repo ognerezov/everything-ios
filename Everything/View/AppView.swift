@@ -28,9 +28,6 @@ struct AppView: View {
                     alert
                 }
             }
-        }.sheet(isPresented: .constant($state.chapterOfTheDay.wrappedValue != nil),
-                onDismiss: {AppState.dismissNumberOfTheDay()}){
-            NumberOfTheDayView(chapter: self.state.chapterOfTheDay!, state: self.state)
         }
         
     }

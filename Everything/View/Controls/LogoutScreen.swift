@@ -14,6 +14,10 @@ struct LogoutScreen: View {
     var body: some View {
         VStack{
             QuotationsView(state: state)
+            .sheet(isPresented: .constant($state.chapterOfTheDay.wrappedValue != nil),
+                    onDismiss: {AppState.dismissNumberOfTheDay()}){
+                NumberOfTheDayView(chapter: self.state.chapterOfTheDay!, state: self.state)
+            }
             Spacer()
             LogoutControl.get(for : self.state.user)
         }
