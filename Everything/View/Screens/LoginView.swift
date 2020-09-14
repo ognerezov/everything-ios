@@ -16,6 +16,7 @@ struct LoginView: View {
     @Binding var password : String
     @State private var formOffset: CGFloat = 0
     @State private var presentPasswordRecoverySheet = false
+    @State private var emailedCodeSheet = false
 
     var onSuccess : () -> Void
     
@@ -46,6 +47,7 @@ struct LoginView: View {
                         .autocapitalization(.none)
                 
                 LCButton(text: "Войти",disabled: disabled) {
+                    self.show = false
                     AppState.login(username: self.email, password: self.password, allertAction: {
                         self.show = true
                     }, onSucces: self.onSuccess)
@@ -69,7 +71,7 @@ struct LoginView: View {
                 Text("Забыли пароль?").accentColor(Color.purple)
                   }
               }.sheet(isPresented: self.$presentPasswordRecoverySheet) {
-                RecoverPasswordView(presentPasswordRecoverySheet: self.$presentPasswordRecoverySheet)
+                RecoverPasswordView(show: self.$presentPasswordRecoverySheet)
               }
             
         }.padding().offset(y: self.formOffset)

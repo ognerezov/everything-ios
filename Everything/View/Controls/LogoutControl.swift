@@ -44,10 +44,7 @@ struct LogoutControl: View {
                         .multilineTextAlignment(.center)
                     }
                 }.sheet(isPresented: $showRegistration){
-                    SignupView(show: self.$showRegistration, showLogin : self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
-                      
-                        self.registerAlert()
-                    }.transition(.move(edge: .bottom))
+                    self.signUp
                 }
                 
             } else{
@@ -67,10 +64,7 @@ struct LogoutControl: View {
                         .multilineTextAlignment(.center)
                     }
                 }.sheet(isPresented: $showRegistration){
-                  SignupView(show: self.$showRegistration, showLogin : self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
-                    print("on reg success")
-                    self.registerAlert()
-                  }.transition(.move(edge: .bottom))
+                    self.signUp
                 }
             }
             
@@ -97,6 +91,13 @@ struct LogoutControl: View {
                 }.transition(.move(edge: .bottom))
             }
         }.padding()
+    }
+    
+    @ViewBuilder
+    var signUp: some View {
+        SignupView(show: self.$showRegistration, showLogin : self.$showLogin, email: self.$email, password: self.$password, confirmedPassword: self.$confirmedPassword){
+          self.registerAlert()
+        }.transition(.move(edge: .bottom))
     }
     
     func registerAlert(){

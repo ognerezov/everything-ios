@@ -164,6 +164,20 @@ class AppState : ObservableObject {
         })
     }
     
+    func getNumbersOfTheDay(onSucces: @escaping ()->Void){
+        if let token = user.accessCode{
+        
+            var request = URLRequest(url: AppState.numbersOfTheDayUrl)
+            request.httpMethod = "GET"
+            request.addValue(token, forHTTPHeaderField: AppState.authorization)
+            request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
+            
+            requestChapters(with: request, mergeType: .new, onSucces)
+        } else{
+            fatalError("this function for authorized users only")
+        }
+    }
+    
     func setAccessCode(_ accessCode: String,numbers : [Int] = [1], onSucces: @escaping ()->Void){
         var request = URLRequest(url: AppState.readsurl)
         request.httpMethod = "POST"
@@ -176,6 +190,10 @@ class AppState : ObservableObject {
         requestChapters(with: request, mergeType: .both, onSucces)
     }
     
+    fileprivate func mapChaptersToSettings() {
+        self.settings.set(with: self.chapters.map({chapter in chapter.number}))
+    }
+    
     func textSearch(_ text: String){
         if let token = user.accessCode{
             var request = URLRequest(url: URL(string: (AppState.searchLink + text).encodedUrl)!)
@@ -183,7 +201,7 @@ class AppState : ObservableObject {
             request.addValue(token, forHTTPHeaderField: AppState.authorization)
 
             requestChapters(with: request, mergeType: .new){
-                self.settings.set(with: self.chapters.map({chapter in chapter.number}))
+                self.mapChaptersToSettings()
             }
         } else{
             error = .Unauthorized
@@ -255,6 +273,36 @@ class AppState : ObservableObject {
         
         requestAuthentication(request, onSucces)
     }
+    
+    func forget(for email: String, onError: @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
+        var request = URLRequest(url: URL(string: (AppState.forgetLink + email).encodedUrl)!)
+        request.httpMethod = "GET"
+        
+        cancelableLogin = session
+            .dataTaskPublisher(for: request)
+            .map{ response -> ErrorType in
+                if let httpResponse = response.response as? HTTPURLResponse{
+                    if httpResponse.statusCode != 200 {
+                        return ErrorType(rawValue: httpResponse.statusCode)!
+                    }
+                }
+                return .NoException
+            }
+            .eraseToAnyPublisher()
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: {
+                print("restored")
+                print($0)},
+                  receiveValue:{
+                    if $0 == .NoException{
+                        onSucces()
+                    } else {
+                        onError($0)
+                    }
+                    print($0)
+                    
+            })
+    }
 }
 
 //MARK: Singleton
@@ -290,6 +338,15 @@ extension AppState{
         } else{
             appState.chapters.append(Chapter.build(from: number))
             appState.chapters = Array(Set(appState.chapters))
+        }
+    }
+    
+    static func getNumbersOfTheDay() {
+        if let appState = state {
+            appState.getNumbersOfTheDay {
+                appState.mapChaptersToSettings()
+                appState.settings.sort()
+            }
         }
     }
     
@@ -376,6 +433,12 @@ extension AppState{
             appState.chapterOfTheDay = nil
         }
     }
+    
+    static func forget(for email: String, onError : @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
+        if let appState = state{
+            appState.forget(for: email, onError: onError, onSucces: onSucces)
+        }
+    }
 }
 
 //MARK: Literals
@@ -397,10 +460,13 @@ extension AppState{
     static let loginLink = "pub/login"
     static let searchLink =  serverLink + "book/search/"
     static let numberOfTheDayLink = "free/day"
+    static let numbersOfTheDayLink = "book/day"
+    static let forgetLink = serverLink +  "pub/forget/"
     
     static let quotationsurl = URL(string: serverLink + quotationsLink)!
     static let readsurl = URL(string: serverLink + readLink)!
     static let registerUrl = URL(string: serverLink + registerLink)!
     static let loginUrl = URL(string: serverLink + loginLink)!
     static let numberOfTheDayUrl = URL(string: serverLink + numberOfTheDayLink)!
+    static let numbersOfTheDayUrl = URL(string: serverLink + numbersOfTheDayLink)!
 }

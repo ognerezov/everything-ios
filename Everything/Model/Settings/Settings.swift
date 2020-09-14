@@ -45,8 +45,15 @@ struct Settings{
         return layers.firstIndex(of: number) != nil
     }
     
+    
     mutating func clone(){
         self = Settings(layers: self.layers, fontSize : self.fontSize, numberOfTheDay: self.numberOfTheDay, selected: self.selected)
+    }
+    
+    mutating func sort(){
+        layers.sort()
+        clone()
+        save()
     }
     
     mutating func increaseFont (){

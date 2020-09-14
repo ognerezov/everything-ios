@@ -29,6 +29,7 @@
 		C278144F24E6C8E60093FB01 /* TextCosumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C278144E24E6C8E60093FB01 /* TextCosumer.swift */; };
 		C278145124E818370093FB01 /* CharacterListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C278145024E818370093FB01 /* CharacterListener.swift */; };
 		C278145424E819000093FB01 /* NumberTapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C278145324E819000093FB01 /* NumberTapDelegate.swift */; };
+		C27F8FA6250E65BA00A06C16 /* EmailedCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27F8FA5250E65BA00A06C16 /* EmailedCodeView.swift */; };
 		C29AAB9A24D5665500ACCCF9 /* LoginDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AAB9924D5665500ACCCF9 /* LoginDialog.swift */; };
 		C29AAB9F24D588C700ACCCF9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AAB9E24D588C700ACCCF9 /* ProgressBar.swift */; };
 		C29AABA124D5A11F00ACCCF9 /* InifnityBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AABA024D5A11F00ACCCF9 /* InifnityBar.swift */; };
@@ -99,6 +100,7 @@
 		C278144E24E6C8E60093FB01 /* TextCosumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCosumer.swift; sourceTree = "<group>"; };
 		C278145024E818370093FB01 /* CharacterListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListener.swift; sourceTree = "<group>"; };
 		C278145324E819000093FB01 /* NumberTapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTapDelegate.swift; sourceTree = "<group>"; };
+		C27F8FA5250E65BA00A06C16 /* EmailedCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailedCodeView.swift; sourceTree = "<group>"; };
 		C29AAB9924D5665500ACCCF9 /* LoginDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDialog.swift; sourceTree = "<group>"; };
 		C29AAB9E24D588C700ACCCF9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		C29AABA024D5A11F00ACCCF9 /* InifnityBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InifnityBar.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				C2674F3324EB192300D2AE70 /* LoginView.swift */,
 				C2674F3524EB198700D2AE70 /* SignupView.swift */,
 				C2674F3724EB19BC00D2AE70 /* RecoveryView.swift */,
+				C27F8FA5250E65BA00A06C16 /* EmailedCodeView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				C29AABA724D5D8ED00ACCCF9 /* ErrorTypes.swift in Sources */,
 				C2CC4F0E24E6A3130078A045 /* UIKitTools.swift in Sources */,
 				C2C6412124CC6ECA000D3716 /* Chapter.swift in Sources */,
+				C27F8FA6250E65BA00A06C16 /* EmailedCodeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

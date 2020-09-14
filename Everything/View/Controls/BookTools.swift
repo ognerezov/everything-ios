@@ -19,6 +19,12 @@ struct BookTools: View {
                 AppState.set(to: 1)
                 self.show = false
             }
+            ImageButton(
+                text : "Числа дня",
+                icon: "calendar"){
+                AppState.getNumbersOfTheDay()
+                self.show = false
+            }
             LCTextfield(value: self.$searchString,
                         placeholder: "Введите число или текст",
                         icon: Image(systemName: "magnifyingglass"))

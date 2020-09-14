@@ -55,8 +55,10 @@ enum ErrorType: Int{
                 return "Не удалось авторизоваться на сервере"
             case .Conflict:
                 return "Пользователь с таким email уже зарегистрирован"
+            case .NotFound:
+                    return "По вашему запросу ничего не найдено"
             default:
-                return "Неизвестная ошибка";
+                return "Неизвестная ошибка"
             }
         }
         set{

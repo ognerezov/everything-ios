@@ -10,18 +10,73 @@ import SwiftUI
 
 struct RecoverPasswordView: View {
     @State private var email = ""
-    @Binding var presentPasswordRecoverySheet: Bool
+    @State private var code = ""
+    @Binding var show: Bool
+    @State private var showCodeInput = false
+    @State private var processing = false
+    @State private var error : ErrorType = .NoException
+    
     
     var body: some View {
         VStack(spacing: 40) {
-            Text("Recover Password").font(.title).bold()
-            VStack {
-                LCTextfield(value: self.$email, placeholder: "Email", icon: Image(systemName: "at"))
-                Button("Reset Password") {}
-            }
+            Text(processing ? "Запрос обрабатывается":
+                (showCodeInput ? "Код выслан на email: \(email)":
+                    "Восстановление пароля")).font(.title).bold()
             
+            if processing {
+                InifnityBar()
+                    .frame(maxHeight: 20)
+            } else {
+                VStack {
+                    
+                        if showCodeInput {
+                            
+                            LCTextfield(value: self.$code,
+                                        placeholder: "Введите код",
+                                        icon: Image(systemName: "keyboard"))
+                            .autocapitalization(.none)
+                            
+                            LCButton(text: "Отправить",
+                                     disabled: !self.$code.wrappedValue.isEmpty){
+                                        
+                            }
+                            
+                        } else {
+                        
+                            LCTextfield(value: self.$email,
+                                        placeholder: "Email",
+                                        icon: Image(systemName: "at"),
+                                        valid:self.$email.wrappedValue.isEmpty || self.$email.wrappedValue.isValidEmail())
+                            .autocapitalization(.none)
+                            
+                            LCButton(text: "Восстановить пароль",
+                                     disabled: !self.$email.wrappedValue.isValidEmail()){
+                                        
+                                self.processing = true
+                                AppState.forget(for: self.email,
+                                                onError:  {error in
+                                                    self.error = error
+                                                    self.processing = false
+                                                    self.showCodeInput = false
+                                                },
+                                                onSucces: {
+                                                    self.processing = false
+                                                    self.showCodeInput = true
+                                                })
+                            }
+                    }
+                }.alert(isPresented: .constant(error.hasError)){
+                    Alert(title:
+                        Text(error.description),
+                        dismissButton:
+                        .default(Text("Ок")){
+                            self.error = .NoException
+                        }
+                    )
+                }
+            }
             Button(action: {
-                self.presentPasswordRecoverySheet.toggle()
+                self.show.toggle()
             }) {
               HStack {
                 Text("Cancel").accentColor(Color.accentColor)
@@ -31,10 +86,4 @@ struct RecoverPasswordView: View {
         }.padding()
     }
 
-}
-
-struct RecoverEmailView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecoverPasswordView(presentPasswordRecoverySheet: .constant(false))
-    }
 }
