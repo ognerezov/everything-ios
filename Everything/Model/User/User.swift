@@ -24,7 +24,19 @@ class User : Codable {
     var isReader : Bool {
         return roles != nil && roles!.contains(User.READER_ROLE)
     }
+    
+    func readersAccess(){
+        if isReader{
+            accessCode = token
+        }
+    }
    
+    func storeCode(_ code: String?){
+        if accessCode == nil{
+            accessCode = code
+        }
+    }
+    
     var canRead : Bool{
         get{
             if let access = hasAccess{

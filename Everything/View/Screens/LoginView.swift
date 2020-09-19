@@ -71,7 +71,7 @@ struct LoginView: View {
                 Text("Забыли пароль?").accentColor(Color.purple)
                   }
               }.sheet(isPresented: self.$presentPasswordRecoverySheet) {
-                RecoverPasswordView(show: self.$presentPasswordRecoverySheet)
+                RecoverPasswordView(email: self.email, show: self.$presentPasswordRecoverySheet)
               }
             
         }.padding().offset(y: self.formOffset)

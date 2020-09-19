@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RecoverPasswordView: View {
-    @State private var email = ""
+    @State var email = ""
     @State private var code = ""
     @Binding var show: Bool
     @State private var showCodeInput = false
@@ -38,7 +38,18 @@ struct RecoverPasswordView: View {
                             
                             LCButton(text: "Отправить",
                                      disabled: !self.$code.wrappedValue.isEmpty){
-                                        
+                                        self.processing = true
+                                        self.error = .NoException
+                                        AppState.loginWithCode(code: self.code,
+                                            onError:{error in
+                                                
+                                            self.error = error
+                                            self.processing = false
+                                        })
+                                        {
+                                            print("success")
+                                            self.processing = false
+                                        }
                             }
                             
                         } else {

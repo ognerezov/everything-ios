@@ -57,6 +57,8 @@ enum ErrorType: Int{
                 return "Пользователь с таким email уже зарегистрирован"
             case .NotFound:
                     return "По вашему запросу ничего не найдено"
+            case .UnparsableResponse:
+                return "Неизвестный формат ответа сервера"
             default:
                 return "Неизвестная ошибка"
             }

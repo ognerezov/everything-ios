@@ -208,6 +208,13 @@ class AppState : ObservableObject {
         }
     }
     
+    fileprivate func processUser(_ receivedUser: User) {
+        receivedUser.readersAccess()
+        receivedUser.storeCode(self.user.accessCode)
+        self.user = receivedUser
+        self.user.save()
+    }
+    
     func requestAuthentication(_ request: URLRequest, _ onSucces: @escaping () -> Void) {
         error = .Processing
         cancelableLogin = session
@@ -233,14 +240,7 @@ class AppState : ObservableObject {
             print($0)},
               receiveValue:{
                 if let receivedUser = $0.user{
-                    if receivedUser.isReader{
-                        receivedUser.accessCode = receivedUser.token
-                    }
-                    if receivedUser.accessCode == nil{
-                        receivedUser.accessCode = self.user.accessCode
-                    }
-                    self.user = receivedUser
-                    self.user.save()
+                    self.processUser(receivedUser)
                     onSucces()
                     print(receivedUser)
                 }
@@ -248,6 +248,50 @@ class AppState : ObservableObject {
                 print($0.error)
                 
         })
+    }
+    
+    func loginWithCode(code: String, onError: @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
+        var request = URLRequest(url: AppState.codeUrl)
+        request.httpMethod = "PUT"
+        request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
+        
+        request.httpBody = AppState.encoder.optionalEncode(TokenRequest(token: code))
+        
+        cancelableLogin = session
+            .dataTaskPublisher(for: request)
+            .map{ response -> (error: ErrorType,user: User?) in
+                if let httpResponse = response.response as? HTTPURLResponse{
+                    if httpResponse.statusCode != 200 {
+                        return (error : ErrorType(rawValue: httpResponse.statusCode)!, user: nil)
+                    }
+                }
+                do{
+                    return (error: .NoException,
+                            user:  try AppState.decoder.decode(User.self, from: response.data))
+                }catch{
+                    return(error: .UnparsableResponse, nil)
+                }
+                
+        }
+        .eraseToAnyPublisher()
+        .receive(on: RunLoop.main)
+        .sink(receiveCompletion: {
+            print("register")
+            print($0)},
+              receiveValue:{
+                if $0.error == .NoException{
+                    if let receivedUser = $0.user{
+                        self.processUser(receivedUser)
+                        onSucces()
+                        print(receivedUser)
+                    }else{
+                        onError(.UnparsableResponse)
+                    }
+                }
+                print($0.error)
+                onError($0.error)
+        })
+        
     }
     
     func register(username: String, password: String, onSucces: @escaping ()->Void){
@@ -439,6 +483,12 @@ extension AppState{
             appState.forget(for: email, onError: onError, onSucces: onSucces)
         }
     }
+    
+    static func loginWithCode(code: String, onError : @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
+        if let appState = state{
+            appState.loginWithCode(code: code, onError: onError, onSucces: onSucces)
+        }
+    }
 }
 
 //MARK: Literals
@@ -462,6 +512,7 @@ extension AppState{
     static let numberOfTheDayLink = "free/day"
     static let numbersOfTheDayLink = "book/day"
     static let forgetLink = serverLink +  "pub/forget/"
+    static let codeLink = "pub/code"
     
     static let quotationsurl = URL(string: serverLink + quotationsLink)!
     static let readsurl = URL(string: serverLink + readLink)!
@@ -469,4 +520,5 @@ extension AppState{
     static let loginUrl = URL(string: serverLink + loginLink)!
     static let numberOfTheDayUrl = URL(string: serverLink + numberOfTheDayLink)!
     static let numbersOfTheDayUrl = URL(string: serverLink + numbersOfTheDayLink)!
+    static let codeUrl = URL(string: serverLink +  codeLink)!
 }
