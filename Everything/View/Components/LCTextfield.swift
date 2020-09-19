@@ -12,6 +12,7 @@ struct LCTextfield: View {
     
     @Binding var value: String
     var placeholder = "Placeholder"
+    var keyboard : UIKeyboardType = .default
     var icon = Image(systemName: "person.crop.circle")
     let errorIcon = Image(systemName: "exclamationmark.triangle.fill")
     var color = Color.contrastColor
@@ -34,6 +35,7 @@ struct LCTextfield: View {
                 TextField(placeholder, text: self.$value, onEditingChanged: { flag in
                     self.onEditingChanged(flag)
                 }).padding()
+                .keyboardType(keyboard)
             }
             if valid {
                 icon.imageScale(.large)

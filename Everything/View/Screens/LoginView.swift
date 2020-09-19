@@ -31,6 +31,7 @@ struct LoginView: View {
             VStack {
                 LCTextfield(value: self.$email,
                             placeholder: "Email",
+                            keyboard: .emailAddress,
                             icon: Image(systemName: "at"),
                             onEditingChanged: { flag in
                                     withAnimation {
@@ -46,12 +47,12 @@ struct LoginView: View {
                             isSecure: true)
                         .autocapitalization(.none)
                 
-                LCButton(text: "Войти",disabled: disabled) {
+                LCButton(text: "Войти",action:  {
                     self.show = false
                     AppState.login(username: self.email, password: self.password, allertAction: {
                         self.show = true
                     }, onSucces: self.onSuccess)
-                }
+                }, disabled: disabled)
             }
             
             Button(action: {

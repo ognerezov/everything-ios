@@ -318,15 +318,13 @@ class AppState : ObservableObject {
         requestAuthentication(request, onSucces)
     }
     
-    func forget(for email: String, onError: @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
-        var request = URLRequest(url: URL(string: (AppState.forgetLink + email).encodedUrl)!)
-        request.httpMethod = "GET"
-        
+    fileprivate func voidRequest(_ request: URLRequest, _ onSucces: @escaping () -> Void, _ onError: @escaping (ErrorType) -> Void) {
         cancelableLogin = session
             .dataTaskPublisher(for: request)
             .map{ response -> ErrorType in
                 if let httpResponse = response.response as? HTTPURLResponse{
                     if httpResponse.statusCode != 200 {
+                        print("status code: \(httpResponse.statusCode)")
                         return ErrorType(rawValue: httpResponse.statusCode)!
                     }
                 }
@@ -335,8 +333,7 @@ class AppState : ObservableObject {
             .eraseToAnyPublisher()
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: {
-                print("restored")
-                print($0)},
+                    print($0)},
                   receiveValue:{
                     if $0 == .NoException{
                         onSucces()
@@ -344,8 +341,30 @@ class AppState : ObservableObject {
                         onError($0)
                     }
                     print($0)
-                    
-            })
+                  })
+    }
+    
+    func forget(for email: String, onError: @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
+        var request = URLRequest(url: URL(string: (AppState.forgetLink + email).encodedUrl)!)
+        request.httpMethod = "GET"
+        
+        voidRequest(request, onSucces, onError)
+    }
+    
+    func changePassword(to newPassword: String, onError: @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
+        if let token = user.token {
+            var request = URLRequest(url: AppState.changePasswordUrl)
+            request.httpMethod = "POST"
+            request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
+            request.addValue(token, forHTTPHeaderField: AppState.authorization)
+            
+            request.httpBody = AppState.encoder.optionalEncode(
+                    TokenRequest(token: newPassword))
+            
+            voidRequest(request, onSucces, onError)
+        } else {
+            onError(.UnparsableResponse)
+        }
     }
 }
 
@@ -489,6 +508,12 @@ extension AppState{
             appState.loginWithCode(code: code, onError: onError, onSucces: onSucces)
         }
     }
+    
+    static func changePassword(to newPassword: String, onError : @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
+        if let appState = state{
+            appState.changePassword(to: newPassword, onError: onError, onSucces: onSucces)
+        }
+    }
 }
 
 //MARK: Literals
@@ -513,6 +538,7 @@ extension AppState{
     static let numbersOfTheDayLink = "book/day"
     static let forgetLink = serverLink +  "pub/forget/"
     static let codeLink = "pub/code"
+    static let changePasswordLink = "usr/password"
     
     static let quotationsurl = URL(string: serverLink + quotationsLink)!
     static let readsurl = URL(string: serverLink + readLink)!
@@ -521,4 +547,5 @@ extension AppState{
     static let numberOfTheDayUrl = URL(string: serverLink + numberOfTheDayLink)!
     static let numbersOfTheDayUrl = URL(string: serverLink + numbersOfTheDayLink)!
     static let codeUrl = URL(string: serverLink +  codeLink)!
+    static let changePasswordUrl = URL(string: serverLink + changePasswordLink)!
 }

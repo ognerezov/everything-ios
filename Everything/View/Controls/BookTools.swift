@@ -32,10 +32,10 @@ struct BookTools: View {
             ImageButton(
                 text : "Поиск",
                 icon: "magnifyingglass",
-                disabled:  self.$searchString.wrappedValue.count == 0){
+                action: {
                     self.search()
                     self.show = false
-            }
+                }, disabled:  self.$searchString.wrappedValue.count == 0)
         }.padding()
     }
     

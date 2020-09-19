@@ -20,6 +20,7 @@ enum ErrorType: Int{
     case Unauthorized = 401
     case Forbidden = 403
     case NotFound = 404
+    case UnsupportedMethod = 405
     case Conflict = 409
     case Gone = 410
     case DisabledUser = 418
@@ -57,6 +58,8 @@ enum ErrorType: Int{
                 return "Пользователь с таким email уже зарегистрирован"
             case .NotFound:
                     return "По вашему запросу ничего не найдено"
+            case .UnsupportedMethod:
+                    return "Неверный метод запроса"
             case .UnparsableResponse:
                 return "Неизвестный формат ответа сервера"
             default:

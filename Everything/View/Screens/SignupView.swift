@@ -33,6 +33,7 @@ struct SignupView: View {
             VStack {
                 LCTextfield(value: self.$email,
                             placeholder: "Email",
+                            keyboard: .emailAddress,
                             icon: Image(systemName: "at"),
                             onEditingChanged: { flag in
                                     withAnimation {
@@ -55,14 +56,14 @@ struct SignupView: View {
                             valid: self.$confirmedPassword.wrappedValue == self.$password.wrappedValue
                     ).autocapitalization(.none)
                 
-                LCButton(text: "Регистрация",disabled: disabled) {
+                LCButton(text: "Регистрация",action:  {
                     self.show = false
                     AppState.register(username: self.email, password: self.password, allertAction: {
                         self.show = true
                     }){
                         self.onSuccess()
                     }
-                }
+                }, disabled: disabled)
             }
             
             Button(action: {
