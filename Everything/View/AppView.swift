@@ -14,34 +14,51 @@ struct AppView: View {
     
     @ViewBuilder
     var body: some View {
-        ZStack{
-            if(state.user.canRead){
-                BookView(state : state)
+        VStack{
+            if(state.hasInternetConnection || state.hasContent){
+                if(state.user.canRead){
+                    BookView(state : state)
+                        .background(Color.main)
+                        .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
+                            alert
+                    }
+                }else{
+                    LogoutScreen(state: state)
                     .background(Color.main)
                     .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
                         alert
+                    }
                 }
-            }else{
-                LogoutScreen(state: state)
-                .background(Color.main)
-                .alert(isPresented: Binding.constant($state.error.hasError.wrappedValue)){
-                    alert
-                }
+            } else {
+                Image(systemName:"wifi.exclamationmark")
+                    .foregroundColor(Color.accentLight)
+                    .scaledToFill()
+                    .padding()
+                Text("Отсутствует интернет-соединение")
+                    
             }
         }
         
     }
     
+    
     var alert : Alert{
-        Alert(title:
-            Text($state.error.wrappedValue.description),
-            primaryButton:
-            .default(Text("Повторить")){
-                AppState.noException()
-                AppState.runAllertAction()
-            },
-            secondaryButton:
-            .destructive(Text("Закрыть")){AppState.noException()})
+        if state.hasAllertAction{
+            return Alert(title:
+                Text($state.error.wrappedValue.description),
+                primaryButton:
+                .default(Text("Повторить")){
+                    AppState.noException()
+                    AppState.runAllertAction()
+                },
+                secondaryButton:
+                .destructive(Text("Закрыть")){AppState.noException()})
+        } else{
+            return Alert(title:
+                Text($state.error.wrappedValue.description),
+                dismissButton:
+                .default(Text("Закрыть")){AppState.noException()})
+        }
     }
 }
 

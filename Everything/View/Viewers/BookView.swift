@@ -82,7 +82,8 @@ struct BookView: View {
                     }
                 }
                 Button(action: {self.showTools = true}) {
-                    Image(systemName:"circle.grid.2x2")
+                    //systemName:"circle.grid.2x2"
+                    Image("icon123")
                 }
 
             }.padding()

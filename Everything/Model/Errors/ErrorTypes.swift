@@ -52,6 +52,8 @@ enum ErrorType: Int{
                 return "Нет ошибки"
             case .Processing:
                 return "Запрос обрабатывается"
+            case .NoNetwork:
+                return "Отсутствует интернет-соединение"
             case .Unauthorized:
                 return "Не удалось авторизоваться на сервере"
             case .Conflict:

@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import Reachability
 
 class AppState : ObservableObject {
 
@@ -21,19 +22,62 @@ class AppState : ObservableObject {
     @Published var chapters : [Chapter] = []
     @Published var error : ErrorType = .NoException
     @Published var chapterOfTheDay : Chapter?
+    @Published var hasInternetConnection = true
+    
+    private var reachability : Reachability?
+    private var started = false
+    
+    var hasContent : Bool{
+        !quotations.isEmpty || !chapters.isEmpty
+    }
     
     var allertAction : (()-> Void)?
+    
+    var hasAllertAction : Bool {
+        allertAction != nil
+    }
+    
     
     init() {
         user = User.user
         settings = Settings.setting
+        monitorConnection()
         start()
         AppState.state = self
+    }
+    
+    func monitorConnection(){
+        reachability = try! Reachability()
+
+        reachability!.whenReachable = { reachability in
+            self.hasInternetConnection = true
+            
+            if !self.started {
+                self.start()
+            }
+            
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        }
+        reachability!.whenUnreachable = { _ in
+            print("Not reachable")
+            self.hasInternetConnection = false
+        }
+
+        do {
+            try reachability!.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
     }
     
     func start() {
         error = .Processing
         refresh(onSucces : {
+            self.started = true
             self.error = .NoException
             if let code = self.user.accessCode{
 //            print(code)
@@ -53,6 +97,7 @@ class AppState : ObservableObject {
                 self.fetchNumberOfTheDay()
             }
         }, onError: { error in
+            self.started = true
             self.error = error
             self.fetchQuotations()
             if error == .Unauthorized{
@@ -88,6 +133,10 @@ class AppState : ObservableObject {
     var cancelableQuotations : AnyCancellable?
     
     func fetchQuotations()   {
+        if !hasInternetConnection{
+            error = .NoNetwork
+            return
+        }
         error = .Processing
         cancelableQuotations = session.dataTaskPublisher(for: AppState.quotationsurl)
             .map({$0.data})
@@ -112,6 +161,10 @@ class AppState : ObservableObject {
     var cancelableNumberofTheDay : AnyCancellable?
     
     func fetchNumberOfTheDay()   {
+        if !hasInternetConnection{
+            error = .NoNetwork
+            return
+        }
         cancelableNumberofTheDay = session.dataTaskPublisher(for: AppState.numberOfTheDayUrl)
             .map({$0.data})
             .map{ data -> Chapter? in
@@ -137,6 +190,11 @@ class AppState : ObservableObject {
     var cancelableLogin : AnyCancellable?
     
     fileprivate func requestChapters(with request: URLRequest,mergeType : MergeType, _ onSucces: @escaping () -> Void) {
+        
+        if !hasInternetConnection{
+            error = .NoNetwork
+            return
+        }
         error = .Processing
         cancelableLogin = session
             .dataTaskPublisher(for: request)

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -62,6 +62,7 @@
 		C2CC4F0E24E6A3130078A045 /* UIKitTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC4F0D24E6A3130078A045 /* UIKitTools.swift */; };
 		C2CC4F1024E6A66C0078A045 /* TextListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC4F0F24E6A66C0078A045 /* TextListener.swift */; };
 		C2D8C3092502A45200E4F659 /* NumberOfTheDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D8C3082502A45200E4F659 /* NumberOfTheDayView.swift */; };
+		C2DC9E572517D2860070E3A8 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = C2DC9E562517D2860070E3A8 /* Reachability */; };
 		C2F6963A24CDC27200827CFE /* LogoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963924CDC27200827CFE /* LogoutScreen.swift */; };
 		C2F6963D24CDC31300827CFE /* LogoutControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F6963C24CDC31300827CFE /* LogoutControl.swift */; };
 /* End PBXBuildFile section */
@@ -153,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2DC9E572517D2860070E3A8 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +455,9 @@
 			dependencies = (
 			);
 			name = Everything;
+			packageProductDependencies = (
+				C2DC9E562517D2860070E3A8 /* Reachability */,
+			);
 			productName = Everything;
 			productReference = C2C640FF24CC6799000D3716 /* Everything.app */;
 			productType = "com.apple.product-type.application";
@@ -485,6 +490,9 @@
 				Base,
 			);
 			mainGroup = C2C640F624CC6799000D3716;
+			packageReferences = (
+				C2DC9E552517D2860070E3A8 /* XCRemoteSwiftPackageReference "Reachability" */,
+			);
 			productRefGroup = C2C6410024CC6799000D3716 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -837,6 +845,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C2DC9E552517D2860070E3A8 /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C2DC9E562517D2860070E3A8 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C2DC9E552517D2860070E3A8 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C2C640F724CC6799000D3716 /* Project object */;
 }
