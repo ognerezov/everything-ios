@@ -33,6 +33,7 @@ class AppState : ObservableObject {
     
     func start() {
         if let code = user.accessCode{
+            print(code)
             setAccessCode(code, numbers: settings.layers){
                 self.user.hasAccess = self.error != .Unauthorized
                 

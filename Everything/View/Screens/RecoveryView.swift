@@ -18,6 +18,7 @@ struct RecoverPasswordView: View {
     @State private var codeAccepted = false
     @State private var newPassword = ""
     @State private var confirmPassword = ""
+    @State private var passwordChanged = false
     
     
     var body: some View {
@@ -81,13 +82,12 @@ struct RecoverPasswordView: View {
                                             self.processing = false
                                         }, onSucces:{
                                             self.processing = false
-                                            self.show = false
+                                            self.passwordChanged = true
+                                            print("success")
                                             
                                         })
                                      }, disabled: self.$newPassword.wrappedValue.count == 0 || self.$newPassword.wrappedValue != self.$confirmPassword.wrappedValue)
-                            
                         } else {
-                        
                             LCTextfield(value: self.$email,
                                         placeholder: "Email",
                                         keyboard: .emailAddress,
@@ -110,14 +110,25 @@ struct RecoverPasswordView: View {
                                                         })
                                      }, disabled: !self.$email.wrappedValue.isValidEmail())
                     }
-                }.alert(isPresented: .constant(error.hasError)){
-                    Alert(title:
-                        Text(error.description),
-                        dismissButton:
-                        .default(Text("Ок")){
-                            self.error = .NoException
-                        }
-                    )
+                }.alert(isPresented: .constant(error.hasError || self.$passwordChanged.wrappedValue)){
+                    if self.passwordChanged{
+                        return Alert(title:
+                            Text("Пароль успешно изменен"),
+                            dismissButton:
+                            .default(Text("Ок")){
+                                self.show = false
+                                self.passwordChanged = false
+                            }
+                        )
+                    } else {
+                        return Alert(title:
+                            Text(error.description),
+                            dismissButton:
+                            .default(Text("Ок")){
+                                self.error = .NoException
+                            }
+                        )
+                    }
                 }
             }
             Button(action: {
