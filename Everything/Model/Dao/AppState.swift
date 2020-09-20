@@ -32,24 +32,33 @@ class AppState : ObservableObject {
     }
     
     func start() {
-        if let code = user.accessCode{
-            print(code)
-            setAccessCode(code, numbers: settings.layers){
+        error = .Processing
+        refresh(onSucces : {
+            self.error = .NoException
+            if let code = self.user.accessCode{
+//            print(code)
+                self.setAccessCode(code, numbers: self.settings.layers){
                 self.user.hasAccess = self.error != .Unauthorized
                 
                 if !self.user.hasAccess!{
                     self.fetchQuotations()
                     self.user.accessDenied()
+                    }
                 }
+            } else{
+                self.fetchQuotations()
             }
-        } else{
-            print("fetch quotations")
-            fetchQuotations()
-        }
-        
-        if settings.numberOfTheDay != Chapter.numberOfTheDay{
-            fetchNumberOfTheDay()
-        }
+            
+            if self.settings.numberOfTheDay != Chapter.numberOfTheDay{
+                self.fetchNumberOfTheDay()
+            }
+        }, onError: { error in
+            self.error = error
+            self.fetchQuotations()
+            if error == .Unauthorized{
+                self.user.logout()
+            }
+        })
     }
     
     func read(){
@@ -240,24 +249,18 @@ class AppState : ObservableObject {
             print("register")
             print($0)},
               receiveValue:{
+                self.error = $0.error
                 if let receivedUser = $0.user{
                     self.processUser(receivedUser)
                     onSucces()
                     print(receivedUser)
                 }
-                self.error = $0.error
                 print($0.error)
                 
         })
     }
     
-    func loginWithCode(code: String, onError: @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
-        var request = URLRequest(url: AppState.codeUrl)
-        request.httpMethod = "PUT"
-        request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
-        
-        request.httpBody = AppState.encoder.optionalEncode(TokenRequest(token: code))
-        
+    fileprivate func requestAuthentication(_ request: URLRequest, _ onSucces: @escaping () -> Void, _ onError: @escaping  (ErrorType) -> Void) {
         cancelableLogin = session
             .dataTaskPublisher(for: request)
             .map{ response -> (error: ErrorType,user: User?) in
@@ -273,25 +276,35 @@ class AppState : ObservableObject {
                     return(error: .UnparsableResponse, nil)
                 }
                 
-        }
-        .eraseToAnyPublisher()
-        .receive(on: RunLoop.main)
-        .sink(receiveCompletion: {
-            print("register")
-            print($0)},
-              receiveValue:{
-                if $0.error == .NoException{
-                    if let receivedUser = $0.user{
-                        self.processUser(receivedUser)
-                        onSucces()
-                        print(receivedUser)
-                    }else{
-                        onError(.UnparsableResponse)
+            }
+            .eraseToAnyPublisher()
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: {
+                    print("register")
+                    print($0)},
+                  receiveValue:{
+                    if $0.error == .NoException{
+                        if let receivedUser = $0.user{
+                            self.processUser(receivedUser)
+                            onSucces()
+                            print(receivedUser)
+                        }else{
+                            onError(.UnparsableResponse)
+                        }
                     }
-                }
-                print($0.error)
-                onError($0.error)
-        })
+                    print($0.error)
+                    onError($0.error)
+                  })
+    }
+    
+    func loginWithCode(code: String, onError: @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
+        var request = URLRequest(url: AppState.codeUrl)
+        request.httpMethod = "PUT"
+        request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
+        
+        request.httpBody = AppState.encoder.optionalEncode(TokenRequest(token: code))
+        
+        requestAuthentication(request, onSucces, onError)
         
     }
     
@@ -317,6 +330,21 @@ class AppState : ObservableObject {
                 Credentials(username: username, password: password))
         
         requestAuthentication(request, onSucces)
+    }
+    
+    func refresh( onSucces: @escaping ()->Void, onError: @escaping (_ : ErrorType)->Void ) {
+        if let token = user.refreshToken{
+            var request = URLRequest(url: AppState.refreshUrl)
+            request.httpMethod = "PUT"
+            request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
+            
+            request.httpBody = AppState.encoder.optionalEncode(
+                    TokenRequest(token: token))
+            
+            requestAuthentication(request, onSucces, onError)
+        } else{
+            onError(.UnparsableResponse)
+        }
     }
     
     fileprivate func voidRequest(_ request: URLRequest, _ onSucces: @escaping () -> Void, _ onError: @escaping (ErrorType) -> Void) {
@@ -540,6 +568,7 @@ extension AppState{
     static let forgetLink = serverLink +  "pub/forget/"
     static let codeLink = "pub/code"
     static let changePasswordLink = "usr/password"
+    static let refreshLink = "pub/refresh"
     
     static let quotationsurl = URL(string: serverLink + quotationsLink)!
     static let readsurl = URL(string: serverLink + readLink)!
@@ -549,4 +578,5 @@ extension AppState{
     static let numbersOfTheDayUrl = URL(string: serverLink + numbersOfTheDayLink)!
     static let codeUrl = URL(string: serverLink +  codeLink)!
     static let changePasswordUrl = URL(string: serverLink + changePasswordLink)!
+    static let refreshUrl = URL(string: serverLink + refreshLink)!
 }

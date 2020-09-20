@@ -50,6 +50,19 @@ class User : Codable {
         User.save(self)
     }
     
+    func logout(){
+        username = nil
+        if isReader{
+            accessCode = nil
+        }
+        roles = nil
+        emailStatus = nil
+        token = nil
+        refreshToken = nil
+        hasAccess = accessCode != nil
+        save()
+    }
+    
     func accessGranted(with accessCode: String) {
         self.accessCode = accessCode
         self.hasAccess = true
@@ -81,9 +94,6 @@ extension User{
     
        static func save(_ user: User){
         do{
-//            try KeyChainStore.deleteSecret(for: readerUsername)
-//            try KeyChainStore.addSecret(for: readerUsername, with: user.accessCode)
-            
             try KeyChainStore.saveData(AppState.encoder.optionalEncode(user) )
         }catch{
             print(error)
