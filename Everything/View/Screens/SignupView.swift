@@ -18,6 +18,8 @@ struct SignupView: View {
     
     @State private var formOffset: CGFloat = 0
     
+    @ObservedObject private var keyboard = KeyboardResponder()
+    
     var onSuccess : () -> Void
     
     var disabled : Bool{
@@ -76,7 +78,11 @@ struct SignupView: View {
                   }
               }
             
-       }.padding().offset(y: self.formOffset)
+       }.padding()
+       .padding(.bottom, -keyboard.currentHeight)
+       .edgesIgnoringSafeArea(.bottom)
+       .animation(.easeOut(duration: 0.16))
+       .offset(y: self.formOffset)
     }
 }
 

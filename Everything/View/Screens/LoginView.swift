@@ -17,6 +17,7 @@ struct LoginView: View {
     @State private var formOffset: CGFloat = 0
     @State private var presentPasswordRecoverySheet = false
     @State private var emailedCodeSheet = false
+    @ObservedObject private var keyboard = KeyboardResponder()
 
     var onSuccess : () -> Void
     
@@ -75,7 +76,11 @@ struct LoginView: View {
                 RecoverPasswordView(email: self.email, show: self.$presentPasswordRecoverySheet)
               }
             
-        }.padding().offset(y: self.formOffset)
+        }.padding()
+        .padding(.bottom, -keyboard.currentHeight)
+        .edgesIgnoringSafeArea(.bottom)
+        .animation(.easeOut(duration: 0.16))
+        .offset(y: self.formOffset)
     }
 }
 

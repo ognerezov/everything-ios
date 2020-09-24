@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C20A600E251D0B5800B1E754 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20A600D251D0B5800B1E754 /* StoreKit.framework */; };
+		C20A6012251D15F600B1E754 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20A6011251D15F600B1E754 /* KeyboardResponder.swift */; };
 		C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FC24CDF7A300062106 /* RecordViewer.swift */; };
 		C2259ED324FB823800330983 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2259ED224FB823800330983 /* UIApplication.swift */; };
 		C2259ED524FBAA8100330983 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2259ED424FBAA8100330983 /* Book.swift */; };
@@ -78,6 +80,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C20A600D251D0B5800B1E754 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C20A6011251D15F600B1E754 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		C21145FC24CDF7A300062106 /* RecordViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewer.swift; sourceTree = "<group>"; };
 		C2259ED224FB823800330983 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		C2259ED424FBAA8100330983 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2DC9E572517D2860070E3A8 /* Reachability in Frameworks */,
+				C20A600E251D0B5800B1E754 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +180,14 @@
 				C2BC12AB24F59E5500535C5C /* ImageButton.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		C20A600C251D0B5800B1E754 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C20A600D251D0B5800B1E754 /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C2259EDB24FBE17100330983 /* EverythingTests */ = {
@@ -268,6 +281,7 @@
 				C2C6410124CC6799000D3716 /* Everything */,
 				C2259EDB24FBE17100330983 /* EverythingTests */,
 				C2C6410024CC6799000D3716 /* Products */,
+				C20A600C251D0B5800B1E754 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -381,6 +395,7 @@
 				C2CC4F0D24E6A3130078A045 /* UIKitTools.swift */,
 				C2CC4F0F24E6A66C0078A045 /* TextListener.swift */,
 				C2674F2C24E858E200D2AE70 /* TextModifficators.swift */,
+				C20A6011251D15F600B1E754 /* KeyboardResponder.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -559,6 +574,7 @@
 				C227AEBD24D43DE800CD9190 /* ProxyView.swift in Sources */,
 				C2BC12B324FAA03D00535C5C /* FlipEffect.swift in Sources */,
 				C2674F4324ED1E7100D2AE70 /* JSONEncoder.swift in Sources */,
+				C20A6012251D15F600B1E754 /* KeyboardResponder.swift in Sources */,
 				C2F6963A24CDC27200827CFE /* LogoutScreen.swift in Sources */,
 				C29AABA124D5A11F00ACCCF9 /* InifnityBar.swift in Sources */,
 				C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */,
