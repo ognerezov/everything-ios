@@ -40,6 +40,7 @@ struct BookView: View {
         } else{
             VStack{
                 Spacer()
+                Text("Загружаю числа")
                 InifnityBar(value: 0)
                     .frame(maxHeight: 20)
                 Spacer()
@@ -82,7 +83,6 @@ struct BookView: View {
                     }
                 }
                 Button(action: {self.showTools = true}) {
-                    //systemName:"circle.grid.2x2"
                     Image("icon123")
                 }
 

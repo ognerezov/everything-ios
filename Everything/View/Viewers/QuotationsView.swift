@@ -17,6 +17,7 @@ struct QuotationsView: View {
         if state.quotations.count > 0 {
             if state.error == .Processing {
                 Spacer()
+                Text("Загружаю цитаты")
                 InifnityBar(value: 0)
                     .frame(maxHeight: 20)
                 Spacer()

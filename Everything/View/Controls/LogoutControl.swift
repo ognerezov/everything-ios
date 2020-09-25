@@ -18,6 +18,7 @@ struct LogoutControl: View {
     @State private var password = ""
     @State private var confirmedPassword = ""
     var user : User?
+    var storeObserver : StoreObserver
     let textListener = TextListener()
     
     var body: some View {
@@ -29,6 +30,7 @@ struct LogoutControl: View {
         
         return HStack{
             if isLoggedIn{
+                if (storeObserver.productAvailable){
                 Button(action: {
                     self.showRegistration = true
                 }){
@@ -36,15 +38,20 @@ struct LogoutControl: View {
                         RoundedRectangle(cornerRadius: 6)
                             .fill(Color.contrastColor)
                         .frame(width: 167, height: 52)
-
-                        Text("Постоянный доступ")
-                        .font(.custom("Roboto Black", size: 15))
-                            .foregroundColor(Color.main)
-                        .tracking(0.52)
-                        .multilineTextAlignment(.center)
+                        HStack{
+                            Image(systemName: "cart")
+                            Text("Постоянный доступ")
+                            .font(.custom("Roboto Black", size: 15))
+                                .foregroundColor(Color.main)
+                            .tracking(0.52)
+                            .multilineTextAlignment(.center)
+                        }
                     }
                 }.sheet(isPresented: $showRegistration){
                     self.signUp
+                }
+                } else{
+                    EmptyView()
                 }
                 
             } else{
@@ -139,8 +146,6 @@ struct LogoutControl: View {
         UIKitTools.showAlert(alert: alert)
     }
     
-
-
 }
 
 //MARK: static
@@ -155,8 +160,8 @@ extension LogoutControl{
 extension LogoutControl{
     static var instance : LogoutControl?
     
-    static func get(for user: User?) -> LogoutControl{
-        instance = LogoutControl(user: user)
+    static func get(for state: AppState) -> LogoutControl{
+        instance = LogoutControl(user: state.user, storeObserver: state.storeObserver)
         return instance!
     }
     
@@ -179,9 +184,9 @@ extension LogoutControl{
 struct LogoutControl_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            LogoutControl()
+            LogoutControl(user: nil, storeObserver: StoreObserver())
                         .environment(\.colorScheme, .light)
-                LogoutControl()
+                LogoutControl(user: nil, storeObserver: StoreObserver())
                         .environment(\.colorScheme, .dark)
         }
     }

@@ -23,6 +23,8 @@ class AppState : ObservableObject {
     @Published var error : ErrorType = .NoException
     @Published var chapterOfTheDay : Chapter?
     @Published var hasInternetConnection = true
+    @Published var storeObserver = StoreObserver()
+    
     
     private var reachability : Reachability?
     private var started = false
@@ -42,7 +44,6 @@ class AppState : ObservableObject {
         user = User.user
         settings = Settings.setting
         monitorConnection()
-        start()
         AppState.state = self
     }
     
@@ -57,14 +58,15 @@ class AppState : ObservableObject {
             }
             
             if reachability.connection == .wifi {
-                print("Reachable via WiFi")
+                print("Reachable via WiFi \(self.error)")
             } else {
                 print("Reachable via Cellular")
             }
         }
         reachability!.whenUnreachable = { _ in
-            print("Not reachable")
+            print("Not reachable \(self.error)")
             self.hasInternetConnection = false
+            
         }
 
         do {
@@ -80,7 +82,7 @@ class AppState : ObservableObject {
             self.started = true
             self.error = .NoException
             if let code = self.user.accessCode{
-//            print(code)
+                print(code)
                 self.setAccessCode(code, numbers: self.settings.layers){
                 self.user.hasAccess = self.error != .Unauthorized
                 
@@ -99,9 +101,13 @@ class AppState : ObservableObject {
         }, onError: { error in
             self.started = true
             self.error = error
-            self.fetchQuotations()
             if error == .Unauthorized{
                 self.user.logout()
+            }
+            self.error = .NoException
+            self.fetchQuotations()
+            if self.settings.numberOfTheDay != Chapter.numberOfTheDay{
+                self.fetchNumberOfTheDay()
             }
         })
     }
@@ -153,6 +159,7 @@ class AppState : ObservableObject {
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: {print($0)},
                   receiveValue:{
+                    print("got quotations \($0)")
                     self.error = .NoException
                     self.quotations = $0
             })
@@ -401,7 +408,7 @@ class AppState : ObservableObject {
             
             requestAuthentication(request, onSucces, onError)
         } else{
-            onError(.UnparsableResponse)
+            onError(.Unauthorized)
         }
     }
     

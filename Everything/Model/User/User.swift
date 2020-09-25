@@ -52,14 +52,12 @@ class User : Codable {
     
     func logout(){
         username = nil
-        if isReader{
-            accessCode = nil
-        }
+        accessCode = nil
         roles = nil
         emailStatus = nil
         token = nil
         refreshToken = nil
-        hasAccess = accessCode != nil
+        hasAccess = nil
         save()
     }
     

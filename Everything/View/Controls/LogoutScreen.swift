@@ -19,7 +19,7 @@ struct LogoutScreen: View {
                 NumberOfTheDayView(chapter: self.state.chapterOfTheDay!, state: self.state)
             }
             Spacer()
-            LogoutControl.get(for : self.state.user)
+            LogoutControl.get(for : self.state)
         }
     }
 }

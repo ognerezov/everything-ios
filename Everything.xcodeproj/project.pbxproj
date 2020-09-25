@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C20A600E251D0B5800B1E754 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20A600D251D0B5800B1E754 /* StoreKit.framework */; };
 		C20A6012251D15F600B1E754 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20A6011251D15F600B1E754 /* KeyboardResponder.swift */; };
+		C20A6017251D35AA00B1E754 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20A6016251D35AA00B1E754 /* StoreObserver.swift */; };
 		C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FC24CDF7A300062106 /* RecordViewer.swift */; };
 		C2259ED324FB823800330983 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2259ED224FB823800330983 /* UIApplication.swift */; };
 		C2259ED524FBAA8100330983 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2259ED424FBAA8100330983 /* Book.swift */; };
@@ -82,6 +83,7 @@
 /* Begin PBXFileReference section */
 		C20A600D251D0B5800B1E754 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C20A6011251D15F600B1E754 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		C20A6016251D35AA00B1E754 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
 		C21145FC24CDF7A300062106 /* RecordViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewer.swift; sourceTree = "<group>"; };
 		C2259ED224FB823800330983 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		C2259ED424FBAA8100330983 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -188,6 +190,14 @@
 				C20A600D251D0B5800B1E754 /* StoreKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C20A6015251D358E00B1E754 /* Purchases */ = {
+			isa = PBXGroup;
+			children = (
+				C20A6016251D35AA00B1E754 /* StoreObserver.swift */,
+			);
+			path = Purchases;
 			sourceTree = "<group>";
 		};
 		C2259EDB24FBE17100330983 /* EverythingTests */ = {
@@ -352,6 +362,7 @@
 		C2C6411824CC684A000D3716 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				C20A6015251D358E00B1E754 /* Purchases */,
 				C2674F3B24ED01FD00D2AE70 /* Extensions */,
 				C278145224E818C20093FB01 /* View */,
 			);
@@ -577,6 +588,7 @@
 				C20A6012251D15F600B1E754 /* KeyboardResponder.swift in Sources */,
 				C2F6963A24CDC27200827CFE /* LogoutScreen.swift in Sources */,
 				C29AABA124D5A11F00ACCCF9 /* InifnityBar.swift in Sources */,
+				C20A6017251D35AA00B1E754 /* StoreObserver.swift in Sources */,
 				C2C6410324CC6799000D3716 /* AppDelegate.swift in Sources */,
 				C2C6411D24CC6CC1000D3716 /* RecordType.swift in Sources */,
 				C278144F24E6C8E60093FB01 /* TextCosumer.swift in Sources */,
