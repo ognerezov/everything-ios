@@ -61,6 +61,7 @@ struct BookView: View {
                     HStack{
                         Image(systemName:"chevron.left")
                         Text(chapter.number > 1  ? String(chapter.number - 1) : "")
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     }
                 }
                 .disabled(chapter.number == 1)
@@ -71,6 +72,7 @@ struct BookView: View {
                 .padding(.horizontal)
                 Spacer()
                 Text(String(chapter.number))
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 Spacer()
                 Button(action: {AppState.increaseFont()}) {
                     Image(systemName:"textformat.size")
@@ -79,6 +81,7 @@ struct BookView: View {
                 Button(action: next) {
                     HStack{
                         Text(String(chapter.number + 1))
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         Image(systemName:"chevron.right")
                     }
                 }
@@ -86,7 +89,7 @@ struct BookView: View {
                     Image("icon123")
                 }
 
-            }.padding()
+            }.padding(.horizontal)
         }
     }
     

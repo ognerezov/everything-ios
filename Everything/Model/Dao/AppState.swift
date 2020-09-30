@@ -23,7 +23,7 @@ class AppState : ObservableObject {
     @Published var error : ErrorType = .NoException
     @Published var chapterOfTheDay : Chapter?
     @Published var hasInternetConnection = true
-    @Published var storeObserver = StoreObserver()
+    @Published var storeObserver: StoreObserver
     
     
     private var reachability : Reachability?
@@ -43,8 +43,10 @@ class AppState : ObservableObject {
     init() {
         user = User.user
         settings = Settings.setting
+        storeObserver = StoreObserver()
         monitorConnection()
         AppState.state = self
+        storeObserver.owner = self
     }
     
     func monitorConnection(){
@@ -76,40 +78,57 @@ class AppState : ObservableObject {
         }
     }
     
-    func start() {
-        error = .Processing
-        refresh(onSucces : {
-            self.started = true
-            self.error = .NoException
-            if let code = self.user.accessCode{
-                print(code)
-                self.setAccessCode(code, numbers: self.settings.layers){
-                self.user.hasAccess = self.error != .Unauthorized
-                
-                if !self.user.hasAccess!{
-                    self.fetchQuotations()
-                    self.user.accessDenied()
-                    }
-                }
-            } else{
+    fileprivate func getNumberOfTheDay() {
+        if self.settings.numberOfTheDay != Chapter.numberOfTheDay{
+            self.fetchNumberOfTheDay()
+        }
+    }
+    
+    fileprivate func readWithCode(_ code: String) {
+        self.setAccessCode(code, numbers: self.settings.layers){
+            if !self.user.canRead{
                 self.fetchQuotations()
+                self.user.accessDenied()
             }
-            
-            if self.settings.numberOfTheDay != Chapter.numberOfTheDay{
-                self.fetchNumberOfTheDay()
-            }
-        }, onError: { error in
-            self.started = true
-            self.error = error
-            if error == .Unauthorized{
-                self.user.logout()
-            }
-            self.error = .NoException
+        }
+    }
+    
+    func startReading() {
+        self.started = true
+        self.error = .NoException
+        if let code = self.user.accessCode{
+            self.readWithCode(code)
+        } else{
             self.fetchQuotations()
-            if self.settings.numberOfTheDay != Chapter.numberOfTheDay{
-                self.fetchNumberOfTheDay()
+        }
+    }
+    
+    func start() {
+        if user.isReader {
+            error = .Processing
+            refresh(onSucces : {
+                self.startReading()
+                
+                self.getNumberOfTheDay()
+            }, onError: { error in
+                self.started = true
+                self.error = error
+                if error == .Unauthorized{
+                    self.user.logout()
+                }
+                self.error = .NoException
+                
+                self.fetchQuotations()
+                self.getNumberOfTheDay()
+            })
+        } else {
+            if user.canRead {
+                readWithCode(user.accessCode!)
+            } else {
+                fetchQuotations()
+                getNumberOfTheDay()
             }
-        })
+        }
     }
     
     func read(){
@@ -233,6 +252,9 @@ class AppState : ObservableObject {
                         self.chapters = Array(Set(self.chapters))
                 }
                 self.error = $0.error
+                if self.error == .Unauthorized{
+                    self.user.accessDenied()
+                }
                 onSucces()
                 print($0.error)
                 print($0.chapters)
@@ -412,6 +434,23 @@ class AppState : ObservableObject {
         }
     }
     
+    func verifyReceipt(receipt: String, onSucces: @escaping ()->Void, onError: @escaping (_ : ErrorType)->Void ){
+        if let token = user.token{
+            var request = URLRequest(url: AppState.verifyReceiptUrl)
+            request.httpMethod = "POST"
+            request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
+            request.addValue(token, forHTTPHeaderField: AppState.authorization)
+            request.httpBody = AppState.encoder.optionalEncode(
+                    TokenRequest(token: receipt))
+            
+            error = .Processing
+            requestAuthentication(request, onSucces, onError)
+        } else{
+            error = .Unauthorized
+        }
+    }
+    
+    
     fileprivate func voidRequest(_ request: URLRequest, _ onSucces: @escaping () -> Void, _ onError: @escaping (ErrorType) -> Void) {
         cancelableLogin = session
             .dataTaskPublisher(for: request)
@@ -542,7 +581,7 @@ extension AppState{
             appState.allertAction = allertAction
             appState.register(username: username, password: password){
                 onSucces()
-                appState.start()
+                appState.startReading()
             }
         }
     }
@@ -552,7 +591,7 @@ extension AppState{
             appState.allertAction = allertAction
             appState.login(username: username, password: password){
                 onSucces()
-                appState.start()
+                appState.startReading()
             }
         }
     }
@@ -571,6 +610,19 @@ extension AppState{
         if let appState = state{
                 appState.settings.cutTop()
             }
+    }
+    
+    static func collapse(){
+        if let appState = state{
+            appState.settings.collapse()
+        }
+    }
+    
+    static func canCollapse() -> Bool{
+        if let appState = state{
+            return appState.settings.canCollapse
+        }
+        return false
     }
     
     static func increaseFont(){
@@ -600,6 +652,22 @@ extension AppState{
     static func loginWithCode(code: String, onError : @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
         if let appState = state{
             appState.loginWithCode(code: code, onError: onError, onSucces: onSucces)
+        }
+    }
+    
+    static func verifyReceipt(receipt: String, onDone: @escaping ()->Void){
+        if let appState = state{
+            appState.verifyReceipt(receipt: receipt,
+               onSucces: {
+                print("verification success, token: \(appState.user.accessCode!)")
+                appState.startReading()
+                onDone()
+            })
+            { error in
+                appState.error = error
+                print("error \(error)")
+                onDone()
+            }
         }
     }
     
@@ -634,6 +702,7 @@ extension AppState{
     static let codeLink = "pub/code"
     static let changePasswordLink = "usr/password"
     static let refreshLink = "pub/refresh"
+    static let verifyReceiptLink = "usr/apple"
     
     static let quotationsurl = URL(string: serverLink + quotationsLink)!
     static let readsurl = URL(string: serverLink + readLink)!
@@ -644,4 +713,5 @@ extension AppState{
     static let codeUrl = URL(string: serverLink +  codeLink)!
     static let changePasswordUrl = URL(string: serverLink + changePasswordLink)!
     static let refreshUrl = URL(string: serverLink + refreshLink)!
+    static let verifyReceiptUrl = URL(string: serverLink + verifyReceiptLink)!
 }

@@ -32,7 +32,7 @@ struct LogoutControl: View {
             if isLoggedIn{
                 if (storeObserver.productAvailable){
                 Button(action: {
-                    self.showRegistration = true
+                    storeObserver.purchase()
                 }){
                     ZStack{
                         RoundedRectangle(cornerRadius: 6)
@@ -40,16 +40,18 @@ struct LogoutControl: View {
                         .frame(width: 167, height: 52)
                         HStack{
                             Image(systemName: "cart")
-                            Text("Постоянный доступ")
-                            .font(.custom("Roboto Black", size: 15))
+                                .foregroundColor(Color.main)
+                            Text("Доступ")
+                            .font(.custom("Roboto Black", size: 14))
                                 .foregroundColor(Color.main)
                             .tracking(0.52)
                             .multilineTextAlignment(.center)
                         }
                     }
-                }.sheet(isPresented: $showRegistration){
-                    self.signUp
                 }
+//                .sheet(isPresented: $showRegistration){
+//                    self.signUp
+//                }
                 } else{
                     EmptyView()
                 }
@@ -64,11 +66,15 @@ struct LogoutControl: View {
                             .fill(Color.contrastColor)
                         .frame(width: 167, height: 52)
 
-                        Text("Войти")
-                        .font(.custom("Roboto Black", size: 15))
-                            .foregroundColor(Color.main)
-                        .tracking(0.52)
-                        .multilineTextAlignment(.center)
+                        HStack{
+                            Image(systemName: "person")
+                                .foregroundColor(Color.main)
+                            Text("Войти")
+                            .font(.custom("Roboto Black", size: 14))
+                                .foregroundColor(Color.main)
+                            .tracking(0.52)
+                            .multilineTextAlignment(.center)
+                        }
                     }
                 }.sheet(isPresented: $showRegistration){
                     self.signUp
@@ -82,12 +88,15 @@ struct LogoutControl: View {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color.contrastColor)
                     .frame(width: 167, height: 52)
-
-                    Text("Читать")
-                    .font(.custom("Roboto Black", size: 15))
-                        .foregroundColor(Color.main)
-                    .tracking(0.52)
-                    .multilineTextAlignment(.center)
+                    HStack{
+                        Image(systemName: "key")
+                            .foregroundColor(Color.main)
+                        Text("Читать")
+                        .font(.custom("Roboto Black", size: 14))
+                            .foregroundColor(Color.main)
+                        .tracking(0.52)
+                        .multilineTextAlignment(.center)
+                    }
                 }
             }
             .sheet(isPresented: $showLogin){

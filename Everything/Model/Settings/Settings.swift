@@ -22,6 +22,10 @@ struct Settings{
         layers[selected ?? layers.count - 1]
     }
     
+    var canCollapse : Bool{
+        layers.count > 1
+    }
+    
     fileprivate func getChapterOfNumber(_ chapters: [Chapter], _ number: Int) -> Chapter {
         if let result = chapters.first(where: {chapter in return chapter.number == number}){
             return result
@@ -98,6 +102,12 @@ struct Settings{
         clone()
         save()
         return result
+    }
+    
+    mutating func collapse(){
+        layers = [layers[0]]
+        clone()
+        save()
     }
     
     mutating func addTop(number : Int) -> Bool{

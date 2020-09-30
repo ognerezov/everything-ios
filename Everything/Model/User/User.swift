@@ -28,6 +28,7 @@ class User : Codable {
     func readersAccess(){
         if isReader{
             accessCode = token
+            hasAccess = true
         }
     }
    
@@ -51,13 +52,15 @@ class User : Codable {
     }
     
     func logout(){
+        if accessCode == token{
+            accessCode = nil
+        }
         username = nil
-        accessCode = nil
         roles = nil
         emailStatus = nil
         token = nil
         refreshToken = nil
-        hasAccess = nil
+        hasAccess = accessCode != nil
         save()
     }
     
@@ -103,6 +106,7 @@ extension User{
             do{
                 if let data = try KeyChainStore.getData(){
                     try user = AppState.decoder.decode(User.self, from: data )
+                    user.readersAccess()
                 }else{
                     print("no user data in keychain")
                 }

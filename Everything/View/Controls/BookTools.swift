@@ -16,14 +16,25 @@ struct BookTools: View {
             ImageButton(
                 text : "Читать сначала",
                 icon: "backward.end.fill"){
-                AppState.set(to: 1)
                 self.show = false
+                AppState.set(to: 1)
+            }
+            if AppState.canCollapse() {
+                ImageButton(
+                    text : "Закрыть слои",
+                    icon: "doc.on.doc.fill"){
+                    self.show = false
+                    AppState.collapse()
+                }
             }
             ImageButton(
                 text : "Числа дня",
                 icon: "calendar"){
+
                 AppState.getNumbersOfTheDay()
-                self.show = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.show = false
+                }
             }
             LCTextfield(value: self.$searchString,
                         placeholder: "Введите число или текст",
