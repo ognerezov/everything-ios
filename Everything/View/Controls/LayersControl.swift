@@ -14,6 +14,7 @@ struct LayersControl: View {
     var layers : [Int]
     var vPadding = 5
     var fontSize = 12
+    var optional = false
     var onClick : (_ : Int) -> Void
 
     
@@ -51,15 +52,23 @@ struct LayersControl: View {
             EmptyView()
         } else{
             ZStack{
-                RoundedRectangle(cornerRadius: 0)
-                    .fill(Color.accentDark)
+                if optional {
+                    EmptyView()
+                } else {
+                    RoundedRectangle(cornerRadius: 0)
+                        .fill(Color.accentDark)
+                }
+
                 VStack{
                 ForEach(grid, id: \.self){
                     row in
                     HStack{
                         ForEach(row, id: \.self){
                             element in
-                            ChapterSelector (number: element, isSelected: element == self.selectedItem , onClick: self.onClick, fontSize: self.fontSize)
+                            ChapterSelector (number: element,
+                                             isSelected: self.optional ? false : element == self.selectedItem ,
+                                             onClick: self.onClick,
+                                             fontSize: self.fontSize)
                         }
                     }.padding(.horizontal)
                 }.padding(.bottom, CGFloat(vPadding))

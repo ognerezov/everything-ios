@@ -21,51 +21,8 @@ class LabelFactory {
                       fontSize : Int,  interactable : Bool = true) -> UILabel{
         let label = RecordLabel()
         label.set(content: content, width: width, isDark: isDark, type: type, fontSize: fontSize, interactable: interactable)
-//        var clickChars : [Int:Int] = [:]
-//        let text : NSMutableAttributedString = content.reduce(NSMutableAttributedString(), {
-//                text , span in
-//            let start = text.length
-//            text.append(NSAttributedString(string: span.text))
-//            let end = text.length
-//            let range = NSMakeRange(start,end - start)
-//
-//            if(span.number && end > start){
-//                for i in start - 1 ... end{
-//                    clickChars [i] = Int(span.text)
-//                }
-//                text.addAttribute(.font, value: UIFont.systemFont(ofSize: CGFloat(fontSize) + type.textModifficators.rawValue ,weight: type.textModifficators.numberFontWeight), range: range)
-//            } else{
-//                text.addAttribute(.font, value: UIFont.systemFont(ofSize: CGFloat(fontSize) + type.textModifficators.rawValue,weight: type.textModifficators.fontWeight), range: range)
-//            }
-//            text.addAttribute(.foregroundColor, value: isDark ? type.textColorDark: type.textColorLight, range: range)
-//            return text
-//        })
-//
-//        let label = RecordLabel()
-//        label.lineBreakMode = .byWordWrapping
-//        label.numberOfLines = 0
-//        label.preferredMaxLayoutWidth = width
-//
-//        label.attributedText = text
-//        if interactable {
-//            label.isUserInteractionEnabled = true
-//            label.listener = NumberTapDelegate(charMap: clickChars)
-//            label.addGestureRecognizer(UITapGestureRecognizer(target:label, action: #selector(RecordLabel.tapLabel(gesture:))))
-//        }
         return label
     }
 }
-
-/*
-     let label = UITextView()
-     label.isEditable = false
-     label.isSelectable = true
-     var frame = label.frame;
-     frame.size.height = label.contentSize.height;
-     label.frame = frame;
- 
- text.addAttribute(.backgroundColor, value: isDark ? UIColor.systemBlue : UIColor.systemTeal, range: range1)
- text.addAttribute( .underlineStyle, value: NSUnderlineStyle.thick.rawValue, range: range1)
- */
 
 

@@ -15,7 +15,7 @@ class RecordLabel: UILabel {
     var type: RecordType = .regular
     var fontSize : Int = 16
     var interactable : Bool = true
-    
+    var numbers : Set<Int> = []
     
     var listener : CharacterListener?
     
@@ -48,6 +48,7 @@ class RecordLabel: UILabel {
             if(span.number && end > start){
                 for i in start - 1 ... end{
                     clickChars [i] = Int(span.text)
+                    numbers.insert(clickChars[i]!)
                 }
                 text.addAttribute(.font, value: UIFont.systemFont(ofSize: CGFloat(fontSize) + type.textModifficators.rawValue ,weight: type.textModifficators.numberFontWeight), range: range)
             } else{
@@ -87,34 +88,35 @@ class RecordLabel: UILabel {
     
     @objc func tapLabel(gesture: UITapGestureRecognizer) {
         print("taped text" + text!)
+        AppState.textWithNumbers(taped: Array(numbers))
         // Create instances of NSLayoutManager, NSTextContainer and NSTextStorage
-        let layoutManager = NSLayoutManager()
-        let textContainer = NSTextContainer(size: CGSize.zero)
-        let textStorage = NSTextStorage(attributedString: attributedText!)
-
-        // Configure layoutManager and textStorage
-        layoutManager.addTextContainer(textContainer)
-        textStorage.addLayoutManager(layoutManager)
-
-        // Configure textContainer
-        textContainer.lineFragmentPadding = 0.0
-        textContainer.lineBreakMode = lineBreakMode
-        textContainer.maximumNumberOfLines = numberOfLines
-        let labelSize = bounds.size
-        textContainer.size = labelSize
-
-        // Find the tapped character location and compare it to the specified range
-        let locationOfTouchInLabel = gesture.location(in: self)
-        let textBoundingBox = layoutManager.usedRect(for: textContainer)
-
-        let textContainerOffset = CGPoint(x: (labelSize.width - textBoundingBox.size.width) * 0.5 - textBoundingBox.origin.x, y: (labelSize.height - textBoundingBox.size.height) * 0.5 - textBoundingBox.origin.y)
-
-        let locationOfTouchInTextContainer = CGPoint(x: locationOfTouchInLabel.x - textContainerOffset.x, y: locationOfTouchInLabel.y - textContainerOffset.y)
-        let indexOfCharacter = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
-        
-          print("taped text at position: " + String(indexOfCharacter))
-        if let delegate = listener{
-            delegate.tap(at: indexOfCharacter)
-        }
+//        let layoutManager = NSLayoutManager()
+//        let textContainer = NSTextContainer(size: CGSize.zero)
+//        let textStorage = NSTextStorage(attributedString: attributedText!)
+//
+//        // Configure layoutManager and textStorage
+//        layoutManager.addTextContainer(textContainer)
+//        textStorage.addLayoutManager(layoutManager)
+//
+//        // Configure textContainer
+//        textContainer.lineFragmentPadding = 0.0
+//        textContainer.lineBreakMode = lineBreakMode
+//        textContainer.maximumNumberOfLines = numberOfLines
+//        let labelSize = bounds.size
+//        textContainer.size = labelSize
+//
+//        // Find the tapped character location and compare it to the specified range
+//        let locationOfTouchInLabel = gesture.location(in: self)
+//        let textBoundingBox = layoutManager.usedRect(for: textContainer)
+//
+//        let textContainerOffset = CGPoint(x: (labelSize.width - textBoundingBox.size.width) * 0.5 - textBoundingBox.origin.x, y: (labelSize.height - textBoundingBox.size.height) * 0.5 - textBoundingBox.origin.y)
+//
+//        let locationOfTouchInTextContainer = CGPoint(x: locationOfTouchInLabel.x - textContainerOffset.x, y: locationOfTouchInLabel.y - textContainerOffset.y)
+//        let indexOfCharacter = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+//        
+//          print("taped text at position: " + String(indexOfCharacter))
+//        if let delegate = listener{
+//            delegate.tap(at: indexOfCharacter)
+//        }
     }
 }

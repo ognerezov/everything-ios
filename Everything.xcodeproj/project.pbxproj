@@ -10,6 +10,7 @@
 		C20A600E251D0B5800B1E754 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20A600D251D0B5800B1E754 /* StoreKit.framework */; };
 		C20A6012251D15F600B1E754 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20A6011251D15F600B1E754 /* KeyboardResponder.swift */; };
 		C20A6017251D35AA00B1E754 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20A6016251D35AA00B1E754 /* StoreObserver.swift */; };
+		C20B34FB2527A99C00A83A2E /* NumberSuggestionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20B34FA2527A99C00A83A2E /* NumberSuggestionControl.swift */; };
 		C21145FD24CDF7A300062106 /* RecordViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21145FC24CDF7A300062106 /* RecordViewer.swift */; };
 		C2259ED324FB823800330983 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2259ED224FB823800330983 /* UIApplication.swift */; };
 		C2259ED524FBAA8100330983 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2259ED424FBAA8100330983 /* Book.swift */; };
@@ -84,6 +85,7 @@
 		C20A600D251D0B5800B1E754 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C20A6011251D15F600B1E754 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		C20A6016251D35AA00B1E754 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
+		C20B34FA2527A99C00A83A2E /* NumberSuggestionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberSuggestionControl.swift; sourceTree = "<group>"; };
 		C21145FC24CDF7A300062106 /* RecordViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewer.swift; sourceTree = "<group>"; };
 		C2259ED224FB823800330983 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		C2259ED424FBAA8100330983 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				C2F6963924CDC27200827CFE /* LogoutScreen.swift */,
 				C2BC12A224F2F58D00535C5C /* LayersControl.swift */,
 				C2BC12A924F59C4900535C5C /* BookTools.swift */,
+				C20B34FA2527A99C00A83A2E /* NumberSuggestionControl.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				C29AAB9A24D5665500ACCCF9 /* LoginDialog.swift in Sources */,
 				C2259ED324FB823800330983 /* UIApplication.swift in Sources */,
 				C2A2A6D124CEB67300B76E41 /* QuotationsView.swift in Sources */,
+				C20B34FB2527A99C00A83A2E /* NumberSuggestionControl.swift in Sources */,
 				C227AEC224D458C800CD9190 /* RecordLabel.swift in Sources */,
 				C2674F3A24EC50C500D2AE70 /* LCButton.swift in Sources */,
 				C227AEC024D4403900CD9190 /* LabelFactory.swift in Sources */,

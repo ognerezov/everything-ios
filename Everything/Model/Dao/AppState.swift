@@ -24,6 +24,7 @@ class AppState : ObservableObject {
     @Published var chapterOfTheDay : Chapter?
     @Published var hasInternetConnection = true
     @Published var storeObserver: StoreObserver
+    @Published var suggestedNumbers : [Int] = []
     
     
     private var reachability : Reachability?
@@ -689,6 +690,26 @@ extension AppState{
     static func changePassword(to newPassword: String, onError : @escaping (_ : ErrorType)->Void, onSucces: @escaping ()->Void){
         if let appState = state{
             appState.changePassword(to: newPassword, onError: onError, onSucces: onSucces)
+        }
+    }
+    
+    static func textWithNumbers(taped numbers: [Int]){
+
+        if let appState = state{
+            
+            let n = numbers.filter(){ number in
+                return number != appState.settings.top
+            }
+            print(n)
+            if n.count == 0{
+                return
+            }
+            if n.count == 1{
+                add(number: n[0])
+                return
+            }
+            
+            appState.suggestedNumbers = n
         }
     }
 }

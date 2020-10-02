@@ -28,15 +28,19 @@ struct BookView: View {
             VStack{
                 underChapter
             }
-            .sheet(isPresented: .constant (self.showTools || state.settings.layers.count > 1),
+            .sheet(isPresented: .constant (self.showTools || state.settings.layers.count > 1 || self.state.suggestedNumbers.count > 0),
                 onDismiss: {
-                    if !self.showTools{
+                    if self.state.suggestedNumbers.count > 0{
+                        self.state.suggestedNumbers = []
+                    } else if !self.showTools{
                         AppState.cutTop()
                     } else{
                         self.showTools = false
                     }
                 }){
-                    if self.showTools{
+                    if self.state.suggestedNumbers.count > 0{
+                        NumberSuggestionControl(state: state)
+                    } else if self.showTools{
                         BookTools(show: self.$showTools)
                     } else{
                         self.chaptersView
@@ -116,6 +120,11 @@ struct BookView: View {
                                         prev()
                                     }
                                 }))
+                .sheet(isPresented: .constant(self.state.suggestedNumbers.count > 0), onDismiss: {
+                    self.state.suggestedNumbers = []
+                }){
+                    NumberSuggestionControl(state: state)
+                }
             if layers{
                 LayersControl(layers : state.settings.layers){number in
                         AppState.add(number: number)
@@ -141,7 +150,7 @@ struct BookView: View {
     
     func prev(){
         if let currentChapter = chapter{
-            if (currentChapter.number > 0 ){
+            if (currentChapter.number > 1 ){
                 go(to: currentChapter.number - 1)
             }
         }

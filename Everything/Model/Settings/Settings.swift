@@ -137,6 +137,22 @@ struct Settings{
         save()
     }
     
+    mutating func validate (){
+        var l = layers.filter(){ $0 > 0}
+    
+        if l.count > 0 && l.count == layers.count {
+            return
+        }
+        
+        if l.count == 0 {
+            l = [1]
+        }
+        
+        layers = l
+        clone()
+        save()
+    }
+    
     func save(){
         Settings.save(self)
     }
@@ -199,9 +215,11 @@ extension Settings{
             if let s = _settings{
                 return s
             }
+            var loaded = load()
+            loaded.validate()
             
-            _settings = load()
-            return _settings!
+            _settings = loaded
+            return loaded
         }
         
         set(s){
