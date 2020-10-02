@@ -12,9 +12,14 @@ struct BookView: View {
 
     @ObservedObject var state : AppState
     @State var showTools : Bool = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     var chapter : Chapter?{
         state.chapters.count > 0 ?  state.settings.chapter(from: state.chapters) : nil
+    }
+    
+    var headerFont : Font{
+        horizontalSizeClass == .regular ? .title : .subheadline
     }
 
     @ViewBuilder
@@ -61,7 +66,7 @@ struct BookView: View {
                     HStack{
                         Image(systemName:"chevron.left")
                         Text(chapter.number > 1  ? String(chapter.number - 1) : "")
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .font(headerFont)
                     }
                 }
                 .disabled(chapter.number == 1)
@@ -72,7 +77,7 @@ struct BookView: View {
                 .padding(.horizontal)
                 Spacer()
                 Text(String(chapter.number))
-                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .font(headerFont)
                 Spacer()
                 Button(action: {AppState.increaseFont()}) {
                     Image(systemName:"textformat.size")
@@ -81,7 +86,7 @@ struct BookView: View {
                 Button(action: next) {
                     HStack{
                         Text(String(chapter.number + 1))
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .font(headerFont)
                         Image(systemName:"chevron.right")
                     }
                 }
@@ -97,6 +102,20 @@ struct BookView: View {
         VStack{
             topPanel(chapter)
             ChapterViewer(chapter: chapter, state: state)
+            .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .local)
+                                .onEnded({ value in
+                                    if abs(value.translation.height) >= abs(value.translation.width){
+                                        return
+                                    }
+                                    
+                                    if value.translation.width < 0 {
+                                        next()
+                                    }
+
+                                    if value.translation.width > 0 {
+                                        prev()
+                                    }
+                                }))
             if layers{
                 LayersControl(layers : state.settings.layers){number in
                         AppState.add(number: number)
@@ -122,7 +141,9 @@ struct BookView: View {
     
     func prev(){
         if let currentChapter = chapter{
-            go(to: currentChapter.number - 1)
+            if (currentChapter.number > 0 ){
+                go(to: currentChapter.number - 1)
+            }
         }
     }
     

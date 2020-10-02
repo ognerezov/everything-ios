@@ -275,17 +275,31 @@ class AppState : ObservableObject {
         }
     }
     
+    fileprivate func prepareNumberRequest(_ numbers: [Int]) -> BookRequest {
+        
+        chapters.append(contentsOf: numbers
+                            .filter{$0 > Chapter.max}
+                            .map{Chapter.build(from: $0)})
+        chapters = Array(Set(self.chapters))
+        
+        return BookRequest(numbers : numbers.filter{ number in
+            return number <= Chapter.max
+        })
+    }
+    
     func setAccessCode(_ accessCode: String,numbers : [Int] = [1], onSucces: @escaping ()->Void){
         var request = URLRequest(url: AppState.readsurl)
         request.httpMethod = "POST"
         request.addValue(accessCode, forHTTPHeaderField: AppState.authorization)
         request.addValue(AppState.contentTypeJson, forHTTPHeaderField: AppState.contentType)
-        let obj : BookRequest = BookRequest(numbers : numbers)
+        let obj : BookRequest = prepareNumberRequest(numbers)
         
         request.httpBody = AppState.encoder.optionalEncode(obj)
         
         requestChapters(with: request, mergeType: .both, onSucces)
     }
+    
+    
     
     fileprivate func mapChaptersToSettings() {
         self.settings.set(with: self.chapters.map({chapter in chapter.number}))
@@ -505,6 +519,7 @@ class AppState : ObservableObject {
 
 extension AppState{
     static var state : AppState?
+    
     static func refreshQuotations(){
         if let appState = state{
             appState.fetchQuotations()
