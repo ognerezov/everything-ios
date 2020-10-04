@@ -68,7 +68,8 @@ struct LayersControl: View {
                             ChapterSelector (number: element,
                                              isSelected: self.optional ? false : element == self.selectedItem ,
                                              onClick: self.onClick,
-                                             fontSize: self.fontSize)
+                                             fontSize: self.fontSize,
+                                             hasContrast : self.optional )
                         }
                     }.padding(.horizontal)
                 }.padding(.bottom, CGFloat(vPadding))

@@ -10,14 +10,20 @@ import SwiftUI
 
 struct NumberSuggestionControl: View {
     @ObservedObject var state : AppState
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    
+    var k : Int {
+        horizontalSizeClass == .regular ? 2 : 1
+    }
+    
     
     var body: some View {
         VStack{
             Text("Открыть статью об одном из этих чисел?")
                 .padding()
             LayersControl(collumns : 4, layers : state.suggestedNumbers,
-                          vPadding : 10,
-                          fontSize: 15,
+                          vPadding : 10 * k,
+                          fontSize: 15 * k,
                           optional : true){number in
                 AppState.add(number: number)
                 state.suggestedNumbers = []

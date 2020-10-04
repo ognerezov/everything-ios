@@ -45,7 +45,7 @@ class  StoreObserver: NSObject, SKProductsRequestDelegate, SKPaymentTransactionO
                     
                 case .purchased, .restored:
                     if let receipt = loadReceipt(){
-                       // print(receipt)
+                        //print(receipt)
                         AppState.verifyReceipt(receipt: receipt){
                             self.paymentQueue.finishTransaction(transaction as! SKPaymentTransaction)
                             print("purchased")
@@ -74,7 +74,7 @@ class  StoreObserver: NSObject, SKProductsRequestDelegate, SKPaymentTransactionO
 
             do {
                 let receiptData = try Data(contentsOf: appStoreReceiptURL, options: .alwaysMapped)
-                print(receiptData)
+//                print(String(decoding: receiptData, as: UTF8.self))
 
                 return receiptData.base64EncodedString(options: [])
 

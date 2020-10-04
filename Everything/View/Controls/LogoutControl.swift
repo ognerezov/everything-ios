@@ -49,9 +49,6 @@ struct LogoutControl: View {
                         }
                     }
                 }
-//                .sheet(isPresented: $showRegistration){
-//                    self.signUp
-//                }
                 } else{
                     EmptyView()
                 }
@@ -129,6 +126,7 @@ struct LogoutControl: View {
         alert.addTextField() { textField in
             textField.placeholder = "Код доступа"
             textField.delegate = self.textListener
+            textField.keyboardType = .numberPad
         }
         
         alert.addAction(UIAlertAction(title: "Ввод", style: .default) { _ in

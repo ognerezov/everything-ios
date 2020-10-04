@@ -9,10 +9,16 @@
 import SwiftUI
 
 struct ChapterSelector: View {
-        var number : Int
-        var isSelected : Bool = false
-        var onClick : (_ : Int) -> Void
-        var fontSize : Int = 12
+    var number : Int
+    var isSelected : Bool = false
+    var onClick : (_ : Int) -> Void
+    var fontSize : Int = 12
+    var hasContrast = false
+    
+    var contrast : Bool{
+        isSelected || hasContrast
+    }
+    
         
         @ViewBuilder
         var body: some View {
@@ -24,10 +30,10 @@ struct ChapterSelector: View {
                 }){
                     ZStack{
                         RoundedRectangle(cornerRadius: 6)
-                            .fill(isSelected ? Color.contrastColor : Color.main)
+                            .fill(contrast ? Color.contrastColor : Color.main)
                         Text(String(self.number))
-                            .foregroundColor(self.isSelected ? Color.main : Color.contrastColor)
-                            .fontWeight(isSelected ? .heavy : .regular)
+                            .foregroundColor(contrast ? Color.main : Color.contrastColor)
+                            .fontWeight(contrast ? .heavy : .regular)
                             .font(.custom("Roboto Black", size: CGFloat(fontSize)))
                     }
                 }

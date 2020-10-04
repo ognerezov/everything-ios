@@ -389,12 +389,15 @@ class AppState : ObservableObject {
                         if let receivedUser = $0.user{
                             self.processUser(receivedUser)
                             onSucces()
-                            print(receivedUser)
+//                            print(receivedUser.username!)
+//                            print(receivedUser.roles!)
+//                            print(receivedUser.token!)
                         }else{
                             onError(.UnparsableResponse)
                         }
                     }
                     print($0.error)
+                
                     onError($0.error)
                   })
     }
@@ -681,8 +684,10 @@ extension AppState{
             })
             { error in
                 appState.error = error
-                print("error \(error)")
-                onDone()
+                if error != .NoException{
+                    print("error \(error)")
+                    onDone()
+                }
             }
         }
     }
