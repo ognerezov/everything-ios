@@ -106,7 +106,7 @@ struct BookView: View {
         VStack{
             topPanel(chapter)
             ChapterViewer(chapter: chapter, state: state)
-            .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .local)
+            .gesture(DragGesture(minimumDistance: 10, coordinateSpace: .local)
                                 .onEnded({ value in
                                     if abs(value.translation.height) >= abs(value.translation.width){
                                         return

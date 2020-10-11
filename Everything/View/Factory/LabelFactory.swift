@@ -10,12 +10,6 @@ import Foundation
 import UIKit
 
 class LabelFactory {
-    static let numberLight = UIColor(red: 0, green: 0.1, blue: 0.5, alpha: 1)
-    static let numberDark = UIColor(red: 0.9, green: 0.9, blue: 1, alpha: 1)
-    
-    static let backLight = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-    static let backDark = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
-
 
     static func label(content : [Span], width: CGFloat, isDark: Bool, type: RecordType,
                       fontSize : Int,  interactable : Bool = true) -> UILabel{

@@ -50,9 +50,9 @@ class RecordLabel: UILabel {
                     clickChars [i] = Int(span.text)
                     numbers.insert(clickChars[i]!)
                 }
-                text.addAttribute(.font, value: UIFont.systemFont(ofSize: CGFloat(fontSize) + type.textModifficators.rawValue ,weight: type.textModifficators.numberFontWeight), range: range)
+                text.addAttribute(.font, value: getFont(isNumber: true), range: range)
             } else{
-                text.addAttribute(.font, value: UIFont.systemFont(ofSize: CGFloat(fontSize) + type.textModifficators.rawValue,weight: type.textModifficators.fontWeight), range: range)
+                text.addAttribute(.font, value: getFont(isNumber: false), range: range)
             }
             text.addAttribute(.foregroundColor, value: isDark ? type.textColorDark: type.textColorLight, range: range)
             return text
@@ -71,11 +71,21 @@ class RecordLabel: UILabel {
     }
     
 
+    func getFont(isNumber: Bool) -> UIFont{
+        let size = CGFloat(fontSize) + type.textModifficators.size
+        
+        if let fontName = type.textModifficators.fontName(for: "HelveticaNeue", isNumber: isNumber){
+            if let res = UIFont(name: fontName, size: size){
+                return res;
+            }
+        }
+        return UIFont.systemFont(ofSize: size, weight: isNumber ? type.textModifficators.numberFontWeight : type.textModifficators.fontWeight)
+    }
 
     override func drawText(in rect:CGRect) {
         guard let labelText = text else {  return super.drawText(in: rect) }
 
-        let attributedText = NSAttributedString(string: labelText, attributes: [NSAttributedString.Key.font: font!])
+        let attributedText = NSAttributedString(string: labelText, attributes: [NSAttributedString.Key.font:  font!])
         var newRect = rect
         newRect.size.height = attributedText.boundingRect(with: rect.size, options: .usesLineFragmentOrigin, context: nil).size.height
 

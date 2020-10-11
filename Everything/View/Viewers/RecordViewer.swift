@@ -17,7 +17,14 @@ struct RecordViewer: View  {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        let label = LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark, type: record.type, fontSize: self.state.settings.fontSize, interactable: interactable)
+        
+        var type = record.type
+        
+        if !state.user.canRead && (type == .quotation || type == .poem){
+            type = .regular
+        }
+        
+        let label = LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark, type: type, fontSize: self.state.settings.fontSize, interactable: interactable)
         label.sizeToFit()
         return
             ZStack{
@@ -28,19 +35,9 @@ struct RecordViewer: View  {
     
     @ViewBuilder
     var textBackground: some View {
-        
-        if record.type == .quotation || record.type == .poem {
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.accentLight)
-        } else if record.type == .formula {
-            RoundedRectangle(cornerRadius: 6)
-            .stroke(Color.accentDark)
-        } else if record.type == .rule {
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.contrastColor)
-        } else if record.type == .ruleBody {
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.accentDark)
+        if record.type == .quotation || record.type == .poem || record.type == .formula{
+            RoundedRectangle(cornerRadius: 1)
+                .fill(Color.secondary)
         }else{
             EmptyView()
         }
