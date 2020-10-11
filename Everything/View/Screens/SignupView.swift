@@ -37,11 +37,11 @@ struct SignupView: View {
                             placeholder: "Email",
                             keyboard: .emailAddress,
                             icon: Image(systemName: "at"),
-                            onEditingChanged: { flag in
-                                    withAnimation {
-                                        self.formOffset = flag ? -150 : 0
-                                    }
-                            },
+//                            onEditingChanged: { flag in
+//                                    withAnimation {
+//                                        self.formOffset = flag ? -150 : 0
+//                                    }
+//                            },
                             valid:self.$email.wrappedValue.isEmpty || self.$email.wrappedValue.isValidEmail()
                         ).autocapitalization(.none)
                 
@@ -79,7 +79,7 @@ struct SignupView: View {
               }
             
        }.padding()
-       .padding(.bottom, -keyboard.currentHeight)
+//       .padding(.bottom, -keyboard.currentHeight)
        .edgesIgnoringSafeArea(.bottom)
        .animation(.easeOut(duration: 0.16))
        .offset(y: self.formOffset)
