@@ -61,7 +61,7 @@ enum TextModifficators : CGFloat {
                 return "HelveticaNeue-Italic"
             case .q:
                 return
-                    "HelveticaNeue-ThinItalic"
+                    "HelveticaNeue-Italic"
             default:
                 return
                     "HelveticaNeue-Light"

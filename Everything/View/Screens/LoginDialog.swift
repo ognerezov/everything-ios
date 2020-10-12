@@ -30,7 +30,6 @@ struct LoginDialog: View {
                     .padding(.horizontal)
                 
             }
-//                Text("Пароль")
                 ZStack{
                     TextField("Пароль", text: $accessCode)
                         .autocapitalization(.none)
@@ -40,7 +39,6 @@ struct LoginDialog: View {
                         .frame(height: 40)
                         .padding(.horizontal)
                 }
-//                Text("Повторите пароль")
                 ZStack{
                     TextField("Подтвердите пароль", text: $accessCode)
                         .autocapitalization(.none)

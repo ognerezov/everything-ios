@@ -34,11 +34,6 @@ struct LoginView: View {
                             placeholder: "Email",
                             keyboard: .emailAddress,
                             icon: Image(systemName: "at"),
-                            onEditingChanged: { flag in
-                                    withAnimation {
-                                    self.formOffset = flag ? -150 : 0
-                                }
-                            },
                             valid:self.$email.wrappedValue.isEmpty || self.$email.wrappedValue.isValidEmail()
                 ).autocapitalization(.none)
                 

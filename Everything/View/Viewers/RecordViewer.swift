@@ -15,22 +15,27 @@ struct RecordViewer: View  {
     var interactable : Bool
     @ObservedObject var state : AppState
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     var body: some View {
         
         var type = record.type
+        let padding : CGFloat = type == .quotation || type == .poem ?
+            (horizontalSizeClass == .compact ? 10 : 30 ): 0
+        
         
         if !state.user.canRead && (type == .quotation || type == .poem){
             type = .regular
         }
         
-        let label = LabelFactory.label(content: self.record.spans, width: width, isDark: colorScheme == .dark, type: type, fontSize: self.state.settings.fontSize, interactable: interactable)
+        let label = LabelFactory.label(content: self.record.spans, width: width - padding * 2, isDark: colorScheme == .dark, type: type, fontSize: self.state.settings.fontSize, interactable: interactable)
         label.sizeToFit()
         return
             ZStack{
                 textBackground
                 ProxyView(view: label, state : self.state)
             }
+            .padding(.horizontal, padding)
     }
     
     @ViewBuilder
