@@ -13,17 +13,21 @@ struct ChapterViewer: View {
     var interactable = true
     @ObservedObject var state : AppState
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView(.vertical, showsIndicators: false){
-                VStack{
-                    ForEach(self.chapter.records){
-                        RecordViewer(record: $0, width: geometry.size.width, interactable : self.interactable, state: self.state)
+        if state.error == .Processing{
+            EmptyView()
+        } else {
+            GeometryReader { geometry in
+                ScrollView(.vertical, showsIndicators: false){
+                    VStack{
+                        ForEach(self.chapter.records){
+                            RecordViewer(record: $0, width: geometry.size.width, interactable : self.interactable, state: self.state)
+                        }
+                        
                     }
-                    
                 }
-            }
-        }.padding(.all)
-        .frame(maxHeight: .infinity)
+            }.padding(.all)
+            .frame(maxHeight: .infinity)
+        }
     }
 }
 

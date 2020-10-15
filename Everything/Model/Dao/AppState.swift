@@ -160,6 +160,15 @@ class AppState : ObservableObject {
         return settings.set(to: number)
     }
     
+    func simulateProcess(){
+        let prev = error
+        error = .Processing
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01)
+        {
+          self.error = prev
+        }
+    }
+    
     var cancelableQuotations : AnyCancellable?
     
     func fetchQuotations()   {
@@ -575,6 +584,8 @@ extension AppState{
         if let appState = state{
             if !appState.go(to: number){
                 aсquireChapter(number, appState)
+            } else {
+                appState.simulateProcess()
             }
         }
     }
