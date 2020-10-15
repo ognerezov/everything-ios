@@ -16,13 +16,19 @@ struct LayersControl: View {
     var fontSize = 12
     var optional = false
     var onClick : (_ : Int) -> Void
-
+    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+    
+    var maxRows : Int{
+        verticalSizeClass == .compact ? 3 : 6
+    }
     
     var grid : [[Int]]{
         get{
             var result : [[Int]] = [[]]
             
-            let rows : Int = layers.count / collumns
+            var rows : Int = layers.count / collumns
+            
+            rows = rows > maxRows ? maxRows : rows
             
             for j in 0...rows{
                 result.append([])

@@ -145,7 +145,11 @@ class AppState : ObservableObject {
     }
     
     func go(to number: Int) -> Bool{
-        return settings.setTop(to: number)
+        return settings.setTop(to: number) || hasChapter(number)
+    }
+    
+    func hasChapter(_ number: Int) ->Bool{
+        return chapters.contains(Chapter.empty(number: number))
     }
     
     func add(number: Int) -> Bool{
@@ -247,7 +251,9 @@ class AppState : ObservableObject {
               receiveValue:{
                 switch mergeType{
                     case .new:
-                        self.chapters = $0.chapters
+                        if $0.chapters.count > 0 {
+                            self.chapters = $0.chapters
+                        }
                     default:
                         self.chapters.append(contentsOf: $0.chapters)
                         self.chapters = Array(Set(self.chapters))

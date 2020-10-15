@@ -31,6 +31,10 @@ struct Chapter : Codable, Identifiable, Hashable{
 extension Chapter{
     static var max = 231
     
+    static func dummy()->Chapter{
+        return Chapter(number: -1, type: .chapter, level: 1, records: [])
+    }
+    
     static func build(from number : Int) -> Chapter {
         let level = Book.getLevel(number)
         let dividers = Book.getDividers(number)
@@ -135,5 +139,9 @@ extension Chapter{
         } while n > 0
     
         return res
+    }
+    
+    static func empty(number: Int) ->Chapter{
+        return Chapter(number: number, type: .chapter, level: 0, records: [])
     }
 }
